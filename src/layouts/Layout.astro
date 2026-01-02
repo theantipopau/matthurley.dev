@@ -1,0 +1,71 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Personal site showcasing independent projects and professional reflections." } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content={description}>
+  <meta name="author" content="Matt Hurley">
+  <title>{title}</title>
+  <link rel="canonical" href={`https://matthurley.dev${currentPath}`}>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" href="/logosmall.PNG">
+  <meta name="theme-color" content="#1e3a8a">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content={`https://matthurley.dev${currentPath}`}>
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:image" content="https://matthurley.dev/logo.PNG">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="/" class="site-branding">
+        <img src="/logosmall.PNG" alt="Matt Hurley Logo" class="site-logo">
+      </a>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/writing">Writing</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <p>Personal site showcasing independent projects and professional reflections.</p>
+        <p>&copy; {new Date().getFullYear()} Matt Hurley. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

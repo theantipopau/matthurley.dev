@@ -1,0 +1,275 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Projects - Matt Hurley" 
+  description="Independent software projects focused on education systems, privacy-first design, and practical problem-solving."
+>
+  <div class="container container-wide">
+    <h1>Projects</h1>
+    <p class="intro">
+      Each project represents a deliberate response to real constraints, user needs, 
+      and operational requirements. Architecture decisions are documented with context, 
+      not abstracted into marketing language.
+    </p>
+
+    <div class="project-card">
+      <img src="/sophia-logo.png" alt="Sophia STARS" class="project-logo">
+      <h3>Sophia STARS</h3>
+      <p class="project-meta">Internal Education Management System</p>
+      <div class="tech-badges">
+        <span class="tech-badge">Web Platform</span>
+        <span class="tech-badge">Role-Based Access</span>
+        <span class="tech-badge">Audit Trails</span>
+        <span class="tech-badge">Encrypted</span>
+      </div>
+      
+      <p>
+        A comprehensive student management and reporting system built for Sophia Mundi Steiner School. 
+        Designed to replace fragmented workflows with a unified, privacy-first platform that serves 
+        educators, leadership, and administrative staff.
+      </p>
+
+      <h4>The Problem</h4>
+      <p>
+        Schools often rely on disconnected tools—spreadsheets, paper forms, and generic software not 
+        designed for their governance model. Sophia STARS consolidates student records, attendance, 
+        assessments, incident tracking, and reporting into a single, purpose-built system.
+      </p>
+
+      <h4>Design Principles</h4>
+      <ul>
+        <li><strong>Privacy by Design</strong> — All student data is encrypted, access-controlled, and audited. No external services, no third-party analytics.</li>
+        <li><strong>Role-Based Access</strong> — Teachers see only their classes. Leadership has oversight. Parents have read-only access to their children's records.</li>
+        <li><strong>Offline-First Mindset</strong> — Systems must remain functional during network issues. Data integrity is non-negotiable.</li>
+        <li><strong>Audit Trails</strong> — Every change is logged with timestamp, user, and reason. Critical for governance and accountability.</li>
+      </ul>
+
+      <h4>Architecture</h4>
+      <p>
+        Hosted on internal infrastructure with strict access controls. Built using modern web technologies 
+        optimized for reliability and maintainability. Data residency and sovereignty are core requirements.
+      </p>
+
+      <h4>Impact</h4>
+      <p>
+        Reduced administrative overhead, improved data accuracy, and provided leadership with real-time 
+        insights into student progress and wellbeing. Teachers report significant time savings and 
+        clearer communication pathways.
+      </p>
+
+      <div class="privacy-note">
+        <strong>Privacy Notice:</strong> Sophia STARS is an internal system and is not publicly accessible. 
+        No demos, screenshots of live data, or access credentials are available. This case study documents 
+        the system's design and impact without compromising student privacy or data security.
+      </div>
+    </div>
+
+    <div class="project-card">
+      <img src="/omencore-logo.png" alt="OmenCore" class="project-logo">
+      <h3>OmenCore</h3>
+      <p class="project-meta">Private Infrastructure Management Platform</p>
+      <div class="tech-badges">
+        <span class="tech-badge">Infrastructure</span>
+        <span class="tech-badge">Automation</span>
+        <span class="tech-badge">Monitoring</span>
+        <span class="tech-badge">WireGuard</span>
+      </div>
+      
+      <p>
+        A unified control plane for managing personal and educational infrastructure—servers, 
+        networking, backups, monitoring, and automation. Built to reduce operational complexity 
+        and improve system reliability.
+      </p>
+
+      <h4>The Problem</h4>
+      <p>
+        Managing multiple servers, network devices, and services across different locations requires 
+        consistent tooling and clear visibility. OmenCore consolidates these operations into a 
+        single interface with strong security boundaries.
+      </p>
+
+      <h4>Key Features</h4>
+      <ul>
+        <li>Centralized authentication and authorization</li>
+        <li>Automated backup verification and rotation</li>
+        <li>Network traffic monitoring and alerting</li>
+        <li>Service health checks and incident response workflows</li>
+        <li>Secure remote access via WireGuard VPN</li>
+      </ul>
+
+      <h4>Design Decisions</h4>
+      <p>
+        Built with infrastructure-as-code principles. All configuration is version-controlled. 
+        Deployments are repeatable and auditable. Security is layered—network isolation, 
+        certificate pinning, and zero-trust access controls.
+      </p>
+
+      <h4>Learnings</h4>
+      <p>
+        Managing infrastructure is about predicting failure modes and building resilience. 
+        Monitoring is not optional. Documentation is part of the system, not an afterthought.
+      </p>
+      
+      <p>
+        <a href="https://omencore.info" target="_blank" rel="noopener noreferrer">Visit OmenCore Website →</a>
+      </p>
+    </div>
+
+    <div class="project-card">
+      <img src="/nbncomparelogo.PNG" alt="NBN Compare" class="project-logo">
+      <h3>NBN Compare</h3>
+      <p class="project-meta">Internet Service Provider Comparison Tool</p>
+      <div class="tech-badges">
+        <span class="tech-badge">Static Site</span>
+        <span class="tech-badge">No Tracking</span>
+        <span class="tech-badge">Ad-Free</span>
+        <span class="tech-badge">Unbiased</span>
+      </div>
+      
+      <p>
+        A straightforward tool for comparing Australian NBN plans based on location, speed tier, 
+        and actual costs. Built to cut through marketing noise and present factual comparisons.
+      </p>
+
+      <h4>The Problem</h4>
+      <p>
+        ISP comparison sites are often affiliate-driven, prioritizing commission over accuracy. 
+        Users need clear, unbiased data to make informed decisions about their internet service.
+      </p>
+
+      <h4>Approach</h4>
+      <p>
+        No affiliate links. No sponsored placements. Just pricing data, speed tier information, 
+        and contract terms. Users can filter by location (as NBN availability varies) and sort 
+        by price, speed, or contract length.
+      </p>
+
+      <h4>Technical Details</h4>
+      <p>
+        Static site with client-side filtering. Data sourced directly from ISP websites and 
+        updated regularly. No tracking, no analytics, no user data collected.
+      </p>
+
+      <h4>Impact</h4>
+      <p>
+        Provides a trusted reference point for those researching NBN plans without commercial bias.
+      </p>
+      
+      <p>
+        <a href="https://nbncompare.info" target="_blank" rel="noopener noreferrer">Visit NBN Compare →</a>
+      </p>
+    </div>
+
+    <div class="project-card">
+      <img src="/bb-logo.png" alt="BrightBound Adventures" class="project-logo">
+      <h3>BrightBound Adventures</h3>
+      <p class="project-meta">Educational Game Platform</p>
+      <div class="tech-badges">
+        <span class="tech-badge">Flutter</span>
+        <span class="tech-badge">Cross-Platform</span>
+        <span class="tech-badge">Offline-First</span>
+        <span class="tech-badge">ACARA Aligned</span>
+      </div>
+      
+      <p>
+        An offline-first, cross-platform educational app designed for children aged 4-12. 
+        Built with Flutter to strengthen literacy and numeracy skills through engaging, 
+        game-based learning aligned with ACARA v9.0 and NAPLAN standards.
+      </p>
+
+      <h4>The Problem</h4>
+      <p>
+        Many educational games prioritize engagement over learning outcomes, include ads and 
+        tracking, or require constant internet connectivity. Teachers need tools that align 
+        with curriculum standards, work offline, and provide meaningful progress tracking 
+        without compromising student privacy.
+      </p>
+
+      <h4>Design Philosophy</h4>
+      <ul>
+        <li><strong>Offline-First</strong> — No internet connection required. Perfect for classrooms, travel, or areas with limited connectivity.</li>
+        <li><strong>Child-Safe</strong> — Zero ads, no tracking, no accounts, no in-app purchases. Just pure learning.</li>
+        <li><strong>Adaptive Difficulty</strong> — Content adjusts based on student performance to maintain appropriate challenge levels.</li>
+        <li><strong>Curriculum-Aligned</strong> — Activities mapped to ACARA v9.0 and NAPLAN high-risk areas.</li>
+        <li><strong>Privacy-Focused</strong> — All data stored locally on device. No cloud sync, no external services.</li>
+      </ul>
+
+      <h4>Learning Zones</h4>
+      <p>
+        Children explore five themed worlds: Word Woods (literacy), Number Nebula (numeracy), 
+        Puzzle Peaks (logic), Story Springs (creative storytelling), and Adventure Arena 
+        (coordination games). Each zone focuses on specific educational outcomes while 
+        maintaining high engagement through gamification and avatar customization.
+      </p>
+
+      <h4>Technical Implementation</h4>
+      <p>
+        Built with Flutter for cross-platform compatibility (Android, iOS, and Web PWA). 
+        Uses local Hive database for offline storage. Adaptive learning engine tracks skill 
+        progression from LOCKED → INTRODUCED → PRACTISING → MASTERED. PIN-protected parent 
+        dashboard provides progress analytics without compromising child privacy.
+      </p>
+
+      <h4>Outcomes</h4>
+      <p>
+        Currently in development with Phase 1 complete. The platform helps identify learning 
+        gaps and provides students with self-paced practice opportunities. Teachers can monitor 
+        progress without relying on external services or compromising student data.
+      </p>
+      
+      <p>
+        <a href="https://brightbound.matthurley.dev" target="_blank" rel="noopener noreferrer">Visit BrightBound Adventures →</a> | 
+        <a href="https://github.com/theantipopau/brightbound_adventures" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
+      </p>
+    </div>
+
+    <div class="project-card">
+      <h3>Windows Optimizers</h3>
+      <p class="project-meta">System Optimization Scripts</p>
+      <div class="tech-badges">
+        <span class="tech-badge">PowerShell</span>
+        <span class="tech-badge">Open Source</span>
+        <span class="tech-badge">Performance</span>
+        <span class="tech-badge">Documented</span>
+      </div>
+      
+      <p>
+        Two focused PowerShell scripts for optimizing Windows systems: one for touchscreen/tablet 
+        devices, another for gaming rigs. Built to reduce bloat, improve performance, and remove 
+        unnecessary services.
+      </p>
+
+      <h4>The Problem</h4>
+      <p>
+        Default Windows installations include services and features most users don't need, 
+        consuming resources and creating maintenance overhead. Manual optimization is 
+        time-consuming and error-prone.
+      </p>
+
+      <h4>Approach</h4>
+      <ul>
+        <li><strong>Touchscreen Optimizer</strong> — Improves responsiveness on tablets and convertibles by disabling unnecessary background tasks, optimizing power settings, and streamlining touch input handling.</li>
+        <li><strong>Gaming Optimizer</strong> — Maximizes performance by disabling telemetry, stopping non-essential services, and optimizing network settings for low latency.</li>
+      </ul>
+
+      <h4>Technical Details</h4>
+      <p>
+        Scripts are idempotent and documented. Each change is explained with reasoning. 
+        Users can review and modify scripts before execution. No telemetry, no remote execution.
+      </p>
+
+      <h4>Learnings</h4>
+      <p>
+        Windows optimization is about understanding tradeoffs. Every disabled service has 
+        consequences. Documentation and user education are as important as the scripts themselves.
+      </p>
+      
+      <p>
+        <a href="https://github.com/theantipopau/windows11touchoptimizer" target="_blank" rel="noopener noreferrer">Touchscreen Optimizer on GitHub →</a> | 
+        <a href="https://github.com/theantipopau/windows11nontouchgamingoptimizer" target="_blank" rel="noopener noreferrer">Gaming Optimizer on GitHub →</a>
+      </p>
+    </div>
+  </div>
+</Layout>
