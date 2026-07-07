@@ -1,44 +1,463 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const writingJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Writing by Matt Hurley',
+  itemListElement: [
+    {
+      '@type': 'Article',
+      position: 1,
+      headline: 'Filling the Gaps Nobody Else Will Build For',
+      url: 'https://matthurley.dev/writing#filling-market-gaps'
+    },
+    {
+      '@type': 'Article',
+      position: 2,
+      headline: 'Where AI Actually Earns Its Keep in a School Day',
+      url: 'https://matthurley.dev/writing#ai-in-a-school-day'
+    },
+    {
+      '@type': 'Article',
+      position: 3,
+      headline: 'Prompt-to-Production: A Checklist for Shipping AI-Generated Code Responsibly',
+      url: 'https://matthurley.dev/writing#prompt-to-production-checklist'
+    },
+    {
+      '@type': 'Article',
+      position: 4,
+      headline: 'Field-Driven Releases: What Six OmenCore Updates Taught Me About Cadence',
+      url: 'https://matthurley.dev/writing#field-driven-releases'
+    },
+    {
+      '@type': 'Article',
+      position: 5,
+      headline: 'Vibe Coding and Its Rise: Fast Output, Slower Accountability',
+      url: 'https://matthurley.dev/writing#vibe-coding-rise'
+    },
+    {
+      '@type': 'Article',
+      position: 6,
+      headline: 'The Power of AI-Assisted Development in VS Code',
+      url: 'https://matthurley.dev/writing#ai-assisted-development'
+    },
+    {
+      '@type': 'Article',
+      position: 7,
+      headline: 'Designing Privacy Into Busy School Workflows',
+      url: 'https://matthurley.dev/writing#privacy-under-pressure'
+    },
+    {
+      '@type': 'Article',
+      position: 8,
+      headline: 'Maintenance Over Momentum: Why Reliable Beats New',
+      url: 'https://matthurley.dev/writing#maintenance-over-momentum'
+    },
+    {
+      '@type': 'Article',
+      position: 9,
+      headline: 'Offline-First Is a Pedagogical Decision, Not Just a Technical One',
+      url: 'https://matthurley.dev/writing#offline-first-education-tools'
+    }
+  ]
+};
 ---
 
-<Layout 
-  title="Writing - Matt Hurley" 
-  description="Reflections on building software in education, privacy and governance, systems thinking, and lessons learned from real deployments."
+<Layout
+  title="Writing | Matt Hurley"
+  description="Reflections on education software, privacy, systems thinking, and AI-assisted development workflows."
+  jsonLd={writingJsonLd}
 >
-  <div class="container">
-    <h1>Writing</h1>
-
-    <p class="intro">
-      Short reflections on building software in education contexts, managing infrastructure, 
-      and lessons learned from deploying systems under real constraints.
-    </p>
-
-    <section class="section">
-      <h2>Coming Soon</h2>
-      <p>
-        This section will feature posts on topics including:
+  <div class="container page-shell">
+    <section class="page-hero reveal">
+      <p class="eyebrow">Writing</p>
+      <h1>Field notes from building software in real operational environments.</h1>
+      <p class="lead">
+        Essays and practical reflections on architecture decisions, software governance, and responsible delivery under
+        real-world constraints.
       </p>
-      <ul>
-        <li><strong>Building Software in Education</strong> — The unique constraints, governance requirements, and ethical considerations of educational technology.</li>
-        <li><strong>Privacy and Data Sovereignty</strong> — Why privacy-first design matters, and how to build systems that respect user data.</li>
-        <li><strong>Systems Over Features</strong> — The value of reliable, maintainable systems versus feature-driven development.</li>
-        <li><strong>Infrastructure as Practice</strong> — Lessons from managing private infrastructure, handling incidents, and building resilience.</li>
-        <li><strong>Lessons from Deployment</strong> — What happens when software meets real users, real networks, and real constraints.</li>
-      </ul>
+      <div class="filter-bar">
+        <input id="writing-filter" class="filter-input" type="search" placeholder="Search articles by topic, tag, method, or keyword" aria-label="Search writing">
+        <button id="clear-writing-filter" class="copy-email" type="button">Clear</button>
+      </div>
     </section>
 
-    <section class="section">
-      <h2>Approach</h2>
-      <p>
-        Writing here is not performative or promotional. It documents actual experiences, 
-        design decisions, and outcomes—both successful and instructive failures.
+    <article class="article-card reveal" id="filling-market-gaps" data-writing="filling market gaps annoyance driven development mousetune pagecue steam launchers nbn compare small tools indie">
+      <div class="article-meta">
+        <span class="date">July 2026</span>
+        <span class="tag brand">Product</span>
+        <span class="tag warm">Open Source</span>
+        <span class="read-time">6 min read</span>
+      </div>
+      <h2>Filling the Gaps Nobody Else Will Build For</h2>
+      <p class="lead lead-spaced">
+        The most useful thing I have shipped this year was a portable app that lets a $12 Bluetooth mouse remember
+        its own name. None of my higher-concept projects have taught me as much about product judgment as the small,
+        unglamorous tools built purely because something kept being annoying.
       </p>
-      <p>
-        If you're interested in specific topics or have questions about the systems 
-        documented in the <a href="/projects">projects section</a>, feel free to 
-        <a href="/contact">reach out</a>.
+      <h3>The Pattern Behind MouseTune, PageCue, and the Steam Launch Scripts</h3>
+      <ul>
+        <li>MouseTune exists because generic Bluetooth mice show up in Windows as "BT 5.2 Mouse" with no vendor app and no DPI control — a real gap between "expensive gaming mouse with software" and "nothing at all."</li>
+        <li>The Epic Games and Rockstar Steam launchers exist because launcher-locked PC games actively fight Steam's non-Steam-game model, and the fix requires digging through manifest files most players will never open.</li>
+        <li>PageCue is still a concept, deliberately listed with no code behind it yet, because the gap — remembering where you left off in a book without a spoiler-risk web search — is real but the right shape for the tool is not settled.</li>
+        <li>NBN Compare exists because Australia's ISP comparison sites are commission-driven, not because the market lacked comparison tools generally.</li>
+      </ul>
+      <h3>Why These Projects Are Worth More Than Their Size Suggests</h3>
+      <ul>
+        <li>Big platforms rationally ignore niches this narrow — there is no venture-scale market in Bluetooth mouse naming, and that is exactly why nobody else has fixed it.</li>
+        <li>Annoyance is a better product brief than ambition: you already know the exact failure mode, the exact user, and the exact definition of "done."</li>
+        <li>Scope discipline gets easier when the tool's job is one sentence long. MouseTune's own README lists what it will never do — vendor integration, RGB, macros, cloud sync — as a feature, not a limitation.</li>
+        <li>Shipping something narrow and finished beats shipping something broad and half-working, and it is far easier to actually reach "finished."</li>
+      </ul>
+      <h3>How I Decide Something Is Worth Building</h3>
+      <ol>
+        <li>Has this specific annoyance cost me real time more than once, not just hypothetically?</li>
+        <li>Can I describe the fix in one sentence without a feature list attached?</li>
+        <li>Would a non-technical user actually be able to run it without me standing over their shoulder?</li>
+        <li>Am I willing to explicitly write down what it will not do, and mean it?</li>
+      </ol>
+      <div class="related-links">
+        <p>Related reading</p>
+        <ul>
+          <li><a href="#prompt-to-production-checklist">Prompt-to-Production: A Checklist for Shipping AI-Generated Code Responsibly</a></li>
+          <li><a href="#maintenance-over-momentum">Maintenance Over Momentum: Why Reliable Beats New</a></li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="article-card reveal" id="ai-in-a-school-day" data-writing="ai education school leadership pastoral care workload triage classroom teachers practical adoption">
+      <div class="article-meta">
+        <span class="date">July 2026</span>
+        <span class="tag brand">Education</span>
+        <span class="tag warm">AI</span>
+        <span class="read-time">6 min read</span>
+      </div>
+      <h2>Where AI Actually Earns Its Keep in a School Day</h2>
+      <p class="lead lead-spaced">
+        Most AI-in-education coverage is either breathless or dismissive. Sitting in senior leadership while also
+        building the software, I see a narrower, less exciting truth: AI earns its place in a school day only where
+        it removes a specific, repeated, low-judgment task — and it stays firmly out of the ones that need a human.
       </p>
+      <h3>Where It Genuinely Helps</h3>
+      <ul>
+        <li>First-draft communication — turning a pastoral incident's raw notes into a clear, consistent parent-facing summary that a staff member then reviews and personalizes.</li>
+        <li>Pattern surfacing across attendance, behavior, and engagement data, so a leader spots a trend a week earlier instead of discovering it at a term review.</li>
+        <li>Cutting the admin tax on differentiation — generating a first pass at three difficulty tiers of the same worksheet for a teacher to adjust, instead of building each from scratch.</li>
+        <li>Freeing senior leadership time from formatting and compiling so more of it goes to the actual pastoral conversation.</li>
+      </ul>
+      <h3>Where It Does Not Belong</h3>
+      <ul>
+        <li>Any decision affecting a specific student's wellbeing outcome — triage, escalation, and duty-of-care calls stay human, full stop.</li>
+        <li>Assessment of original student work, where provenance and academic integrity are the entire point.</li>
+        <li>Anything that quietly becomes a shadow record-keeping system outside governed, auditable platforms like STARS.</li>
+        <li>Communication that pretends to be personal when it was not — parents and staff notice, and trust is expensive to rebuild.</li>
+      </ul>
+      <h3>A Simple Filter for Adoption</h3>
+      <ol>
+        <li>Is the task repeated, well-defined, and low-judgment? If not, it is not a good AI candidate yet.</li>
+        <li>Does a human still review the output before it reaches a student, parent, or record? If not, redesign the workflow first.</li>
+        <li>Does the tool run inside existing privacy and governance boundaries, or does it require a new one? A new boundary is a real cost, not a footnote.</li>
+        <li>Would removing the tool tomorrow break anything beyond convenience? If yes, it has become infrastructure and needs infrastructure-level scrutiny.</li>
+      </ol>
+      <div class="related-links">
+        <p>Related reading</p>
+        <ul>
+          <li><a href="#privacy-under-pressure">Designing Privacy Into Busy School Workflows</a></li>
+          <li><a href="#offline-first-education-tools">Offline-First Is a Pedagogical Decision, Not Just a Technical One</a></li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="article-card reveal" id="prompt-to-production-checklist" data-writing="ai generated code review checklist production readiness security testing ownership accountability vibe coding">
+      <div class="article-meta">
+        <span class="date">July 2026</span>
+        <span class="tag brand">Engineering</span>
+        <span class="tag warm">AI</span>
+        <span class="read-time">7 min read</span>
+      </div>
+      <h2>Prompt-to-Production: A Checklist for Shipping AI-Generated Code Responsibly</h2>
+      <p class="lead lead-spaced">
+        I use AI assistance on nearly everything I ship now, from OmenCore's fan-safety fixes to a weekend Steam
+        launcher script. The output quality is not the risk anymore — the risk is treating a plausible-looking diff
+        as a reviewed one. This is the checklist I actually run before anything AI-assisted reaches a release branch.
+      </p>
+      <h3>Before Generation</h3>
+      <ul>
+        <li>Write the constraint list first — what must never happen — before writing the prompt. OmenCore's "never silently re-apply a GPU overclock on battery" rule exists because that constraint was explicit going in.</li>
+        <li>Name the failure mode you are most worried about out loud. If you cannot name one, you are not ready to generate yet.</li>
+      </ul>
+      <h3>Before Merge</h3>
+      <ul>
+        <li>Read every line changed, not just the parts that look unfamiliar — familiar-looking code is where generated bugs hide best.</li>
+        <li>Check for fabricated certainty: does the code report a value it does not actually have, instead of an honest "unavailable" state?</li>
+        <li>Trace the actual data and permission boundaries touched, not just the happy path the prompt described.</li>
+        <li>Ask what happens on partial failure — a crash mid-write, a dropped connection, a missing sensor — since generated code often only handles the case it was shown.</li>
+      </ul>
+      <h3>Before Release</h3>
+      <ul>
+        <li>Confirm a human can explain why the change works, not just that it passed tests — if you cannot explain it, you cannot maintain it in six months.</li>
+        <li>Document the rationale next to the code, especially for any safety or privacy boundary, so the next change (AI-assisted or not) does not quietly erode it.</li>
+        <li>Ship it small. A narrow, reviewable diff is easier to hold yourself accountable for than a sweeping one, AI-assisted or otherwise.</li>
+      </ul>
+      <div class="related-links">
+        <p>Related reading</p>
+        <ul>
+          <li><a href="#vibe-coding-rise">Vibe Coding and Its Rise: Fast Output, Slower Accountability</a></li>
+          <li><a href="#ai-assisted-development">The Power of AI-Assisted Development in VS Code</a></li>
+          <li><a href="#field-driven-releases">Field-Driven Releases: What Six OmenCore Updates Taught Me About Cadence</a></li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="article-card reveal" id="field-driven-releases" data-writing="omencore release cadence field driven hardware fan safety telemetry open source maintenance changelog">
+      <div class="article-meta">
+        <span class="date">June 2026</span>
+        <span class="tag brand">Engineering</span>
+        <span class="tag warm">Open Source</span>
+        <span class="read-time">5 min read</span>
+      </div>
+      <h2>Field-Driven Releases: What Six OmenCore Updates Taught Me About Cadence</h2>
+      <p class="lead lead-spaced">
+        Since April, OmenCore has shipped six releases — v3.4.0 through v3.8.1 — and almost none of them came from
+        a roadmap slide. Each one traced back to a specific GitHub issue, a specific laptop model, and a specific
+        way the previous build got something wrong. That cadence taught me more about sustainable maintenance than
+        any greenfield rewrite has.
+      </p>
+      <h3>Why Small and Frequent Beats Big and Rare</h3>
+      <ul>
+        <li>Hardware bugs only surface once real laptops with real BIOS quirks report them — you cannot pre-empt every OMEN or Victus variant from a dev machine.</li>
+        <li>Bundling fixes into infrequent, large releases means the one model that needs a fix waits months for unrelated work to also be ready.</li>
+        <li>Narrow, frequent patches get a fix to the affected hardware fast without forcing everyone else onto unrelated changes.</li>
+        <li>A short release-to-release distance keeps each diff small enough to actually review properly.</li>
+      </ul>
+      <h3>Telemetry Has to Tell the Truth</h3>
+      <ul>
+        <li>A missing sensor reading is not the same as a zero reading, and control software that conflates the two erodes trust the moment someone notices.</li>
+        <li>v3.8.x moved CPU/GPU power and RPM displays from a misleading "0W" or "0RPM" to an explicit unavailable or driver-required state.</li>
+        <li>Once telemetry is honest about its own confidence, every other diagnosis a user makes from that data gets easier.</li>
+      </ul>
+      <h3>Safety Gates Are Worth the Friction</h3>
+      <ul>
+        <li>A startup GPU overclock restore quietly re-applying an OC increase on battery is not a cosmetic bug — it is a hardware-safety bug wearing a UI bug's clothes.</li>
+        <li>Fan, EC, and firmware writes stay blocked until there is model-specific validation, even when that slows a feature down.</li>
+        <li>The fix that closes a safety gap matters more than the feature that would have shipped instead that week.</li>
+      </ul>
+      <div class="related-links">
+        <p>Related reading</p>
+        <ul>
+          <li><a href="#prompt-to-production-checklist">Prompt-to-Production: A Checklist for Shipping AI-Generated Code Responsibly</a></li>
+          <li><a href="#maintenance-over-momentum">Maintenance Over Momentum: Why Reliable Beats New</a></li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="article-card reveal" id="vibe-coding-rise" data-writing="vibe coding rise ai assisted development prompting velocity quality review ownership maintenance">
+      <div class="article-meta">
+        <span class="date">April 2026</span>
+        <span class="tag brand">Engineering</span>
+        <span class="tag warm">AI</span>
+        <span class="read-time">7 min read</span>
+      </div>
+      <h2>Vibe Coding and Its Rise: Fast Output, Slower Accountability</h2>
+      <p class="lead lead-spaced">
+        Vibe coding is everywhere because it feels productive. Prompt, paste, ship. The speed is real,
+        but so is the risk: teams can outsource responsibility faster than they outsource effort.
+      </p>
+      <h3>Why It Is Growing So Fast</h3>
+      <ul>
+        <li>Lower startup friction for greenfield prototypes and small utilities.</li>
+        <li>Clear dopamine loop: visible output appears in minutes, not days.</li>
+        <li>Language barriers drop, so more people can contribute to technical workflows.</li>
+        <li>Tooling quality has improved enough that first drafts often look production-ready.</li>
+      </ul>
+      <h3>Where Teams Get Burned</h3>
+      <ul>
+        <li>Generated code arrives without architectural context or operational ownership.</li>
+        <li>Security, privacy, and failure-mode thinking are treated as post-processing.</li>
+        <li>Review standards become style-focused instead of behavior-focused.</li>
+        <li>Maintenance debt compounds because no one truly understands the decision trail.</li>
+      </ul>
+      <h3>A Better Pattern</h3>
+      <ol>
+        <li>Use AI for acceleration, not authority.</li>
+        <li>Pin explicit constraints before generation begins.</li>
+        <li>Run review against behavior, threat model, and maintainability.</li>
+        <li>Document rationale so future changes are intentional, not accidental.</li>
+      </ol>
+      <div class="related-links">
+        <p>Related reading</p>
+        <ul>
+          <li><a href="#prompt-to-production-checklist">Prompt-to-Production: A Checklist for Shipping AI-Generated Code Responsibly</a></li>
+          <li><a href="#ai-assisted-development">The Power of AI-Assisted Development in VS Code</a></li>
+          <li><a href="#maintenance-over-momentum">Maintenance Over Momentum</a></li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="article-card reveal" id="ai-assisted-development" data-writing="ai assisted development vscode architecture testing refactor">
+      <div class="article-meta">
+        <span class="date">January 2026</span>
+        <span class="tag brand">Development</span>
+        <span class="tag warm">AI</span>
+        <span class="read-time">6 min read</span>
+      </div>
+      <h2>The Power of AI-Assisted Development in VS Code</h2>
+      <p class="lead lead-spaced">
+        AI support has shifted my workflow from tool friction to higher-order reasoning. The value is not replacing
+        engineering judgment; it is accelerating disciplined execution.
+      </p>
+      <h3>Where It Helps Most</h3>
+      <ul>
+        <li>Turning architecture intent into clean scaffolding quickly.</li>
+        <li>Tracing call paths and side effects during refactors.</li>
+        <li>Generating first-pass tests, then tightening coverage manually.</li>
+        <li>Reducing context-switching overhead while learning unfamiliar stacks.</li>
+      </ul>
+      <h3>What Still Requires Human Ownership</h3>
+      <ul>
+        <li>Defining the problem and selecting meaningful constraints.</li>
+        <li>Assessing security and privacy implications of every decision.</li>
+        <li>Validating correctness, maintainability, and behavior under load.</li>
+        <li>Owning outcomes rather than accepting generated output blindly.</li>
+      </ul>
+      <h3>Current Workflow Pattern</h3>
+      <ol>
+        <li>Clarify objective, constraints, and expected operational behavior.</li>
+        <li>Generate structure and baseline implementation rapidly.</li>
+        <li>Iterate with targeted refactors and explicit test expansion.</li>
+        <li>Document design rationale and unresolved risks before release.</li>
+      </ol>
+      <div class="related-links">
+        <p>Related reading</p>
+        <ul>
+          <li><a href="#ai-in-a-school-day">Where AI Actually Earns Its Keep in a School Day</a></li>
+          <li><a href="#maintenance-over-momentum">Maintenance Over Momentum</a></li>
+          <li><a href="#privacy-under-pressure">Designing Privacy Into Busy School Workflows</a></li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="article-card reveal" id="privacy-under-pressure" data-writing="privacy governance schools access control auditing data exposure">
+      <div class="article-meta">
+        <span class="date">December 2025</span>
+        <span class="tag brand">Privacy</span>
+        <span class="tag warm">Governance</span>
+        <span class="read-time">5 min read</span>
+      </div>
+      <h2>Designing Privacy Into Busy School Workflows</h2>
+      <p class="lead lead-spaced">
+        Privacy failures in education are rarely caused by bad intent. They usually come from rushed workflows,
+        unclear access boundaries, and systems that make the wrong path easier than the right one.
+      </p>
+      <h3>Practical Patterns That Work</h3>
+      <ul>
+        <li>Default to least-privilege roles and only elevate when required.</li>
+        <li>Design forms around the minimum data needed for a decision.</li>
+        <li>Make every sensitive action auditable without adding staff burden.</li>
+        <li>Keep exports and sharing controls explicit and hard to misuse.</li>
+      </ul>
+      <div class="related-links">
+        <p>Related reading</p>
+        <ul>
+          <li><a href="#ai-in-a-school-day">Where AI Actually Earns Its Keep in a School Day</a></li>
+          <li><a href="#offline-first-education-tools">Offline-First Is a Pedagogical Decision</a></li>
+          <li><a href="#ai-assisted-development">The Power of AI-Assisted Development in VS Code</a></li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="article-card reveal" id="maintenance-over-momentum" data-writing="maintenance reliability operations incidents delivery velocity">
+      <div class="article-meta">
+        <span class="date">November 2025</span>
+        <span class="tag brand">Systems</span>
+        <span class="tag warm">Delivery</span>
+        <span class="read-time">4 min read</span>
+      </div>
+      <h2>Maintenance Over Momentum: Why Reliable Beats New</h2>
+      <p class="lead lead-spaced">
+        Teams often celebrate velocity while quietly absorbing maintenance debt. Sustainable software delivery comes
+        from reducing cognitive load and making systems easier to operate month after month.
+      </p>
+      <h3>Signals a System Is Becoming Fragile</h3>
+      <ul>
+        <li>Small changes require coordination across too many files or people.</li>
+        <li>Incidents recur because root causes remain unaddressed.</li>
+        <li>Documentation lags behind actual runtime behavior.</li>
+        <li>Only one person can safely release a feature.</li>
+      </ul>
+      <div class="related-links">
+        <p>Related reading</p>
+        <ul>
+          <li><a href="#filling-market-gaps">Filling the Gaps Nobody Else Will Build For</a></li>
+          <li><a href="#field-driven-releases">Field-Driven Releases: What Six OmenCore Updates Taught Me About Cadence</a></li>
+          <li><a href="#ai-assisted-development">The Power of AI-Assisted Development in VS Code</a></li>
+          <li><a href="#privacy-under-pressure">Designing Privacy Into Busy School Workflows</a></li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="article-card reveal" id="offline-first-education-tools" data-writing="offline first education tools learning classrooms sync connectivity">
+      <div class="article-meta">
+        <span class="date">October 2025</span>
+        <span class="tag brand">Education</span>
+        <span class="tag warm">Offline-First</span>
+        <span class="read-time">5 min read</span>
+      </div>
+      <h2>Offline-First Is a Pedagogical Decision, Not Just a Technical One</h2>
+      <p class="lead lead-spaced">
+        Connectivity constraints change classroom behavior. If software degrades under poor internet conditions,
+        learning time is lost and trust in the tool drops quickly.
+      </p>
+      <h3>What Good Offline Design Looks Like</h3>
+      <ul>
+        <li>Core learning paths stay available with zero network dependency.</li>
+        <li>Local storage keeps progress safe until sync is possible.</li>
+        <li>Teachers can still monitor essential progress signals offline.</li>
+        <li>Sync conflicts are visible and recoverable, not hidden.</li>
+      </ul>
+      <div class="related-links">
+        <p>Related reading</p>
+        <ul>
+          <li><a href="#ai-in-a-school-day">Where AI Actually Earns Its Keep in a School Day</a></li>
+          <li><a href="#privacy-under-pressure">Designing Privacy Into Busy School Workflows</a></li>
+          <li><a href="#maintenance-over-momentum">Maintenance Over Momentum</a></li>
+        </ul>
+      </div>
+    </article>
+
+    <div id="writing-filter-empty" class="no-results">No articles matched your search. Try vibe coding, ai, education, privacy, market gaps, open source, or maintenance.</div>
+
+    <section class="surface reveal">
+      <h2>More Topics In Progress</h2>
+      <div class="topic-grid">
+        <article class="topic-card">
+          <h3>Incident Reviews for Small Teams</h3>
+          <p>How to run lightweight post-incident reviews that improve systems without blame-heavy process overhead.</p>
+        </article>
+        <article class="topic-card">
+          <h3>Decision Logs That Stay Useful</h3>
+          <p>A practical format for preserving rationale so design context survives team and priority changes.</p>
+        </article>
+        <article class="topic-card">
+          <h3>Naming Your Own Niche Before Someone Else Templates It</h3>
+          <p>Why narrow, unglamorous tools age better than ambitious platforms — and how to tell the two apart early.</p>
+        </article>
+        <article class="topic-card">
+          <h3>Designing for Staff Handover</h3>
+          <p>Structuring tools and docs so operational knowledge survives role movement in schools.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="support-banner reveal">
+      <h2 class="mb-3">Request a Topic</h2>
+      <p class="muted">If there is a specific project or design decision you want unpacked, reach out and suggest it.</p>
+      <div class="button-row mt-3">
+        <a href="/contact" class="button secondary">Send a Message</a>
+      </div>
     </section>
   </div>
+
+  <script defer src="/js/writing.js"></script>
 </Layout>

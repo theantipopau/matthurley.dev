@@ -1,0 +1,128 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const rigmateJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'RigMateAU',
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Web',
+  url: 'https://rigmateau.matt-hurley91.workers.dev/',
+  codeRepository: 'https://github.com/theantipopau/rigmateau/'
+};
+---
+
+<Layout
+  title="RigMateAU Case Study | Matt Hurley"
+  description="RigMateAU case study: an Australia-focused PC builder and price-comparison platform with compatibility checks and trust-aware marketplace scoring."
+  jsonLd={rigmateJsonLd}
+>
+  <div class="container page-shell">
+    <section class="page-hero reveal">
+      <p class="eyebrow">Case Study</p>
+      <h1>RigMateAU</h1>
+      <p class="lead">
+        RigMateAU is an Australia-focused PC builder and price-comparison platform with compatibility checks,
+        trust-aware marketplace scoring, and premium shareable build pages.
+      </p>
+      <div class="button-row mt-3">
+        <a href="https://rigmateau.matt-hurley91.workers.dev/" target="_blank" rel="noopener noreferrer" class="button primary">Open Live Site</a>
+        <a href="https://github.com/theantipopau/rigmateau/" target="_blank" rel="noopener noreferrer" class="button secondary">View Source</a>
+        <a href="/projects#rigmateau" class="button secondary">Back to Projects</a>
+      </div>
+    </section>
+
+    <section class="surface reveal">
+      <div class="project-head">
+        <div class="project-identity">
+          <img src="/icon.PNG" alt="RigMateAU icon" class="project-logo" loading="lazy" decoding="async">
+          <div>
+            <h2>From field toolkit to builder platform</h2>
+            <p class="project-kicker">Compatibility-first, trust-aware, and explicit about its data sourcing boundaries</p>
+          </div>
+        </div>
+      </div>
+
+      <p>
+        RigMateAU started as a rig-planning toolkit and has since been rebuilt into a dedicated PC builder and
+        price-comparison platform for the Australian market. The product scope is now explicit: help buyers
+        assemble compatible builds, understand real landed cost and seller trust, and walk away with a build
+        page worth sharing — without resorting to scraping the communities that already do pricing well.
+      </p>
+
+      <div class="project-columns">
+        <div>
+          <h3>Core Objectives</h3>
+          <ul>
+            <li>Catch incompatible parts before checkout: socket, RAM type, form factor, clearances, PSU fit, and wattage.</li>
+            <li>Surface marketplace trust signals — landed cost, seller trust, warranty risk, import caution — instead of raw price sorting.</li>
+            <li>Produce a premium, shareable build page with print-to-PDF support.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Source Policy</h3>
+          <ul>
+            <li>OzBargain and Whirlpool are explicitly excluded from provider logic, scraping, and pricing pipelines.</li>
+            <li>Provider interfaces are staged for official retailer feeds, the eBay API, and approved AliExpress partner data — live scraping is intentionally not implemented yet.</li>
+            <li>Product imagery is sourced locally or from approved manufacturer media, never scraped from search engines.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="surface reveal">
+      <h2>Two Deployment Modes</h2>
+      <p class="section-intro">
+        The same codebase ships two ways: a dynamic Cloudflare Workers deployment via OpenNext, and a static
+        GitHub Pages fallback for environments without a server runtime.
+      </p>
+      <div class="project-columns">
+        <div>
+          <h3>Cloudflare Mode</h3>
+          <ul>
+            <li>API routes and dynamic build persistence available.</li>
+            <li>Architecture kept ready for D1, R2, KV, and the OpenNext runtime.</li>
+            <li>Provider interfaces preserved for future official retailer integrations.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Static (GitHub Pages) Mode</h3>
+          <ul>
+            <li>Next.js static export with client-side seed/catalog data.</li>
+            <li>Compatibility checks and trust scoring run entirely client-side against mock providers.</li>
+            <li>Share links still work with no server-only runtime features in play.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="surface reveal">
+      <h2>Visual System</h2>
+      <p class="section-intro">
+        The RigMateAU identity uses a compact icon and a strong horizontal header mark to communicate utility and
+        confidence. Both assets are used in the live experience for recognizability across screens.
+      </p>
+      <div class="project-columns">
+        <article class="value-card">
+          <img src="/icon.PNG" alt="RigMateAU app icon" class="rigmate-logo rigmate-logo-icon" loading="lazy" decoding="async">
+          <h3>Icon</h3>
+          <p>Used for compact branding, quick recognition, and small-surface contexts.</p>
+        </article>
+        <article class="value-card">
+          <img src="/headerlogo.PNG" alt="RigMateAU header logo" class="rigmate-logo rigmate-logo-header" loading="lazy" decoding="async">
+          <h3>Header Logo</h3>
+          <p>Used in primary banners and top-level branding to anchor the product identity.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="support-banner reveal">
+      <p class="eyebrow">Current Status</p>
+      <h2 class="mb-3">Live and iterating</h2>
+      <p class="muted">RigMateAU is actively available and evolves through practical usage feedback.</p>
+      <div class="button-row mt-3">
+        <a href="https://rigmateau.matt-hurley91.workers.dev/" target="_blank" rel="noopener noreferrer" class="button primary">Launch RigMateAU</a>
+      </div>
+    </section>
+  </div>
+</Layout>

@@ -1,275 +1,867 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const projectsJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Projects by Matt Hurley',
+  url: 'https://matthurley.dev/projects',
+  hasPart: [
+    {
+      '@type': 'SoftwareApplication',
+      name: 'Slimarr',
+      applicationCategory: 'UtilitiesApplication'
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'STARS',
+      applicationCategory: 'EducationApplication'
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'BrightBound Adventures',
+      applicationCategory: 'GameApplication'
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'Echoes of the Riftwar',
+      applicationCategory: 'GameApplication'
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'PulseLAN',
+      applicationCategory: 'UtilitiesApplication'
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'OmenCore',
+      applicationCategory: 'UtilitiesApplication',
+      softwareVersion: '3.8.1'
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'RelayDesk',
+      applicationCategory: 'SecurityApplication'
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'RigMateAU',
+      applicationCategory: 'ShoppingApplication'
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'Radium PCs Companion',
+      applicationCategory: 'UtilitiesApplication'
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'MouseTune',
+      applicationCategory: 'UtilitiesApplication'
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'PageCue',
+      applicationCategory: 'LifestyleApplication'
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'Steam Launch Utilities',
+      applicationCategory: 'UtilitiesApplication'
+    }
+  ]
+};
 ---
 
-<Layout 
-  title="Projects - Matt Hurley" 
-  description="Independent software projects focused on education systems, privacy-first design, and practical problem-solving."
+<Layout
+  title="Projects | Matt Hurley"
+  description="Independent software projects focused on privacy-first architecture, maintainability, and practical outcomes."
+  jsonLd={projectsJsonLd}
 >
-  <div class="container container-wide">
-    <h1>Projects</h1>
-    <p class="intro">
-      Each project represents a deliberate response to real constraints, user needs, 
-      and operational requirements. Architecture decisions are documented with context, 
-      not abstracted into marketing language.
-    </p>
-
-    <div class="project-card">
-      <img src="/sophia-logo.png" alt="Sophia STARS" class="project-logo">
-      <h3>Sophia STARS</h3>
-      <p class="project-meta">Internal Education Management System</p>
-      <div class="tech-badges">
-        <span class="tech-badge">Web Platform</span>
-        <span class="tech-badge">Role-Based Access</span>
-        <span class="tech-badge">Audit Trails</span>
-        <span class="tech-badge">Encrypted</span>
+  <div class="container-wide page-shell">
+    <section class="page-hero reveal">
+      <p class="eyebrow">Project Library</p>
+      <h1>Systems built for practical impact, not feature theater.</h1>
+      <p class="lead">
+        These projects were shaped by operational needs in education, infrastructure, and performance-focused tooling.
+        Each case study documents design trade-offs, governance boundaries, and implementation decisions.
+      </p>
+      <div class="filter-bar">
+        <input id="project-filter" class="filter-input" type="search" placeholder="Filter projects by keyword, stack, domain, or status" aria-label="Filter projects">
+        <button id="clear-project-filter" class="copy-email" type="button">Clear</button>
       </div>
-      
-      <p>
-        A comprehensive student management and reporting system built for Sophia Mundi Steiner School. 
-        Designed to replace fragmented workflows with a unified, privacy-first platform that serves 
-        educators, leadership, and administrative staff.
-      </p>
+    </section>
 
-      <h4>The Problem</h4>
-      <p>
-        Schools often rely on disconnected tools—spreadsheets, paper forms, and generic software not 
-        designed for their governance model. Sophia STARS consolidates student records, attendance, 
-        assessments, incident tracking, and reporting into a single, purpose-built system.
-      </p>
-
-      <h4>Design Principles</h4>
-      <ul>
-        <li><strong>Privacy by Design</strong> — All student data is encrypted, access-controlled, and audited. No external services, no third-party analytics.</li>
-        <li><strong>Role-Based Access</strong> — Teachers see only their classes. Leadership has oversight. Parents have read-only access to their children's records.</li>
-        <li><strong>Offline-First Mindset</strong> — Systems must remain functional during network issues. Data integrity is non-negotiable.</li>
-        <li><strong>Audit Trails</strong> — Every change is logged with timestamp, user, and reason. Critical for governance and accountability.</li>
-      </ul>
-
-      <h4>Architecture</h4>
-      <p>
-        Hosted on internal infrastructure with strict access controls. Built using modern web technologies 
-        optimized for reliability and maintainability. Data residency and sovereignty are core requirements.
-      </p>
-
-      <h4>Impact</h4>
-      <p>
-        Reduced administrative overhead, improved data accuracy, and provided leadership with real-time 
-        insights into student progress and wellbeing. Teachers report significant time savings and 
-        clearer communication pathways.
-      </p>
-
-      <div class="privacy-note">
-        <strong>Privacy Notice:</strong> Sophia STARS is an internal system and is not publicly accessible. 
-        No demos, screenshots of live data, or access credentials are available. This case study documents 
-        the system's design and impact without compromising student privacy or data security.
+    <section class="surface reveal" id="latest-projects">
+      <p class="eyebrow">New and Active</p>
+      <h2>Latest project work</h2>
+      <div class="project-spotlight-grid">
+        <a href="#omencore" class="spotlight-project">
+          <span class="spotlight-label">Released</span>
+          <h3>OmenCore v3.8.1</h3>
+          <p>Field-driven fan reliability fixes, safer GPU OC handling, and lower background overhead.</p>
+        </a>
+        <a href="#pulselan" class="spotlight-project">
+          <span class="spotlight-label">Active</span>
+          <h3>PulseLAN</h3>
+          <p>Defensive network observability with discovery, scanning, and advisories.</p>
+        </a>
+        <a href="#relaydesk" class="spotlight-project">
+          <span class="spotlight-label">Build</span>
+          <h3>RelayDesk</h3>
+          <p>Secure remote access platform built on Tauri 2 and Rust.</p>
+        </a>
+        <a href="/projects/rigmateau" class="spotlight-project">
+          <span class="spotlight-label">Live</span>
+          <h3>RigMateAU</h3>
+          <p>Australian PC builder and price comparison platform with compatibility checks.</p>
+        </a>
+        <a href="#slimarr" class="spotlight-project">
+          <span class="spotlight-label">Utility</span>
+          <h3>Slimarr</h3>
+          <p>Automatically shrink your Plex library with smarter, smaller releases.</p>
+        </a>
+        <a href="#pccompanion" class="spotlight-project">
+          <span class="spotlight-label">Pre-Release</span>
+          <h3>Radium PCs Companion</h3>
+          <p>Local-first Windows telemetry, diagnostics, and maintenance companion.</p>
+        </a>
+        <a href="#mousetune" class="spotlight-project">
+          <span class="spotlight-label">New</span>
+          <h3>MouseTune</h3>
+          <p>Portable DPI and naming utility for generic Bluetooth mice.</p>
+        </a>
+        <a href="#steam-launchers" class="spotlight-project">
+          <span class="spotlight-label">New</span>
+          <h3>Steam Launch Utilities</h3>
+          <p>One-click, hands-free launching for Epic and Rockstar titles from Steam.</p>
+        </a>
       </div>
-    </div>
+    </section>
 
-    <div class="project-card">
-      <img src="/omencore-logo.png" alt="OmenCore" class="project-logo">
-      <h3>OmenCore</h3>
-      <p class="project-meta">Private Infrastructure Management Platform</p>
-      <div class="tech-badges">
-        <span class="tech-badge">Infrastructure</span>
-        <span class="tech-badge">Automation</span>
-        <span class="tech-badge">Monitoring</span>
-        <span class="tech-badge">WireGuard</span>
-      </div>
-      
-      <p>
-        A unified control plane for managing personal and educational infrastructure—servers, 
-        networking, backups, monitoring, and automation. Built to reduce operational complexity 
-        and improve system reliability.
-      </p>
+    <section class="project-grid reveal" id="rigmateau">
+      <article class="project-card" data-project="rigmateau rig mate au pc builder price comparison australia compatibility checker marketplace trust scoring nextjs cloudflare workers open source">
+        <div class="project-head">
+          <div class="project-identity">
+            <img src="/icon.PNG" alt="RigMateAU icon" class="project-logo" loading="lazy" decoding="async">
+            <div>
+              <h2>RigMateAU</h2>
+              <p class="project-kicker">Australia-focused PC builder and price-comparison platform</p>
+            </div>
+          </div>
+          <div class="button-row">
+            <a href="/projects/rigmateau" class="button secondary">Case Study</a>
+            <a href="https://rigmateau.matt-hurley91.workers.dev/" target="_blank" rel="noopener noreferrer" class="button primary">Visit Website</a>
+            <a href="https://github.com/theantipopau/rigmateau/" target="_blank" rel="noopener noreferrer" class="button secondary">GitHub</a>
+          </div>
+        </div>
 
-      <h4>The Problem</h4>
-      <p>
-        Managing multiple servers, network devices, and services across different locations requires 
-        consistent tooling and clear visibility. OmenCore consolidates these operations into a 
-        single interface with strong security boundaries.
-      </p>
+        <div class="pill-row">
+          <span class="pill brand">Next.js</span>
+          <span class="pill brand">Cloudflare Workers</span>
+          <span class="pill soft">Compatibility Engine</span>
+          <span class="pill warm">Live Project</span>
+        </div>
 
-      <h4>Key Features</h4>
-      <ul>
-        <li>Centralized authentication and authorization</li>
-        <li>Automated backup verification and rotation</li>
-        <li>Network traffic monitoring and alerting</li>
-        <li>Service health checks and incident response workflows</li>
-        <li>Secure remote access via WireGuard VPN</li>
-      </ul>
+        <p>
+          RigMateAU pivoted from a field rig-planning toolkit into a full PC builder and price-comparison platform for
+          Australian buyers, with compatibility checks, trust-aware marketplace scoring, and premium shareable build
+          pages. It deliberately excludes OzBargain and Whirlpool from any scraping, importing, or pricing pipeline,
+          treating retailer terms of service as a hard boundary rather than a growth shortcut.
+        </p>
 
-      <h4>Design Decisions</h4>
-      <p>
-        Built with infrastructure-as-code principles. All configuration is version-controlled. 
-        Deployments are repeatable and auditable. Security is layered—network isolation, 
-        certificate pinning, and zero-trust access controls.
-      </p>
+        <div class="project-columns">
+          <div>
+            <h4>What It Delivers</h4>
+            <ul>
+              <li>Compatibility checks across socket, RAM type, form factor, clearances, PSU fit, and wattage.</li>
+              <li>Marketplace trust signals covering landed cost, seller trust, warranty risk, and import caution.</li>
+              <li>Premium, shareable build showcase pages with browser-based print-to-PDF.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Build Direction</h4>
+            <ul>
+              <li>Dual deployment targets: Cloudflare Workers via OpenNext as primary, static GitHub Pages export as fallback.</li>
+              <li>Provider architecture staged for Scorptec, Mwave, PC Case Gear, Umart, and other AU retailers — live scraping intentionally not yet implemented.</li>
+              <li>Static mode runs compatibility checks and trust scoring entirely client-side against mock providers.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </section>
 
-      <h4>Learnings</h4>
-      <p>
-        Managing infrastructure is about predicting failure modes and building resilience. 
-        Monitoring is not optional. Documentation is part of the system, not an afterthought.
-      </p>
-      
-      <p>
-        <a href="https://omencore.info" target="_blank" rel="noopener noreferrer">Visit OmenCore Website →</a>
-      </p>
-    </div>
+    <section class="project-grid reveal" id="stars">
+      <article class="project-card" data-project="stars pastoral care education azure pb4l tracking">
+        <div class="project-head">
+          <div class="project-identity">
+            <img src="/sophia-logo.png" alt="STARS logo" class="project-logo" loading="lazy" decoding="async">
+            <div>
+              <h2>STARS</h2>
+              <p class="project-kicker">Student Tracking and Recording System</p>
+            </div>
+          </div>
+          <a href="https://stars.matthurley.dev" target="_blank" rel="noopener noreferrer" class="button secondary">Visit Demo</a>
+        </div>
 
-    <div class="project-card">
-      <img src="/nbncomparelogo.PNG" alt="NBN Compare" class="project-logo">
-      <h3>NBN Compare</h3>
-      <p class="project-meta">Internet Service Provider Comparison Tool</p>
-      <div class="tech-badges">
-        <span class="tech-badge">Static Site</span>
-        <span class="tech-badge">No Tracking</span>
-        <span class="tech-badge">Ad-Free</span>
-        <span class="tech-badge">Unbiased</span>
-      </div>
-      
-      <p>
-        A straightforward tool for comparing Australian NBN plans based on location, speed tier, 
-        and actual costs. Built to cut through marketing noise and present factual comparisons.
-      </p>
+        <div class="pill-row">
+          <span class="pill brand">Azure Authentication</span>
+          <span class="pill soft">PB4L Framework</span>
+          <span class="pill soft">Automated Communication</span>
+          <span class="pill warm">Audit Trails</span>
+        </div>
 
-      <h4>The Problem</h4>
-      <p>
-        ISP comparison sites are often affiliate-driven, prioritizing commission over accuracy. 
-        Users need clear, unbiased data to make informed decisions about their internet service.
-      </p>
+        <p>
+          STARS is a pastoral care platform designed for school teams that need immediate visibility of student wellbeing,
+          behavior trends, and intervention history without relying on disconnected spreadsheets or manual processes.
+        </p>
 
-      <h4>Approach</h4>
-      <p>
-        No affiliate links. No sponsored placements. Just pricing data, speed tier information, 
-        and contract terms. Users can filter by location (as NBN availability varies) and sort 
-        by price, speed, or contract length.
-      </p>
+        <div class="project-columns">
+          <div>
+            <h4>What It Solves</h4>
+            <ul>
+              <li>Consolidates behavior, affirmations, and incident data into a unified record.</li>
+              <li>Automates communication workflows with role-aware escalation paths.</li>
+              <li>Provides leaders with fast access to high-confidence operational information.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Design Choices</h4>
+            <ul>
+              <li>Role-based access for staff, leaders, and administrators.</li>
+              <li>Privacy-first architecture with explicit governance controls.</li>
+              <li>No public data exposure; demo environment uses synthetic information.</li>
+            </ul>
+          </div>
+        </div>
 
-      <h4>Technical Details</h4>
-      <p>
-        Static site with client-side filtering. Data sourced directly from ISP websites and 
-        updated regularly. No tracking, no analytics, no user data collected.
-      </p>
+        <div class="quote-box">
+          <p>
+            "STARS has made our processes significantly more streamlined and the immediacy of information for
+            pastoral leaders has been exceptional."
+          </p>
+          <p class="muted">Mr N, Pastoral Leader</p>
+        </div>
+      </article>
+    </section>
 
-      <h4>Impact</h4>
-      <p>
-        Provides a trusted reference point for those researching NBN plans without commercial bias.
-      </p>
-      
-      <p>
-        <a href="https://nbncompare.info" target="_blank" rel="noopener noreferrer">Visit NBN Compare →</a>
-      </p>
-    </div>
+    <section class="project-grid reveal" id="brightbound">
+      <article class="project-card" data-project="brightbound app education literacy numeracy flutter offline child safe">
+        <div class="project-head">
+          <div class="project-identity">
+            <img src="/bb-logo.png" alt="BrightBound logo" class="project-logo" loading="lazy" decoding="async">
+            <div>
+              <h2>BrightBound Adventures</h2>
+              <p class="project-kicker">Offline-first educational game platform</p>
+            </div>
+          </div>
+          <div class="button-row">
+            <a href="https://brightbound.matthurley.dev" target="_blank" rel="noopener noreferrer" class="button primary">Play Now</a>
+            <a href="https://github.com/theantipopau/brightbound_adventures" target="_blank" rel="noopener noreferrer" class="button secondary">GitHub</a>
+          </div>
+        </div>
 
-    <div class="project-card">
-      <img src="/bb-logo.png" alt="BrightBound Adventures" class="project-logo">
-      <h3>BrightBound Adventures</h3>
-      <p class="project-meta">Educational Game Platform</p>
-      <div class="tech-badges">
-        <span class="tech-badge">Flutter</span>
-        <span class="tech-badge">Cross-Platform</span>
-        <span class="tech-badge">Offline-First</span>
-        <span class="tech-badge">ACARA Aligned</span>
-      </div>
-      
-      <p>
-        An offline-first, cross-platform educational app designed for children aged 4-12. 
-        Built with Flutter to strengthen literacy and numeracy skills through engaging, 
-        game-based learning aligned with ACARA v9.0 and NAPLAN standards.
-      </p>
+        <div class="pill-row">
+          <span class="pill brand">Flutter</span>
+          <span class="pill soft">Offline First</span>
+          <span class="pill soft">Curriculum Aligned</span>
+          <span class="pill warm">Child Safe by Default</span>
+        </div>
 
-      <h4>The Problem</h4>
-      <p>
-        Many educational games prioritize engagement over learning outcomes, include ads and 
-        tracking, or require constant internet connectivity. Teachers need tools that align 
-        with curriculum standards, work offline, and provide meaningful progress tracking 
-        without compromising student privacy.
-      </p>
+        <p>
+          BrightBound Adventures is designed for children aged 4-12 with a focus on literacy and numeracy progression,
+          including environments where internet access is unreliable or unavailable.
+        </p>
 
-      <h4>Design Philosophy</h4>
-      <ul>
-        <li><strong>Offline-First</strong> — No internet connection required. Perfect for classrooms, travel, or areas with limited connectivity.</li>
-        <li><strong>Child-Safe</strong> — Zero ads, no tracking, no accounts, no in-app purchases. Just pure learning.</li>
-        <li><strong>Adaptive Difficulty</strong> — Content adjusts based on student performance to maintain appropriate challenge levels.</li>
-        <li><strong>Curriculum-Aligned</strong> — Activities mapped to ACARA v9.0 and NAPLAN high-risk areas.</li>
-        <li><strong>Privacy-Focused</strong> — All data stored locally on device. No cloud sync, no external services.</li>
-      </ul>
+        <div class="project-columns">
+          <div>
+            <h4>Learning Model</h4>
+            <ul>
+              <li>Adaptive difficulty adjusts challenge level based on individual performance.</li>
+              <li>Learning zones map to concrete educational outcomes.</li>
+              <li>Progress states support structured growth from introduction to mastery.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Implementation</h4>
+            <ul>
+              <li>Cross-platform build strategy across Android, iOS, and web.</li>
+              <li>Local-first storage for privacy and offline access.</li>
+              <li>Parent controls and analytics without external telemetry services.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </section>
 
-      <h4>Learning Zones</h4>
-      <p>
-        Children explore five themed worlds: Word Woods (literacy), Number Nebula (numeracy), 
-        Puzzle Peaks (logic), Story Springs (creative storytelling), and Adventure Arena 
-        (coordination games). Each zone focuses on specific educational outcomes while 
-        maintaining high engagement through gamification and avatar customization.
-      </p>
+    <section class="project-grid reveal" id="slimarr">
+      <article class="project-card" data-project="slimarr plex usenet sabnzbd media library compression h265 av1 python fastapi react typescript radarr sonarr arr automation">
+        <div class="project-head">
+          <div class="project-identity">
+            <span class="project-mono" aria-hidden="true">SL</span>
+            <div>
+              <h2>Slimarr</h2>
+              <p class="project-kicker">Automated Plex library compression via Usenet</p>
+            </div>
+          </div>
+          <a href="https://github.com/theantipopau/slimarr" target="_blank" rel="noopener noreferrer" class="button secondary">GitHub</a>
+        </div>
 
-      <h4>Technical Implementation</h4>
-      <p>
-        Built with Flutter for cross-platform compatibility (Android, iOS, and Web PWA). 
-        Uses local Hive database for offline storage. Adaptive learning engine tracks skill 
-        progression from LOCKED → INTRODUCED → PRACTISING → MASTERED. PIN-protected parent 
-        dashboard provides progress analytics without compromising child privacy.
-      </p>
+        <div class="pill-row">
+          <span class="pill brand">Python + FastAPI</span>
+          <span class="pill brand">React + TypeScript</span>
+          <span class="pill soft">Plex Integration</span>
+          <span class="pill soft">Socket.IO</span>
+          <span class="pill warm">*arr Ecosystem</span>
+        </div>
 
-      <h4>Outcomes</h4>
-      <p>
-        Currently in development with Phase 1 complete. The platform helps identify learning 
-        gaps and provides students with self-paced practice opportunities. Teachers can monitor 
-        progress without relying on external services or compromising student data.
-      </p>
-      
-      <p>
-        <a href="https://brightbound.matthurley.dev" target="_blank" rel="noopener noreferrer">Visit BrightBound Adventures →</a> | 
-        <a href="https://github.com/theantipopau/brightbound_adventures" target="_blank" rel="noopener noreferrer">View on GitHub →</a>
-      </p>
-    </div>
+        <p>
+          Slimarr automates Plex library bloat reduction by scanning your library, searching Usenet indexers for
+          smaller, better-compressed releases (h265/AV1), and replacing files overnight — all without increasing
+          file size. It looks and feels like a native member of the <em>*arr</em> ecosystem.
+        </p>
 
-    <div class="project-card">
-      <h3>Windows Optimizers</h3>
-      <p class="project-meta">System Optimization Scripts</p>
-      <div class="tech-badges">
-        <span class="tech-badge">PowerShell</span>
-        <span class="tech-badge">Open Source</span>
-        <span class="tech-badge">Performance</span>
-        <span class="tech-badge">Documented</span>
-      </div>
-      
-      <p>
-        Two focused PowerShell scripts for optimizing Windows systems: one for touchscreen/tablet 
-        devices, another for gaming rigs. Built to reduce bloat, improve performance, and remove 
-        unnecessary services.
-      </p>
+        <div class="project-columns">
+          <div>
+            <h4>Core Workflow</h4>
+            <ul>
+              <li>Scans Plex library and enriches metadata via TMDB.</li>
+              <li>Searches Prowlarr or direct Newznab indexers by IMDb ID or title.</li>
+              <li>Submits accepted NZBs to SABnzbd and monitors download progress in real time.</li>
+              <li>Moves originals to a recycling bin, replaces the file, and refreshes Plex automatically.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Design Principles</h4>
+            <ul>
+              <li>Hard rule: never accept a release that is not strictly smaller than the existing copy.</li>
+              <li>Codec scoring bonus for AV1 and h265; configurable language and resolution guardrails.</li>
+              <li>Real-time UI via Socket.IO — scan progress, download bars, and replacement events pushed live.</li>
+              <li>TV Show Stale Media Sweeper surfaces unwatched shows with Sonarr unmonitor support.</li>
+            </ul>
+          </div>
+        </div>
 
-      <h4>The Problem</h4>
-      <p>
-        Default Windows installations include services and features most users don't need, 
-        consuming resources and creating maintenance overhead. Manual optimization is 
-        time-consuming and error-prone.
-      </p>
+        <div class="note">
+          <strong>Stack:</strong> Python 3.12, FastAPI, SQLAlchemy 2.0 async, SQLite, python-socketio, APScheduler,
+          React 18, TypeScript, Vite, Tailwind CSS. Runs as a Windows tray app or headless on Linux/macOS.
+        </div>
+      </article>
+    </section>
 
-      <h4>Approach</h4>
-      <ul>
-        <li><strong>Touchscreen Optimizer</strong> — Improves responsiveness on tablets and convertibles by disabling unnecessary background tasks, optimizing power settings, and streamlining touch input handling.</li>
-        <li><strong>Gaming Optimizer</strong> — Maximizes performance by disabling telemetry, stopping non-essential services, and optimizing network settings for low latency.</li>
-      </ul>
+    <section class="project-grid reveal" id="nbn-compare">
+      <article class="project-card" data-project="nbn compare isp australia pricing static no tracking">
+        <div class="project-head">
+          <div class="project-identity">
+            <img src="/nbncomparelogo.PNG" alt="NBN Compare logo" class="project-logo" loading="lazy" decoding="async">
+            <div>
+              <h2>NBN Compare</h2>
+              <p class="project-kicker">Australian ISP comparison without affiliate bias</p>
+            </div>
+          </div>
+          <a href="https://nbncompare.info" target="_blank" rel="noopener noreferrer" class="button secondary">Open Site</a>
+        </div>
 
-      <h4>Technical Details</h4>
-      <p>
-        Scripts are idempotent and documented. Each change is explained with reasoning. 
-        Users can review and modify scripts before execution. No telemetry, no remote execution.
-      </p>
+        <div class="pill-row">
+          <span class="pill brand">Ad Free</span>
+          <span class="pill soft">No Tracking</span>
+          <span class="pill soft">Static Delivery</span>
+          <span class="pill warm">Data Transparency</span>
+        </div>
 
-      <h4>Learnings</h4>
-      <p>
-        Windows optimization is about understanding tradeoffs. Every disabled service has 
-        consequences. Documentation and user education are as important as the scripts themselves.
-      </p>
-      
-      <p>
-        <a href="https://github.com/theantipopau/windows11touchoptimizer" target="_blank" rel="noopener noreferrer">Touchscreen Optimizer on GitHub →</a> | 
-        <a href="https://github.com/theantipopau/windows11nontouchgamingoptimizer" target="_blank" rel="noopener noreferrer">Gaming Optimizer on GitHub →</a>
-      </p>
-    </div>
+        <p>
+          NBN Compare was built to provide objective plan comparisons based on location, speed tiers, and real costs,
+          without sponsorship distortions or affiliate-driven ranking logic.
+        </p>
+
+        <div class="project-columns">
+          <div>
+            <h4>Why It Matters</h4>
+            <ul>
+              <li>Most comparison tools prioritize commissions over clarity.</li>
+              <li>Consumers need straightforward pricing and contract visibility.</li>
+              <li>Location-aware availability matters in Australian NBN decision making.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>How It Works</h4>
+            <ul>
+              <li>Client-side filtering for speed and cost preferences.</li>
+              <li>Regular manual data maintenance from provider sources.</li>
+              <li>No analytics scripts or user profile collection.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="project-grid reveal" id="omencore">
+      <article class="project-card project-card-featured" data-project="omencore 3.8.1 hp omen victus hardware thermals fan rgb dotnet fan curve safety update linux windows gpu overclock">
+        <div class="project-head">
+          <div class="project-identity">
+            <img src="/omencore-logo.png" alt="OmenCore logo" class="project-logo" loading="lazy" decoding="async">
+            <div>
+              <h2>OmenCore <span class="pill brand inline-pill-gap">v3.8.1</span></h2>
+              <p class="project-kicker">Released 24 June 2026 - hardware control for HP OMEN and Victus laptops</p>
+            </div>
+          </div>
+          <div class="button-row">
+            <a href="https://omencore.info" target="_blank" rel="noopener noreferrer" class="button secondary">Website</a>
+            <a href="https://github.com/theantipopau/omencore" target="_blank" rel="noopener noreferrer" class="button secondary">GitHub</a>
+          </div>
+        </div>
+
+        <div class="pill-row">
+          <span class="pill brand">.NET 8</span>
+          <span class="pill soft">Fan Safety</span>
+          <span class="pill soft">Linux Support</span>
+          <span class="pill warm">No Outbound Telemetry</span>
+        </div>
+
+        <p>
+          OmenCore replaces bloated OEM control software with direct hardware controls for fan behavior, thermals,
+          power modes, undervolting, and RGB management. With 168+ GitHub stars and an active issue tracker, the
+          project has moved through six releases since April, each one a field-driven reliability pass rather than
+          a feature dump.
+        </p>
+
+        <div class="release-panel">
+          <div>
+            <span class="release-label">Release focus</span>
+            <strong>Fan-hold stability, GPU OC safety, and resource use</strong>
+          </div>
+          <div>
+            <span class="release-label">Cadence</span>
+            <strong>Six releases from v3.4.0 to v3.8.1 since April 2026</strong>
+          </div>
+          <div>
+            <span class="release-label">Upgrade</span>
+            <strong>Drop-in replacement for prior 3.x builds</strong>
+          </div>
+        </div>
+
+        <div class="project-columns">
+          <div>
+            <h4>v3.8.x Highlights</h4>
+            <ul>
+              <li>Model-specific fan-hold fixes for OMEN Max 16 and Victus 16, including one-sample Max reassertion to stop fans dropping out of Max mode.</li>
+              <li>Closed a battery-safety gap so startup GPU overclock restore can no longer silently re-apply an OC increase while running on battery.</li>
+              <li>Power and temperature telemetry now shows an explicit unavailable state instead of a misleading 0W or 0RPM reading.</li>
+              <li>New first-class Direct fan-level control card for models that support manual fixed-percent fan control.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Reliability and Support</h4>
+            <ul>
+              <li>Memoized static WMI reads (total RAM) and throttled per-tick CPU clock/SSD temperature polling to reduce background EC/WMI query pressure.</li>
+              <li>Dashboard battery-health warning no longer fires from normal charge-level fluctuation while plugged in.</li>
+              <li>Continued model coverage expansion across OMEN, Victus, and Transcend variants driven directly by GitHub issue reports.</li>
+              <li>Linux fan controls remain explicit about profile-only, telemetry-only, and one-shot apply behavior.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="related-links">
+          <p>Source notes</p>
+          <ul>
+            <li><a href="https://github.com/theantipopau/omencore/releases/tag/v3.8.1" target="_blank" rel="noopener noreferrer">OmenCore v3.8.1 release notes</a></li>
+            <li><a href="https://github.com/theantipopau/omencore/blob/main/README.md" target="_blank" rel="noopener noreferrer">Current OmenCore README</a></li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <section class="project-grid reveal" id="relaydesk">
+      <article class="project-card" data-project="relaydesk remote desktop access rdp tauri rust axum webrtc signaling crossplatform typescript react broker passkeys">
+        <div class="project-head">
+          <div class="project-identity">
+            <img src="/relay_logo.png" alt="RelayDesk logo" class="project-logo" loading="lazy" decoding="async">
+            <div>
+              <h2>RelayDesk <span class="pill warm inline-pill-gap">In Development</span></h2>
+              <p class="project-kicker">Secure remote desktop and access platform</p>
+            </div>
+          </div>
+          <a href="https://github.com/theantipopau/relaydesk" target="_blank" rel="noopener noreferrer" class="button secondary">GitHub</a>
+        </div>
+
+        <div class="pill-row">
+          <span class="pill brand">Tauri 2</span>
+          <span class="pill brand">Rust + Axum</span>
+          <span class="pill soft">WebRTC</span>
+          <span class="pill soft">TypeScript</span>
+          <span class="pill warm">Passkey Auth</span>
+        </div>
+
+        <p>
+          RelayDesk is a secure remote access platform with a single desktop app that acts as both viewer and host,
+          a browser-based web client, and a Rust-powered broker for auth, device registry, and WebSocket signaling.
+          Built as a monorepo across Tauri 2, React, and Axum with WebRTC as the planned transport layer.
+        </p>
+
+        <div class="project-columns">
+          <div>
+            <h4>Architecture</h4>
+            <ul>
+              <li>Desktop app (Tauri 2 + React) toggles between Viewer and Host within a single install.</li>
+              <li>Rust/Axum broker handles auth, device presence, session lifecycle, and WebSocket signaling.</li>
+              <li>Shared TypeScript packages for protocol contracts and UI components across desktop and web.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Design Priorities</h4>
+            <ul>
+              <li>Passkey/WebAuthn-first auth with per-device key material in OS secure storage.</li>
+              <li>Broker is control plane only; media/data transport is peer-to-peer WebRTC where possible.</li>
+              <li>Phased roadmap with clear stubs — screen capture, input injection, and TURN are next.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="note">
+          <strong>Status:</strong> Active development at v0.11.0. Signaling, device registry, session management,
+          and WebSocket broker are implemented. WebRTC media transport and native screen capture are the next phase.
+        </div>
+      </article>
+    </section>
+
+    <section class="project-grid reveal" id="pccompanion">
+      <article class="project-card" data-project="pccompanion radium pcs companion windows telemetry diagnostics maintenance tauri rust react thermal tray support sensor sidecar copilot local llm">
+        <div class="project-head">
+          <div class="project-identity">
+            <img src="/radium-logo.png" alt="Radium PCs Companion logo" class="project-logo" loading="lazy" decoding="async">
+            <div>
+              <h2>Radium PCs Companion <span class="pill warm inline-pill-gap">v0.1.0-pre</span></h2>
+              <p class="project-kicker">Local-first Windows telemetry, diagnostics, and maintenance companion</p>
+            </div>
+          </div>
+          <a href="https://github.com/theantipopau/pccompanion" target="_blank" rel="noopener noreferrer" class="button secondary">GitHub</a>
+        </div>
+
+        <div class="pill-row">
+          <span class="pill brand">Tauri 2 + React 19</span>
+          <span class="pill brand">Rust Backend</span>
+          <span class="pill soft">Truthful Telemetry</span>
+          <span class="pill warm">Local-First</span>
+        </div>
+
+        <p>
+          Built for Radium PCs customers and technicians, this desktop companion combines a premium React interface
+          with a Rust/Tauri backend, vendor telemetry providers, and a bundled sensor sidecar for hardware that needs
+          deeper package-temperature access than user-mode WMI exposes.
+        </p>
+
+        <div class="project-columns">
+          <div>
+            <h4>What It Delivers</h4>
+            <ul>
+              <li>Live dashboard for CPU, GPU, RAM, network, storage, and support-readiness state.</li>
+              <li>Premium thermal visualization with vendor-aware component overlays.</li>
+              <li>Maintenance tools — bloatware review, registry checks, startup manager, RAM optimizer — and Quiet/Balanced/Creator/Gaming performance profiles.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Design Priorities</h4>
+            <ul>
+              <li>Local-first: no automatic cloud telemetry upload.</li>
+              <li>Truthful telemetry — missing sensors show as degraded or driver-required, never fabricated as zero.</li>
+              <li>Fan/EC/firmware writes stay blocked until model-specific safety validation exists.</li>
+              <li>Optional offline-first "Radium CoPilot" preview talks only to a local runtime (Ollama) with a localhost lock by default.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="note">
+          <strong>Status:</strong> Controlled public pre-release at v0.1.0-pre for Windows 10/11 x64. Hardware
+          validation is actively expanding across OMEN, Victus, and third-party desktop configurations.
+        </div>
+      </article>
+    </section>
+
+    <section class="project-grid reveal" id="mousetune">
+      <article class="project-card" data-project="mousetune bluetooth mouse dpi tuning windows portable dotnet wpf utility no telemetry">
+        <div class="project-head">
+          <div class="project-identity">
+            <img src="/mousetune-logo.png" alt="MouseTune icon" class="project-logo" loading="lazy" decoding="async">
+            <div>
+              <h2>MouseTune</h2>
+              <p class="project-kicker">Portable DPI and naming utility for generic Bluetooth mice</p>
+            </div>
+          </div>
+          <a href="https://github.com/theantipopau/mousetune" target="_blank" rel="noopener noreferrer" class="button secondary">GitHub</a>
+        </div>
+
+        <div class="pill-row">
+          <span class="pill brand">.NET 8 + WPF</span>
+          <span class="pill soft">Portable</span>
+          <span class="pill soft">No Drivers or Services</span>
+          <span class="pill warm">v0.1</span>
+        </div>
+
+        <p>
+          MouseTune fills a narrow gap: inexpensive or generic Bluetooth mice that have no manufacturer software.
+          It saves a local alias for a device Windows reports as something unhelpful like "BT 5.2 Mouse," and maps
+          an effective DPI value onto Windows' own pointer-speed setting — nothing more.
+        </p>
+
+        <div class="project-columns">
+          <div>
+            <h4>What It Delivers</h4>
+            <ul>
+              <li>Generic Bluetooth mouse discovery with duplicate HID interface grouping and de-duplication.</li>
+              <li>Effective DPI presets and slider, interpolated and clamped, mapped to verified Windows pointer-speed writes.</li>
+              <li>Local alias that survives restarts, plus a guarded attempt at the Windows device friendly-name.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Design Priorities</h4>
+            <ul>
+              <li>Self-contained single-file portable executable — no installer, drivers, services, tray process, or accounts.</li>
+              <li>Atomic settings writes with backup and corrupt-JSON recovery.</li>
+              <li>Explicitly out of scope: vendor integration, RGB, macros, polling-rate control, and cloud sync.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="project-grid reveal" id="steam-launchers">
+      <article class="project-card" data-project="steam launch utilities epic games steam setup wizard gta5 rockstar launcher osol non-steam game anti-cheat entitlement powershell big picture couch play controller">
+        <div class="project-head">
+          <div class="project-identity">
+            <span class="project-mono" aria-hidden="true">SU</span>
+            <div>
+              <h2>Steam Launch Utilities <span class="pill warm inline-pill-gap">New</span></h2>
+              <p class="project-kicker">Hands-free Steam launching for Epic Games and Rockstar Games titles</p>
+            </div>
+          </div>
+          <div class="button-row">
+            <a href="https://github.com/theantipopau/epic-games-steam-setup" target="_blank" rel="noopener noreferrer" class="button secondary">Epic Setup Wizard</a>
+            <a href="https://github.com/theantipopau/gta5-rockstar-steam-launcher" target="_blank" rel="noopener noreferrer" class="button secondary">GTA V Launcher</a>
+          </div>
+        </div>
+
+        <div class="pill-row">
+          <span class="pill brand">PowerShell</span>
+          <span class="pill soft">Steam Big Picture</span>
+          <span class="pill soft">No Coding Required</span>
+          <span class="pill warm">Open Source</span>
+        </div>
+
+        <p>
+          Two small, narrowly-scoped scripts that fix the same annoyance from different angles: launcher-locked PC
+          games that fight you the moment you try to run them from Steam instead of their native storefront.
+        </p>
+
+        <div class="project-columns">
+          <div>
+            <h4>Epic Games → Steam Setup Wizard</h4>
+            <ul>
+              <li>Reads Epic's local manifests to list installed titles and build the correct <code>com.epicgames.launcher://</code> launch URI — the raw exe alone trips entitlement and anti-cheat checks.</li>
+              <li>Watches running processes during a real launch to tell a short-lived bootstrap stub apart from the actual long-running game, then configures OSOL automatically.</li>
+              <li>Built to fix a concrete case — Hell Let Loose's Epic + EasyAntiCheat launch — with a recipe that generalizes to similar Unreal Engine titles.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>GTA V Enhanced Steam Launcher</h4>
+            <ul>
+              <li>Adds GTA V Enhanced to Steam as a non-Steam game that launches with a single click — no reaching for a mouse to hit Play in Rockstar Games Launcher.</li>
+              <li>Built for couch play: Steam Big Picture, Steam Link, and controller-driven sessions where tabbing out to another launcher is not an option.</li>
+              <li>Uses only what Windows and Steam already ship — no third-party runtime dependency to keep patched.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="note">
+          <strong>Why it exists:</strong> neither Epic nor Rockstar's launchers were built with Steam's non-Steam-game
+          model in mind, and the workarounds require digging through manifest files or process lists by hand. Both
+          scripts exist purely because that friction was real, not because either project needed a portfolio entry.
+        </div>
+      </article>
+    </section>
+
+    <section class="project-grid reveal" id="echoes-of-the-riftwar">
+      <article class="project-card" data-project="echoesofriftwar echoes of the riftwar babylonjs rpg 3d action game midkemia quests combat inventory world progression ai assets github">
+        <div class="project-head">
+          <div class="project-identity">
+            <span class="project-mono" aria-hidden="true">ER</span>
+            <div>
+              <h2>Echoes of the Riftwar <span class="pill warm inline-pill-gap">In Development</span></h2>
+              <p class="project-kicker">Data-driven 3D action RPG inspired by Midkemia</p>
+            </div>
+          </div>
+          <a href="https://github.com/theantipopau/echoesofriftwar" target="_blank" rel="noopener noreferrer" class="button secondary">GitHub</a>
+        </div>
+
+        <div class="pill-row">
+          <span class="pill brand">Babylon.js</span>
+          <span class="pill soft">3D Action RPG</span>
+          <span class="pill soft">Modular Systems</span>
+          <span class="pill warm">AI-Assisted Pipeline</span>
+        </div>
+
+        <p>
+          Echoes of the Riftwar is a data-driven, 3D action RPG inspired by the world of Midkemia, built with
+          Babylon.js and modern web tooling. The project uses a modular architecture that separates combat, quests,
+          inventory, progression, and region exploration systems so world expansion can scale cleanly.
+        </p>
+
+        <div class="project-columns">
+          <div>
+            <h4>Current World Scope</h4>
+            <ul>
+              <li>Connected frontier travel from Crydee into war-torn regions.</li>
+              <li>Dynamic world events and NPC-driven narrative progression.</li>
+              <li>Interior spaces and dungeon experiences, including the Culvert Breach.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Development Focus</h4>
+            <ul>
+              <li>Scalable world-building workflows and data-driven content loading.</li>
+              <li>Responsive gameplay systems with clear combat and quest feedback loops.</li>
+              <li>AI-assisted asset pipelines for faster iteration and environmental variation.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="note">
+          <strong>Status:</strong> Active development. The goal is a living, reactive game world that can evolve
+          without monolithic refactors.
+        </div>
+      </article>
+    </section>
+
+    <section class="project-grid reveal" id="pulselan">
+      <article class="project-card" data-project="pulselan lan diagnostics local network windows tauri rust react toolkit telemetry vulnerability scan advisory security observability github">
+        <div class="project-head">
+          <div class="project-identity">
+            <span class="project-mono" aria-hidden="true">PL</span>
+            <div>
+              <h2>PulseLAN</h2>
+              <p class="project-kicker">Defensive local-network observability desktop app</p>
+            </div>
+          </div>
+          <a href="https://github.com/theantipopau/pulselan" target="_blank" rel="noopener noreferrer" class="button secondary">GitHub</a>
+        </div>
+
+        <div class="pill-row">
+          <span class="pill brand">Tauri 2 + Rust</span>
+          <span class="pill brand">React + SQLite</span>
+          <span class="pill soft">Vulnerability Scanning</span>
+          <span class="pill warm">Defensive Scope Only</span>
+        </div>
+
+        <p>
+          PulseLAN grew from a simple diagnostics script into a Windows-first Tauri desktop app for local-network
+          observability: live device discovery, active vulnerability scanning, scan history with comparison views,
+          and a data-driven advisory rule system — while staying honest about what is inferred, what is live, and
+          what is unavailable.
+        </p>
+
+        <div class="project-columns">
+          <div>
+            <h4>What It Enables</h4>
+            <ul>
+              <li>Live discovery via ARP, mDNS, SSDP, and interface metadata, with explicit demo fallback when capture prerequisites are missing.</li>
+              <li>Quick, balanced, and deep active scan profiles with JSON/CSV export and severity filtering.</li>
+              <li>SQLite-backed scan history with comparison views for introduced and resolved findings.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Design Priorities</h4>
+            <ul>
+              <li>Intentionally scoped to defensive monitoring on networks the operator owns or administers.</li>
+              <li>No exploit delivery, credential theft, packet injection, or MITM capability — visibility and advisories only.</li>
+              <li>Local-first by default, with an ntopng integration path staged for later traffic-authority data.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="project-grid reveal" id="windows-optimizers">
+      <article class="project-card" data-project="windows optimizer powershell performance touch gaming">
+        <div class="project-head">
+          <div class="project-identity">
+            <span class="project-mono" aria-hidden="true">WO</span>
+            <div>
+              <h2>Windows Optimizers</h2>
+              <p class="project-kicker">Specialized PowerShell scripts for touch and gaming systems</p>
+            </div>
+          </div>
+          <div class="button-row">
+            <a href="https://github.com/theantipopau/windows11touchoptimizer" target="_blank" rel="noopener noreferrer" class="button secondary">Touch Optimizer</a>
+            <a href="https://github.com/theantipopau/windows11nontouchgamingoptimizer" target="_blank" rel="noopener noreferrer" class="button secondary">Gaming Optimizer</a>
+          </div>
+        </div>
+
+        <div class="pill-row">
+          <span class="pill brand">PowerShell</span>
+          <span class="pill soft">Documented Changes</span>
+          <span class="pill soft">Restore Strategy</span>
+          <span class="pill warm">Open Source</span>
+        </div>
+
+        <p>
+          A pair of repeatable optimization scripts targeting different usage modes while preserving transparency,
+          safety checks, and reversibility.
+        </p>
+
+        <div class="project-columns">
+          <div>
+            <h4>Touch Workflow</h4>
+            <ul>
+              <li>Improves responsiveness on tablet and hybrid hardware.</li>
+              <li>Tunes background services for battery-aware performance.</li>
+              <li>Prioritizes fluid input behavior and practical usability.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Gaming Workflow</h4>
+            <ul>
+              <li>Reduces latency and unnecessary background load.</li>
+              <li>Applies low-friction network and power optimizations.</li>
+              <li>Designed for repeatability and clear operator control.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="project-grid reveal" id="pagecue">
+      <article class="project-card" data-project="pagecue spoiler safe reading companion book recap concept early stage">
+        <div class="project-head">
+          <div class="project-identity">
+            <span class="project-mono" aria-hidden="true">PC</span>
+            <div>
+              <h2>PageCue <span class="pill warm inline-pill-gap">Concept</span></h2>
+              <p class="project-kicker">Spoiler-safe reading companion — early concept, no build yet</p>
+            </div>
+          </div>
+          <a href="https://github.com/theantipopau/pagecue" target="_blank" rel="noopener noreferrer" class="button secondary">GitHub</a>
+        </div>
+
+        <div class="pill-row">
+          <span class="pill soft">Early Concept</span>
+          <span class="pill soft">Spoiler-Safe</span>
+          <span class="pill warm">No Code Yet</span>
+        </div>
+
+        <p>
+          PageCue is a freshly seeded idea for a reading companion that helps readers remember what happened in a
+          book up to their current page or chapter, without the spoiler risk of an open web search. The repository
+          exists but is intentionally empty right now — it is listed here for transparency about what is coming
+          next, not as a finished or even started product.
+        </p>
+
+        <div class="note">
+          <strong>Status:</strong> Concept stage only. No code has been pushed yet — check the GitHub repository
+          for the first commits as the idea moves into implementation.
+        </div>
+      </article>
+    </section>
+
+    <div id="project-filter-empty" class="no-results">No projects matched your filter. Try terms like pulselan, mousetune, pccompanion, rigmateau, education, privacy, or powershell.</div>
   </div>
+
+  <script defer src="/js/projects.js"></script>
 </Layout>

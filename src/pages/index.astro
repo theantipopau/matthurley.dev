@@ -1,76 +1,286 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const homeJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      name: 'Matt Hurley',
+      url: 'https://matthurley.dev',
+      jobTitle: 'Educator and Software Developer',
+      sameAs: [
+        'https://github.com/theantipopau',
+        'https://www.linkedin.com/in/matt-hurley-29471a149/'
+      ]
+    },
+    {
+      '@type': 'WebSite',
+      name: 'Matt Hurley',
+      url: 'https://matthurley.dev'
+    }
+  ]
+};
 ---
 
-<Layout 
-  title="Matt Hurley - Educator & Software Developer" 
-  description="Educator-led software development focused on practical systems, privacy-first principles, and maintainable architecture."
+<Layout
+  title="Matt Hurley | Educator and Software Developer"
+  description="Educator-led software development focused on privacy-first systems, practical architecture, and long-term maintainability."
+  jsonLd={homeJsonLd}
 >
-  <div class="container">
-    <div class="hero">
-      <img src="/logo.PNG" alt="Matt Hurley" class="hero-logo">
-    </div>
-    
-    <div class="intro">
-      <h1>Matt Hurley</h1>
-      <p>
-        Educator and software developer building practical, privacy-first systems 
-        that address real constraints and serve real users.
-      </p>
-    </div>
-
-    <section class="section">
-      <h2>Educator-Led Development</h2>
-      <p>
-        Software development informed by years of teaching, leadership, and systems thinking. 
-        Each project reflects a commitment to clarity, maintainability, and ethical design—
-        prioritizing user needs and operational realities over technical novelty.
-      </p>
-      <p>
-        The projects documented here are extensions of problem-solving in education contexts, 
-        personal infrastructure, and independent exploration. They are not commercial offerings, 
-        but reflections of how thoughtful design can serve specific needs effectively.
-      </p>
-    </section>
-
-    <section class="stats-section">
-      <div class="stat-card">
-        <div class="stat-number">5+</div>
-        <div class="stat-label">Active Projects</div>
+  <div class="container page-shell">
+    <section class="page-hero hero-split reveal">
+      <div>
+        <p class="eyebrow">Educator-Led Engineering</p>
+        <h1>Software that works in the real world, not just in demos.</h1>
+        <p class="lead">
+          I design and ship systems informed by school leadership, operational pressure,
+          and a privacy-first approach to architecture.
+        </p>
+        <div class="button-row mt-4">
+          <a href="/projects" class="button primary">Explore Projects</a>
+          <a href="/writing" class="button secondary">Read Writing</a>
+        </div>
       </div>
-      <div class="stat-card">
-        <div class="stat-number">100%</div>
-        <div class="stat-label">Privacy-First</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">Open</div>
-        <div class="stat-label">Source</div>
+      <div class="hero-media">
+        <img src="/logosmall.PNG" alt="Matt Hurley mark" decoding="async">
+        <div class="hero-stat-strip" aria-label="Current focus areas">
+          <span>Education systems</span>
+          <span>Hardware tools</span>
+          <span>Privacy-first delivery</span>
+        </div>
       </div>
     </section>
 
-    <section class="section">
-      <h2>What You'll Find Here</h2>
+    <section class="surface reveal">
+      <h2>Operating Principles</h2>
+      <div class="metric-grid">
+        <article class="metric-card">
+          <p class="metric-value">11+ years</p>
+          <p class="metric-label">Education leadership shaping design and delivery decisions</p>
+        </article>
+        <article class="metric-card">
+          <p class="metric-value">Privacy-first</p>
+          <p class="metric-label">Governance-aware systems with no default tracking</p>
+        </article>
+        <article class="metric-card">
+          <p class="metric-value">Built to last</p>
+          <p class="metric-label">Clear trade-offs, iterative releases, and maintainable codebases</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="surface reveal">
+      <h2>What You Will Find Here</h2>
       <div class="feature-grid">
         <a href="/projects" class="feature-card">
-          <div class="feature-icon">💼</div>
-          <h3>Projects</h3>
-          <p>Detailed case studies of independent software systems, including architecture decisions, constraints, and real-world impact.</p>
+          <span class="feature-icon">P</span>
+          <h3>Project Case Studies</h3>
+          <p>Architecture choices, operational constraints, and implementation detail without portfolio fluff.</p>
         </a>
         <a href="/writing" class="feature-card">
-          <div class="feature-icon">✍️</div>
-          <h3>Writing</h3>
-          <p>Reflections on building software in education, privacy and governance, and lessons learned from real deployments.</p>
+          <span class="feature-icon">W</span>
+          <h3>Technical Writing</h3>
+          <p>Notes on educational software, infrastructure, and privacy-conscious development practice.</p>
         </a>
         <a href="/about" class="feature-card">
-          <div class="feature-icon">👤</div>
-          <h3>About</h3>
-          <p>Background, philosophy, and approach to software development informed by education leadership.</p>
+          <span class="feature-icon">A</span>
+          <h3>Background and Approach</h3>
+          <p>How military service, teaching, and leadership shape system design and operating standards.</p>
         </a>
         <a href="/contact" class="feature-card">
-          <div class="feature-icon">📧</div>
-          <h3>Contact</h3>
-          <p>Get in touch via email or GitHub to discuss projects, collaboration, or educational technology.</p>
+          <span class="feature-icon">C</span>
+          <h3>Contact and Collaboration</h3>
+          <p>Ways to get in touch for thoughtful technical discussion and education-focused collaboration.</p>
         </a>
+      </div>
+    </section>
+
+    <section class="surface reveal">
+      <h2>Featured Projects</h2>
+      <p class="section-intro">
+        Current work spans education, remote access, hardware control, network security observability, and media automation.
+      </p>
+      <div class="project-grid">
+        <article class="project-card">
+          <div class="project-head">
+            <div class="project-identity">
+              <img src="/sophia-logo.png" alt="STARS logo" class="project-logo" loading="lazy" decoding="async">
+              <div>
+                <h3>STARS</h3>
+                <p class="project-kicker">Student Tracking and Recording System</p>
+              </div>
+            </div>
+            <a href="/projects#stars" class="button secondary">View Case Study</a>
+          </div>
+          <p>A pastoral care platform built for school operations with role-based access, automated workflows, and complete audit visibility.</p>
+          <div class="pill-row">
+            <span class="pill brand">Azure Auth</span>
+            <span class="pill soft">PB4L Workflow</span>
+            <span class="pill warm">Audit Trails</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-head">
+            <div class="project-identity">
+              <img src="/bb-logo.png" alt="BrightBound logo" class="project-logo" loading="lazy" decoding="async">
+              <div>
+                <h3>BrightBound Adventures</h3>
+                <p class="project-kicker">Offline-first educational platform for children</p>
+              </div>
+            </div>
+            <a href="/projects#brightbound" class="button secondary">See Platform</a>
+          </div>
+          <p>Curriculum-aligned literacy and numeracy experiences designed for classrooms and homes where reliable internet is not guaranteed.</p>
+          <div class="pill-row">
+            <span class="pill brand">Flutter</span>
+            <span class="pill soft">Cross Platform</span>
+            <span class="pill warm">No Tracking</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-head">
+            <div class="project-identity">
+              <img src="/omencore-logo.png" alt="OmenCore logo" class="project-logo" loading="lazy" decoding="async">
+              <div>
+                <h3>OmenCore</h3>
+                <p class="project-kicker">v3.8.1 hardware control center for HP OMEN and Victus laptops</p>
+              </div>
+            </div>
+            <a href="/projects#omencore" class="button secondary">Dive Deeper</a>
+          </div>
+          <p>Now at v3.8.1 with model-specific fan-hold fixes, a closed GPU overclock battery-safety gap, and lower background WMI overhead.</p>
+          <div class="pill-row">
+            <span class="pill brand">v3.8.1</span>
+            <span class="pill soft">Fan Safety</span>
+            <span class="pill warm">Released Jun 2026</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-head">
+            <div class="project-identity">
+              <img src="/icon.PNG" alt="RigMateAU icon" class="project-logo" loading="lazy" decoding="async">
+              <div>
+                <h3>RigMateAU</h3>
+                <p class="project-kicker">Australian PC builder and price-comparison platform</p>
+              </div>
+            </div>
+            <a href="/projects/rigmateau" class="button secondary">Read Case Study</a>
+          </div>
+          <p>Compatibility-checked PC builds, trust-aware marketplace pricing, and shareable build pages for Australian buyers — without scraping OzBargain or Whirlpool.</p>
+          <div class="pill-row">
+            <span class="pill brand">Live</span>
+            <span class="pill soft">Next.js</span>
+            <span class="pill warm">Open Source</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-head">
+            <div class="project-identity">
+              <img src="/relay_logo.png" alt="RelayDesk logo" class="project-logo" loading="lazy" decoding="async">
+              <div>
+                <h3>RelayDesk</h3>
+                <p class="project-kicker">Secure remote desktop and access platform</p>
+              </div>
+            </div>
+            <a href="https://github.com/theantipopau/relaydesk" target="_blank" rel="noopener noreferrer" class="button secondary">GitHub</a>
+          </div>
+          <p>A Tauri 2 + Rust monorepo with a unified desktop viewer/host app, web client, and Axum broker for device registry, session management, and WebSocket signaling.</p>
+          <div class="pill-row">
+            <span class="pill brand">Tauri 2</span>
+            <span class="pill soft">Rust + Axum</span>
+            <span class="pill warm">In Development</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-head">
+            <div class="project-identity">
+              <img src="/radium-logo.png" alt="Radium PCs Companion logo" class="project-logo" loading="lazy" decoding="async">
+              <div>
+                <h3>Radium PCs Companion</h3>
+                <p class="project-kicker">Local-first Windows telemetry and maintenance companion</p>
+              </div>
+            </div>
+            <a href="/projects#pccompanion" class="button secondary">View Project</a>
+          </div>
+          <p>A Tauri + Rust desktop companion with live hardware telemetry, premium thermal visualization, and maintenance tools that never fabricate a missing sensor reading as zero.</p>
+          <div class="pill-row">
+            <span class="pill brand">Tauri 2 + Rust</span>
+            <span class="pill soft">v0.1.0-pre</span>
+            <span class="pill warm">Local-First</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-head">
+            <div class="project-identity">
+              <span class="project-mono" aria-hidden="true">ER</span>
+              <div>
+                <h3>Echoes of the Riftwar</h3>
+                <p class="project-kicker">Data-driven 3D action RPG currently in development</p>
+              </div>
+            </div>
+            <a href="https://github.com/theantipopau/echoesofriftwar" target="_blank" rel="noopener noreferrer" class="button secondary">GitHub</a>
+          </div>
+          <p>A Babylon.js-powered action RPG focused on modular systems for combat, quests, inventory, and reactive world progression across a connected frontier.</p>
+          <div class="pill-row">
+            <span class="pill brand">Babylon.js</span>
+            <span class="pill soft">3D RPG</span>
+            <span class="pill warm">In Development</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-head">
+            <div class="project-identity">
+              <span class="project-mono" aria-hidden="true">PL</span>
+              <div>
+                <h3>PulseLAN</h3>
+                <p class="project-kicker">Defensive local-network observability desktop app</p>
+              </div>
+            </div>
+            <a href="https://github.com/theantipopau/pulselan" target="_blank" rel="noopener noreferrer" class="button secondary">GitHub</a>
+          </div>
+          <p>A Tauri desktop app that maps local devices, runs scoped vulnerability scans, and tracks findings over time — visibility and advisories only, never offensive tradecraft.</p>
+          <div class="pill-row">
+            <span class="pill brand">Tauri + Rust</span>
+            <span class="pill soft">Vulnerability Scanning</span>
+            <span class="pill warm">Open Source</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-head">
+            <div class="project-identity">
+              <span class="project-mono" aria-hidden="true">SL</span>
+              <div>
+                <h3>Slimarr</h3>
+                <p class="project-kicker">Automated Plex library compression via Usenet</p>
+              </div>
+            </div>
+            <a href="/projects#slimarr" class="button secondary">View Project</a>
+          </div>
+          <p>Scans your Plex library, finds smaller h265/AV1 releases on Usenet, and replaces bloated files overnight — automatically, without ever increasing file size.</p>
+          <div class="pill-row">
+            <span class="pill brand">Python + FastAPI</span>
+            <span class="pill soft">Plex + SABnzbd</span>
+            <span class="pill warm">*arr Ecosystem</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="support-banner reveal">
+      <p class="eyebrow">Live Platform</p>
+      <h2 class="mb-3">Looking for BrightBound right now?</h2>
+      <p class="muted">Launch the current build directly from the live environment.</p>
+      <div class="button-row mt-3">
+        <a href="https://brightbound.matthurley.dev" target="_blank" rel="noopener noreferrer" class="button primary">Open BrightBound</a>
       </div>
     </section>
   </div>

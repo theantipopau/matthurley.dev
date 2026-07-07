@@ -1,13 +1,31 @@
 ---
 import '../styles/global.css';
+import { ViewTransitions } from 'astro:transitions';
 
 interface Props {
   title: string;
   description?: string;
+  jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
-const { title, description = "Personal site showcasing independent projects and professional reflections." } = Astro.props;
+const {
+  title,
+  description = "Personal site showcasing independent projects and professional reflections.",
+  jsonLd
+} = Astro.props;
 const currentPath = Astro.url.pathname;
+const navItems = [
+  { href: '/', label: 'Home' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/writing', label: 'Writing' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' }
+];
+
+const isActive = (href: string) => {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+};
 ---
 
 <!DOCTYPE html>
@@ -17,55 +35,104 @@ const currentPath = Astro.url.pathname;
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content={description}>
   <meta name="author" content="Matt Hurley">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()">
   <title>{title}</title>
   <link rel="canonical" href={`https://matthurley.dev${currentPath}`}>
-  
-  <!-- Favicon -->
+
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" href="/logosmall.PNG">
-  <meta name="theme-color" content="#1e3a8a">
-  
-  <!-- Open Graph -->
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#0f1f38">
+
   <meta property="og:type" content="website">
   <meta property="og:url" content={`https://matthurley.dev${currentPath}`}>
   <meta property="og:title" content={title}>
   <meta property="og:description" content={description}>
   <meta property="og:image" content="https://matthurley.dev/logo.PNG">
-  
-  <!-- Twitter -->
+  <meta property="og:image:width" content="1024">
+  <meta property="og:image:height" content="318">
+
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content={title}>
   <meta name="twitter:description" content={description}>
+  <meta name="twitter:image" content="https://matthurley.dev/logo.PNG">
+  <script is:inline>
+    (() => {
+      try {
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute('data-theme', stored || (prefersDark ? 'dark' : 'light'));
+      } catch {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <ViewTransitions />
+
+  {jsonLd && (
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+  )}
+
+  <script defer data-domain="matthurley.dev" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
-  <header>
-    <div class="header-content">
-      <a href="/" class="site-branding">
-        <img src="/logosmall.PNG" alt="Matt Hurley Logo" class="site-logo">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div class="scroll-progress"></div>
+
+  <header class="site-header">
+    <div class="header-content container-wide">
+      <a href="/" class="site-branding" aria-label="Go to homepage">
+        <img src="/logosmall.PNG" alt="Matt Hurley logo" class="site-logo">
+        <span class="site-title">Matt Hurley</span>
       </a>
-      <nav>
+
+      <nav aria-label="Primary">
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/projects">Projects</a></li>
-          <li><a href="/writing">Writing</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/contact">Contact</a></li>
+          {navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class={isActive(item.href) ? 'active' : ''}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
         </ul>
       </nav>
+
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">Light</button>
     </div>
   </header>
 
-  <main>
+  <main id="main-content">
     <slot />
   </main>
 
-  <footer>
-    <div class="container">
+  <footer class="site-footer">
+    <div class="container-wide">
       <div class="footer-content">
-        <p>Personal site showcasing independent projects and professional reflections.</p>
-        <p>&copy; {new Date().getFullYear()} Matt Hurley. All rights reserved.</p>
+        <p class="footer-tagline">Educator-led software development with privacy-first design.</p>
+        <div class="footer-links">
+          <a href="https://github.com/theantipopau" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/matt-hurley-29471a149/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="/contact">Contact</a>
+          <a href="https://www.paypal.com/donate/?business=XH8CKYF8T7EBU&no_recurring=0&item_name=Thank+you+for+your+generous+donation%2C+this+will+allow+me+to+continue+developing+my+programs.&currency_code=AUD" target="_blank" rel="noopener noreferrer">Donate</a>
+        </div>
+        <p class="footer-meta">&copy; {new Date().getFullYear()} Matt Hurley. All rights reserved.</p>
       </div>
     </div>
   </footer>
+
+  <button id="back-to-top" class="back-to-top" aria-label="Back to top">Top</button>
+  <script defer src="/js/site.js"></script>
 </body>
 </html>

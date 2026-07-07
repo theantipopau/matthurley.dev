@@ -104,7 +104,7 @@ wrangler pages deploy dist
 
 - **Tone:** Professional, understated, reflective
 - **No commercial language:** This is a personal site, not a business
-- **Privacy-first:** Sophia STARS documented without exposing sensitive data
+- **Privacy-first:** STARS documented without exposing sensitive data
 - **Focus:** Real systems, real constraints, real learnings
 
 ## Performance Targets
