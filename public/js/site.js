@@ -72,6 +72,18 @@ const storedTheme = localStorage.getItem('theme');
 const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 applyTheme(storedTheme || (systemPrefersDark ? 'dark' : 'light'));
 
+// Astro's view-transition swap clears every non-data-astro-* attribute from
+// <html> (including data-theme) and replaces it with the incoming page's
+// attributes, which never carry data-theme since it's only set client-side.
+// Stamping it onto the incoming document here is what stops the flash back
+// to the unscoped (dark) default on every navigation.
+document.addEventListener('astro:before-swap', (event) => {
+  const currentTheme = root.getAttribute('data-theme');
+  if (currentTheme) {
+    event.newDocument.documentElement.setAttribute('data-theme', currentTheme);
+  }
+});
+
 document.addEventListener('keydown', (event) => {
   if (event.key.toLowerCase() !== 't' || event.metaKey || event.ctrlKey || event.altKey) return;
   const activeElement = document.activeElement;

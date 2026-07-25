@@ -4,24 +4,26 @@ import Layout from '../layouts/Layout.astro';
 const contactJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ContactPage',
-  name: 'Contact Matt Hurley',
+  name: 'Contact matthurley.dev',
   url: 'https://matthurley.dev/contact'
 };
 ---
 
 <Layout
-  title="Contact | Matt Hurley"
-  description="Get in touch with Matt Hurley for project discussion, collaboration, and software systems conversation."
+  title="Contact | matthurley.dev"
+  description="Start a project conversation with matthurley.dev — practical, privacy-first software for education, hardware, and operations teams."
   jsonLd={contactJsonLd}
 >
   <div class="container page-shell">
     <section class="page-hero reveal">
       <p class="eyebrow">Contact</p>
-      <h1>Reach out for serious technical discussion and thoughtful collaboration.</h1>
+      <h1>Let's talk about what your system actually needs.</h1>
       <p class="lead">
-        I welcome messages about educational software, privacy-first architecture, and systems delivered under real constraints.
+        I take on a small number of projects at a time, so I read every message myself. Tell me what the system
+        needs to do, who has to rely on it, and I'll give you a straight answer on whether it's a fit.
       </p>
       <div class="button-row">
+        <a href="mailto:matt@matthurley.dev" class="button primary">Email matt@matthurley.dev</a>
         <button id="copy-email" class="copy-email" type="button">Copy Email</button>
       </div>
     </section>
@@ -52,31 +54,40 @@ const contactJsonLd = {
       </a>
     </section>
 
-    <section class="support-banner reveal">
-      <h2 class="mb-3">What to Expect</h2>
-      <p>
-        I respond to genuine inquiries related to system design, educational technology, and implementation strategy.
-        Response times vary with school and project commitments, but clear and thoughtful messages are always welcome.
-      </p>
-      <p class="muted mb-0">This channel is not intended for generic sales outreach.</p>
+    <section class="surface reveal">
+      <h2>What to include</h2>
+      <p class="section-intro">The faster I understand the real shape of the problem, the faster you get a useful answer.</p>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <span class="feature-icon">01</span>
+          <h3>What the system needs to do</h3>
+          <p>The actual job, not the feature list — what breaks today, or what doesn't exist yet.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">02</span>
+          <h3>Who has to rely on it</h3>
+          <p>Staff, customers, or the public — and what happens if it's unavailable for a day.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">03</span>
+          <h3>Any hard constraints</h3>
+          <p>Governance, budget, timeline, or existing systems it has to work alongside.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">04</span>
+          <h3>What "done" looks like</h3>
+          <p>Even a rough version helps — it's easier to scope a project against a real outcome.</p>
+        </div>
+      </div>
     </section>
 
-    <section class="surface reveal">
-      <h2>Support Open Work</h2>
+    <section class="support-banner reveal">
+      <h2 class="mb-3">Response times</h2>
       <p>
-        If my open-source work has helped you and you would like to support continued development,
-        donations are appreciated and directly fund maintenance time.
+        I respond to genuine project inquiries personally, usually within a few business days. Response time can
+        vary with school and project commitments, but every clear, thoughtful message gets read and answered.
       </p>
-      <div class="button-row">
-        <a
-          href="https://www.paypal.com/donate/?business=XH8CKYF8T7EBU&no_recurring=0&item_name=Thank+you+for+your+generous+donation%2C+this+will+allow+me+to+continue+developing+my+programs.&currency_code=AUD"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button primary"
-        >
-          Donate via PayPal
-        </a>
-      </div>
+      <p class="muted mb-0">This channel is not for generic sales outreach or unsolicited SEO/marketing pitches.</p>
     </section>
   </div>
 

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="glow1" cx="82%" cy="8%" r="60%">
+      <stop offset="0%" stop-color="#d97b45" stop-opacity="0.22"></stop>
+      <stop offset="100%" stop-color="#d97b45" stop-opacity="0"></stop>
+    </radialGradient>
+    <radialGradient id="glow2" cx="6%" cy="96%" r="55%">
+      <stop offset="0%" stop-color="#8a9bab" stop-opacity="0.14"></stop>
+      <stop offset="100%" stop-color="#8a9bab" stop-opacity="0"></stop>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#0a0908"></rect>
+  <rect width="1200" height="630" fill="url(#glow1)"></rect>
+  <rect width="1200" height="630" fill="url(#glow2)"></rect>
+  <rect x="0.5" y="0.5" width="1199" height="629" fill="none" stroke="#f5f1e81a" stroke-width="1"></rect>
+
+  <g transform="translate(220,229)">
+    <rect width="172" height="172" rx="38" fill="#332f2b"></rect>
+    <text x="86" y="107" text-anchor="middle" font-family="'JetBrains Mono','IBM Plex Mono',ui-monospace,Menlo,monospace" font-weight="700" font-size="56" letter-spacing="-1.5">
+      <tspan fill="#d97b45">&lt;</tspan><tspan fill="#f5f1e8">MH</tspan><tspan fill="#d97b45">/&gt;</tspan>
+    </text>
+    <rect x="58" y="139" width="56" height="10" rx="3" fill="#d97b45"></rect>
+  </g>
+
+  <text x="432" y="298" font-family="'JetBrains Mono','IBM Plex Mono',ui-monospace,Menlo,monospace" font-weight="700" font-size="64" letter-spacing="-1.5">
+    <tspan fill="#f5f1e8">matthurley</tspan><tspan fill="#d97b45">.dev</tspan>
+  </text>
+  <text x="434" y="344" font-family="'Plus Jakarta Sans',system-ui,sans-serif" font-weight="500" font-size="25" fill="#b3aa9c">
+    Practical, privacy-first software.
+  </text>
+</svg>

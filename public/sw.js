@@ -1,4 +1,4 @@
-const CACHE_NAME = 'matthurley-v3';
+const CACHE_NAME = 'matthurley-v5';
 const CORE_ASSETS = [
   '/',
   '/about/',
@@ -6,8 +6,8 @@ const CORE_ASSETS = [
   '/writing/',
   '/contact/',
   '/manifest.webmanifest',
-  '/logo.PNG',
-  '/logosmall.PNG'
+  '/brand/icon-512.png',
+  '/brand/icon-192.png'
 ];
 
 self.addEventListener('install', (event) => {
@@ -38,7 +38,7 @@ self.addEventListener('fetch', (event) => {
 
   if (event.request.mode === 'navigate') {
     event.respondWith(
-      fetch(event.request)
+      fetch(event.request, { cache: 'no-store' })
         .then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
             const responseClone = networkResponse.clone();

@@ -4,59 +4,77 @@ import Layout from '../layouts/Layout.astro';
 const writingJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
-  name: 'Writing by Matt Hurley',
+  name: 'Writing by matthurley.dev',
   itemListElement: [
     {
       '@type': 'Article',
       position: 1,
+      headline: "What 'AI-Assisted' Actually Looks Like on BrightBound's Sprint Board",
+      url: 'https://matthurley.dev/writing#brightbound-ai-assisted-sprints'
+    },
+    {
+      '@type': 'Article',
+      position: 2,
+      headline: 'Paying Down Architecture Debt on Purpose: Inside OmenCore v4.0.0',
+      url: 'https://matthurley.dev/writing#omencore-v4-architecture-debt'
+    },
+    {
+      '@type': 'Article',
+      position: 3,
+      headline: "Building an AI Feature That Isn't Allowed to Lie: PageCue's Spoiler-Safety Validator",
+      url: 'https://matthurley.dev/writing#pagecue-spoiler-safety-validator'
+    },
+    {
+      '@type': 'Article',
+      position: 4,
       headline: 'Filling the Gaps Nobody Else Will Build For',
       url: 'https://matthurley.dev/writing#filling-market-gaps'
     },
     {
       '@type': 'Article',
-      position: 2,
+      position: 5,
       headline: 'Where AI Actually Earns Its Keep in a School Day',
       url: 'https://matthurley.dev/writing#ai-in-a-school-day'
     },
     {
       '@type': 'Article',
-      position: 3,
+      position: 6,
       headline: 'Prompt-to-Production: A Checklist for Shipping AI-Generated Code Responsibly',
       url: 'https://matthurley.dev/writing#prompt-to-production-checklist'
     },
     {
       '@type': 'Article',
-      position: 4,
+      position: 7,
       headline: 'Field-Driven Releases: What Six OmenCore Updates Taught Me About Cadence',
       url: 'https://matthurley.dev/writing#field-driven-releases'
     },
     {
       '@type': 'Article',
-      position: 5,
+      position: 8,
       headline: 'Vibe Coding and Its Rise: Fast Output, Slower Accountability',
       url: 'https://matthurley.dev/writing#vibe-coding-rise'
     },
     {
       '@type': 'Article',
-      position: 6,
+      position: 9,
       headline: 'The Power of AI-Assisted Development in VS Code',
       url: 'https://matthurley.dev/writing#ai-assisted-development'
     },
     {
       '@type': 'Article',
-      position: 7,
+      position: 10,
       headline: 'Designing Privacy Into Busy School Workflows',
       url: 'https://matthurley.dev/writing#privacy-under-pressure'
     },
     {
       '@type': 'Article',
-      position: 8,
+      position: 11,
       headline: 'Maintenance Over Momentum: Why Reliable Beats New',
       url: 'https://matthurley.dev/writing#maintenance-over-momentum'
     },
     {
       '@type': 'Article',
-      position: 9,
+      position: 12,
       headline: 'Offline-First Is a Pedagogical Decision, Not Just a Technical One',
       url: 'https://matthurley.dev/writing#offline-first-education-tools'
     }
@@ -65,7 +83,7 @@ const writingJsonLd = {
 ---
 
 <Layout
-  title="Writing | Matt Hurley"
+  title="Writing | matthurley.dev"
   description="Reflections on education software, privacy, systems thinking, and AI-assisted development workflows."
   jsonLd={writingJsonLd}
 >
@@ -82,6 +100,139 @@ const writingJsonLd = {
         <button id="clear-writing-filter" class="copy-email" type="button">Clear</button>
       </div>
     </section>
+
+    <article class="article-card reveal" id="brightbound-ai-assisted-sprints" data-writing="brightbound ai assisted development sprint board claude flutter reward transaction tests scope deviation ci">
+      <div class="article-meta">
+        <span class="date">July 2026</span>
+        <span class="tag brand">Engineering</span>
+        <span class="tag warm">AI</span>
+        <span class="read-time">6 min read</span>
+      </div>
+      <h2>What "AI-Assisted" Actually Looks Like on BrightBound's Sprint Board</h2>
+      <p class="lead lead-spaced">
+        BrightBound's latest sprint shipped a reward-transaction service, an extruded-3D world map upgrade, and a
+        CI fix — with AI assistance on every commit. None of that means the AI was in charge. The sprint tracker,
+        not the model, decided what counted as done, and the diffs are more interesting for what they deliberately
+        left out than for what they added.
+      </p>
+      <h3>Idempotency Was the Actual Requirement</h3>
+      <ul>
+        <li>The new reward-transaction service applies XP, levels, stars, streaks, and unlock detection as one operation — persisted to storage before it returns, so a killed-and-relaunched app replays the same result instead of re-earning anything.</li>
+        <li>That constraint — idempotent by outcome ID — was written down before generation started, not discovered by testing the output afterward.</li>
+        <li>Migrating existing call sites to the new service was explicitly deferred rather than rushed in the same change, once it surfaced that two screens each ran their own independent achievement tracking for one quiz completion.</li>
+      </ul>
+      <h3>Writing Tests Found Three Real Bugs Before Users Did</h3>
+      <ul>
+        <li>Eighteen structural regression tests for the world map screen — three viewports, two themes, three checks each — were written as a safety net before a larger rebuild, not after a bug report.</li>
+        <li>Those tests immediately caught a negative-margin assertion crash on keyboard focus, an unconstrained button label overflowing in narrow layouts, and a second overflow in a quest-reward preview row.</li>
+        <li>The tests use render-without-exception and content assertions rather than pixel-perfect golden images, because CI runs on Linux and the authoring machine runs Windows — different pixel goldens for reasons that have nothing to do with real regressions is a false signal, not a safety net.</li>
+      </ul>
+      <h3>Scope Deviations Were Written Down, Not Hidden</h3>
+      <ol>
+        <li>The sprint tracker records what shipped, what was deliberately deferred, and why — a structural-tests-instead-of-pixel-goldens call and a service-built-but-call-sites-not-yet-migrated call, both dated and explained rather than silently left out of the summary.</li>
+        <li>A stale documented file path was caught and fixed in the same session it was noticed, instead of being left for the next person to rediscover the hard way.</li>
+        <li>A CI failure — deprecated GitHub Actions versions and a Node version mismatch — was fixed the same day it was observed watching a real deploy run, not filed as a ticket for later.</li>
+      </ol>
+      <p>
+        None of this is exotic. It's the same discipline from <a href="#prompt-to-production-checklist">Prompt-to-Production</a> applied to a real sprint: name the constraint before generating, verify with tests that would actually catch a regression, and write down what you chose not to do. The AI made the loop faster. It didn't make the loop optional.
+      </p>
+      <div class="related-links">
+        <p>Related reading</p>
+        <ul>
+          <li><a href="#prompt-to-production-checklist">Prompt-to-Production: A Checklist for Shipping AI-Generated Code Responsibly</a></li>
+          <li><a href="#vibe-coding-rise">Vibe Coding and Its Rise: Fast Output, Slower Accountability</a></li>
+          <li><a href="#offline-first-education-tools">Offline-First Is a Pedagogical Decision, Not Just a Technical One</a></li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="article-card reveal" id="omencore-v4-architecture-debt" data-writing="omencore v4.0.0 architecture debt dependency injection polling scheduler refactor tests safety gate accessibility model database">
+      <div class="article-meta">
+        <span class="date">July 2026</span>
+        <span class="tag brand">Engineering</span>
+        <span class="tag warm">Open Source</span>
+        <span class="read-time">6 min read</span>
+      </div>
+      <h2>Paying Down Architecture Debt on Purpose: Inside OmenCore v4.0.0</h2>
+      <p class="lead lead-spaced">
+        OmenCore v4.0.0 is a major version bump with no new fan curves, no new lighting modes, and no new hardware
+        control surface at all. That was the point. Thirteen releases since April had been feature and fix work
+        landing on top of a `MainViewModel` god-object with roughly 40 manually-wired fields and a 27-timer sprawl
+        across three different timer APIs. v4.0.0 is the release where I stopped adding to that pile and started
+        paying it down.
+      </p>
+      <h3>Why a Major Version With Zero Control-Behavior Changes</h3>
+      <ul>
+        <li>A real dependency-injection composition root now owns 19 of roughly 40 previously manually-wired fields, with hardware bring-up — NVAPI, PawnIO, WMI BIOS, capability detection, EC and fan-controller construction — extracted into its own class as a prerequisite for the rest of the migration.</li>
+        <li>A shared polling scheduler now drives the tray icon, quick popup, and OSD timers as a first cut at consolidating that 27-timer sprawl — accurate count, corrected from an earlier "21 timers" estimate that turned out to be wrong once I actually counted.</li>
+        <li>Roughly 80 lines of dead, orphaned undervolt UI wiring came out — a second, meaningfully-behind copy of logic that already existed correctly elsewhere, bound to a view that was never in the app's visual tree.</li>
+      </ul>
+      <h3>Refactoring Found Two Real Safety Bugs</h3>
+      <ul>
+        <li>The sensitive-model startup-restore check had a live, un-updated copy of the exact fragile-string-match bug already fixed elsewhere in v3.8.1 — it could silently skip the extra safety opt-in it exists to enforce.</li>
+        <li>The "disable thermal protection" toggle's documented promise — fans will never be automatically overridden — didn't actually hold for custom fan curves, because a separate always-on safety clamp ignored the toggle entirely. The emergency-override temperature was also hardcoded at 95°C; it's configurable now.</li>
+        <li>Neither bug was found by looking for bugs. Both surfaced from reading the code closely enough to move it, which is the real argument for doing this kind of pass at all.</li>
+      </ul>
+      <h3>What Shipped Alongside the Cleanup</h3>
+      <ol>
+        <li>A community-contributable model-database pipeline — JSON schema, a dependency-free validator, a PR template, and a CI job — so new hardware support doesn't have to funnel through one person hand-writing every entry.</li>
+        <li>A persistent "Model Capabilities" diagnostics panel showing what your exact model does and doesn't support, and whether that's field-verified or inferred, before you go looking for a setting that was never going to be there.</li>
+        <li>An accessibility labeling pass across five views — roughly 140 previously-silent controls now announce correctly to screen readers.</li>
+      </ol>
+      <p>
+        953 of 953 tests passing, zero build warnings, and not one changed fan curve. Sometimes the release that matters most is the one where nothing visible changes at all.
+      </p>
+      <div class="related-links">
+        <p>Related reading</p>
+        <ul>
+          <li><a href="#field-driven-releases">Field-Driven Releases: What Six OmenCore Updates Taught Me About Cadence</a></li>
+          <li><a href="#maintenance-over-momentum">Maintenance Over Momentum: Why Reliable Beats New</a></li>
+          <li><a href="#prompt-to-production-checklist">Prompt-to-Production: A Checklist for Shipping AI-Generated Code Responsibly</a></li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="article-card reveal" id="pagecue-spoiler-safety-validator" data-writing="pagecue spoiler safety validator deterministic ai recap nextjs privacy honest telemetry hallucination">
+      <div class="article-meta">
+        <span class="date">July 2026</span>
+        <span class="tag brand">Engineering</span>
+        <span class="tag warm">AI</span>
+        <span class="read-time">5 min read</span>
+      </div>
+      <h2>Building an AI Feature That Isn't Allowed to Lie: PageCue's Spoiler-Safety Validator</h2>
+      <p class="lead lead-spaced">
+        PageCue's entire premise — remind a reader what happened in a book up to their current page, without
+        spoiling anything past it — fails the instant a model quietly reaches past the boundary it was given. The
+        fix wasn't a better prompt. It was refusing to trust the model's output at all until a deterministic
+        validator has checked it.
+      </p>
+      <h3>Never Display Unvalidated Model Output</h3>
+      <ul>
+        <li>Every recap — mock or real — passes through the same validator before it reaches the screen, rejecting unknown segments, future-segment references, cross-book segment references, boundary-label mismatches, and unsupported or premature-resolution claims.</li>
+        <li>The validator is deterministic code, not another model call asked to grade the first one — asking an LLM to police an LLM just moves the trust problem one layer down instead of solving it.</li>
+        <li>The demo content itself is built to make this checkable: six strictly cumulative story snapshots, one per chapter boundary, where later snapshots simply cannot reference anything a reader hasn't reached yet.</li>
+      </ul>
+      <h3>The Same Instinct as "Never Fabricate a Zero"</h3>
+      <ul>
+        <li>OmenCore reports a missing sensor as unavailable instead of a misleading 0W. PageCue's validator rejects an unsafe recap instead of silently trimming it and hoping the trim was clean. Same principle: an honest failure beats a confident-looking wrong answer, every time.</li>
+        <li>A safe boundary-selection function always resolves to the earlier of two supported boundaries when progress is ambiguous — for example, page-based progress without an exact page map — and labels that choice as approximate instead of pretending precision it doesn't have.</li>
+        <li>Zero-credential mock providers make the whole flow, including the validator, testable without an API key — which is also why the validator's test suite runs against real malicious fixtures, not just the happy path.</li>
+      </ul>
+      <h3>What This Costs, on Purpose</h3>
+      <ol>
+        <li>The validator can reject a technically-plausible recap for being unprovable against the confirmed boundary — a false rejection is the safe failure mode here, not a false pass.</li>
+        <li>Every new recap style or provider has to pass through the same validation contract, which is friction by design: the boundary logic is not something any single feature gets to bypass for convenience.</li>
+        <li>None of this is visible to a reader who never hits the edge case. It only matters the one time a model would otherwise have guessed — which, with books, is exactly the moment trust breaks for good.</li>
+      </ol>
+      <div class="related-links">
+        <p>Related reading</p>
+        <ul>
+          <li><a href="#filling-market-gaps">Filling the Gaps Nobody Else Will Build For</a></li>
+          <li><a href="#prompt-to-production-checklist">Prompt-to-Production: A Checklist for Shipping AI-Generated Code Responsibly</a></li>
+          <li><a href="#privacy-under-pressure">Designing Privacy Into Busy School Workflows</a></li>
+        </ul>
+      </div>
+    </article>
 
     <article class="article-card reveal" id="filling-market-gaps" data-writing="filling market gaps annoyance driven development mousetune pagecue steam launchers nbn compare small tools indie">
       <div class="article-meta">
@@ -100,7 +251,7 @@ const writingJsonLd = {
       <ul>
         <li>MouseTune exists because generic Bluetooth mice show up in Windows as "BT 5.2 Mouse" with no vendor app and no DPI control — a real gap between "expensive gaming mouse with software" and "nothing at all."</li>
         <li>The Epic Games and Rockstar Steam launchers exist because launcher-locked PC games actively fight Steam's non-Steam-game model, and the fix requires digging through manifest files most players will never open.</li>
-        <li>PageCue is still a concept, deliberately listed with no code behind it yet, because the gap — remembering where you left off in a book without a spoiler-risk web search — is real but the right shape for the tool is not settled.</li>
+        <li>PageCue started as a bare concept and is now a working Next.js app, because the gap — remembering where you left off in a book without a spoiler-risk web search — turned out to have a settled shape once the spoiler boundary itself became the design constraint.</li>
         <li>NBN Compare exists because Australia's ISP comparison sites are commission-driven, not because the market lacked comparison tools generally.</li>
       </ul>
       <h3>Why These Projects Are Worth More Than Their Size Suggests</h3>
@@ -246,6 +397,7 @@ const writingJsonLd = {
       <div class="related-links">
         <p>Related reading</p>
         <ul>
+          <li><a href="#omencore-v4-architecture-debt">Paying Down Architecture Debt on Purpose: Inside OmenCore v4.0.0</a></li>
           <li><a href="#prompt-to-production-checklist">Prompt-to-Production: A Checklist for Shipping AI-Generated Code Responsibly</a></li>
           <li><a href="#maintenance-over-momentum">Maintenance Over Momentum: Why Reliable Beats New</a></li>
         </ul>

@@ -7,95 +7,120 @@ const aboutJsonLd = {
   mainEntity: {
     '@type': 'Person',
     name: 'Matt Hurley',
-    description: 'Assistant Principal, educator, and software developer focused on practical systems and privacy-first architecture.',
+    description: 'Software engineer and school leader focused on practical systems and privacy-first architecture.',
     url: 'https://matthurley.dev/about'
   }
 };
 ---
 
 <Layout
-  title="About | Matt Hurley"
-  description="Assistant Principal, educator, and software developer focused on practical systems and privacy-first architecture."
+  title="About | matthurley.dev"
+  description="Matt Hurley builds matthurley.dev around a dual seat: senior school leadership by day, practical software engineering by design."
   jsonLd={aboutJsonLd}
 >
   <div class="container page-shell">
     <section class="page-hero hero-split reveal">
-      <div>
+      <div class="hero-copy">
         <p class="eyebrow">About</p>
-        <h1>Education leadership and software engineering, connected by systems thinking.</h1>
+        <h1>The person behind matthurley.dev.</h1>
         <p class="lead">
-          I work in senior leadership at a Catholic secondary school in South East Queensland while
-          building software that addresses genuine operational problems.
+          I work in senior leadership at a Catholic secondary school in South East Queensland while building
+          software that solves genuine operational problems — for that school, and for people like the client
+          behind Radium PCs.
         </p>
       </div>
-      <div class="hero-media">
-        <img src="/matth.jpg" alt="Portrait of Matt Hurley" class="portrait-photo" decoding="async">
+      <div class="hero-panel">
+        <div class="hero-panel-head">
+          <span>profile.json</span>
+          <span>Matt Hurley</span>
+        </div>
+        <div class="hero-stat-list">
+          <div class="hero-stat">
+            <span class="stat-value">11+ yrs</span>
+            <span class="stat-label">In education, from classroom teaching through to senior leadership</span>
+          </div>
+          <div class="hero-stat">
+            <span class="stat-value">1</span>
+            <span class="stat-label">Person accountable for every line shipped — no hand-off, no diffusion of ownership</span>
+          </div>
+          <div class="hero-stat">
+            <span class="stat-value">QLD, AU</span>
+            <span class="stat-label">Based in South East Queensland, working with clients remotely</span>
+          </div>
+        </div>
       </div>
     </section>
 
     <section class="surface reveal">
-      <h2>Professional Context</h2>
+      <h2>Why the dual seat matters</h2>
       <p>
-        Across more than a decade in education, I have worked from classroom teaching through to pastoral and senior
-        leadership roles. The consistent focus has been improving student engagement and staff capability through
-        systems that are clear, reliable, and sustainable.
+        Most software gets designed by someone who has never had to operate it under pressure. I don't have that
+        problem. Across more than a decade in education — classroom teaching through pastoral and assistant
+        principal roles — the job has been the same: keep systems clear, reliable, and sustainable enough that
+        people actually trust them when it counts.
       </p>
       <p class="muted mb-0">
-        The same mindset drives my development work: practical architecture, explicit constraints, and measurable utility.
+        That's the same standard I hold engineering work to: practical architecture, explicit constraints, and
+        measurable utility — not a demo that only survives the first walkthrough.
       </p>
     </section>
 
     <section class="surface reveal">
-      <h2>Background and Experience</h2>
+      <h2>Background</h2>
       <div class="highlight-grid">
         <article class="topic-card">
           <h3>Education Leadership</h3>
-          <p>Pastoral and assistant principal responsibilities across wellbeing, engagement, and operational systems.</p>
+          <p>Pastoral and assistant principal responsibilities across wellbeing, engagement, and operational systems — the direct source of STARS.</p>
         </article>
         <article class="topic-card">
           <h3>Military Service</h3>
-          <p>Service in the Australian Army built a strong foundation in discipline, responsibility, and decision-making under pressure.</p>
+          <p>Service in the Australian Army built the foundation this all sits on: discipline, responsibility, and clear decision-making under pressure.</p>
         </article>
         <article class="topic-card">
           <h3>Technical Development</h3>
-          <p>Independent software projects spanning educational platforms, hardware tools, and privacy-preserving utilities.</p>
+          <p>Independent and client software spanning educational platforms, hardware control, and privacy-preserving desktop tools.</p>
         </article>
         <article class="topic-card">
           <h3>Ongoing Learning</h3>
-          <p>Postgraduate leadership studies and continued professional development in cybersecurity and system design.</p>
+          <p>Postgraduate leadership studies alongside continued, deliberate practice in cybersecurity and systems design.</p>
         </article>
       </div>
     </section>
 
     <section class="surface reveal">
-      <h2>Core Values</h2>
+      <h2>How I work with clients</h2>
       <div class="value-grid">
         <article class="value-card">
-          <span class="value-icon">1</span>
+          <span class="value-icon">01</span>
           <h3>People First</h3>
           <p>Technology should reduce burden and improve outcomes for real users, not introduce complexity for its own sake.</p>
         </article>
         <article class="value-card">
-          <span class="value-icon">2</span>
+          <span class="value-icon">02</span>
           <h3>Privacy by Default</h3>
-          <p>Data protection should be built into architecture from the start, not retrofitted after deployment.</p>
+          <p>Data protection is built into architecture from the start, not retrofitted after something goes wrong.</p>
         </article>
         <article class="value-card">
-          <span class="value-icon">3</span>
+          <span class="value-icon">03</span>
           <h3>Practical Systems</h3>
           <p>Good solutions account for staffing realities, governance requirements, and long-term maintainability.</p>
         </article>
         <article class="value-card">
-          <span class="value-icon">4</span>
+          <span class="value-icon">04</span>
           <h3>Continuous Improvement</h3>
-          <p>Refinement is ongoing: observe results, learn from constraints, and iterate deliberately.</p>
+          <p>Refinement is ongoing: observe results, learn from constraints, and iterate deliberately — not a one-shot ship.</p>
         </article>
       </div>
     </section>
 
     <section class="support-banner reveal">
-      <h2 class="mb-3">Location</h2>
-      <p class="muted mb-0">Based in South East Queensland, Australia.</p>
+      <p class="eyebrow">Get In Touch</p>
+      <h2 class="mb-3">Based in South East Queensland, working wherever the project needs</h2>
+      <p class="muted">If the background above sounds like the right judgment for your project, let's talk about it.</p>
+      <div class="button-row mt-3">
+        <a href="/contact" class="button primary">Start a project</a>
+        <a href="/projects" class="button secondary">See the work</a>
+      </div>
     </section>
   </div>
 </Layout>
