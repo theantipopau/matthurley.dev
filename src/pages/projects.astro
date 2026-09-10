@@ -8,12 +8,13 @@ const projectsJsonLd = {
   url: 'https://matthurley.dev/projects',
   hasPart: [
     { '@type': 'SoftwareApplication', name: 'STARS', applicationCategory: 'EducationApplication' },
-    { '@type': 'SoftwareApplication', name: 'OmenCore', applicationCategory: 'UtilitiesApplication', softwareVersion: '3.8.1' },
+    { '@type': 'SoftwareApplication', name: 'OmenCore', applicationCategory: 'UtilitiesApplication', softwareVersion: '4.3.0' },
     { '@type': 'SoftwareApplication', name: 'Radium PCs Companion', applicationCategory: 'UtilitiesApplication' },
     { '@type': 'SoftwareApplication', name: 'RigMateAU', applicationCategory: 'ShoppingApplication' },
     { '@type': 'SoftwareApplication', name: 'BrightBound Adventures', applicationCategory: 'GameApplication' },
     { '@type': 'SoftwareApplication', name: 'RelayDesk', applicationCategory: 'SecurityApplication' },
-    { '@type': 'SoftwareApplication', name: 'Slimarr', applicationCategory: 'UtilitiesApplication' },
+    { '@type': 'SoftwareApplication', name: 'Slimarr', applicationCategory: 'UtilitiesApplication', softwareVersion: '2.0.0.0' },
+    { '@type': 'SoftwareApplication', name: 'Portrait Stats', applicationCategory: 'UtilitiesApplication' },
     { '@type': 'SoftwareApplication', name: 'PulseLAN', applicationCategory: 'UtilitiesApplication' },
     { '@type': 'SoftwareApplication', name: 'MouseTune', applicationCategory: 'UtilitiesApplication' },
     { '@type': 'SoftwareApplication', name: 'Echoes of the Riftwar', applicationCategory: 'GameApplication' },
@@ -24,7 +25,7 @@ const projectsJsonLd = {
 
 <Layout
   title="Work | matthurley.dev"
-  description="Case studies in practical, privacy-first software: a client-delivered school platform, an open-source hardware utility with 184+ stars, and a premium desktop companion built for a real business."
+  description="Case studies in practical, privacy-first software: a client-delivered school platform, an open-source hardware utility with 229+ stars, and a premium desktop companion built for a real business."
   jsonLd={projectsJsonLd}
 >
   <div class="container-wide page-shell">
@@ -59,7 +60,7 @@ const projectsJsonLd = {
                 <p class="project-kicker">Student Tracking and Recording System</p>
               </div>
             </div>
-            <a href="https://stars.matthurley.dev" target="_blank" rel="noopener noreferrer" class="button secondary">Visit Demo</a>
+            <a href="https://demo.sophiastars.info" target="_blank" rel="noopener noreferrer" class="button secondary">Visit Demo</a>
           </div>
 
           <div class="pill-row">
@@ -105,14 +106,14 @@ const projectsJsonLd = {
       </section>
 
       <section class="project-grid" id="omencore">
-        <article class="project-card project-card-featured" data-project="omencore 4.0.0 hp omen victus hardware thermals fan rgb dotnet fan curve safety update linux windows gpu overclock open source flagship architecture">
+        <article class="project-card project-card-featured" data-project="omencore 4.3.0 hp omen victus hardware thermals fan rgb dotnet fan curve safety update linux windows gpu overclock open source flagship architecture automation cli">
           <div class="project-head">
             <div class="project-identity">
               <img src="/omencore-logo.png" alt="OmenCore logo" class="project-logo" loading="lazy" decoding="async">
               <div>
                 <p class="case-index">02 / Open Source</p>
-                <h2>OmenCore <span class="pill brand inline-pill-gap">v4.0.0</span></h2>
-                <p class="project-kicker">Released 20 July 2026 — hardware control for HP OMEN and Victus laptops</p>
+                <h2>OmenCore <span class="pill brand inline-pill-gap">v4.3.0</span></h2>
+                <p class="project-kicker">Released 7 September 2026 — hardware control for HP OMEN and Victus laptops</p>
               </div>
             </div>
             <div class="button-row">
@@ -123,50 +124,48 @@ const projectsJsonLd = {
 
           <div class="pill-row">
             <span class="pill brand">.NET 8</span>
-            <span class="pill soft">Fan Safety</span>
-            <span class="pill soft">Linux Support</span>
+            <span class="pill soft">Automation Rules Engine</span>
+            <span class="pill soft">Windows CLI</span>
             <span class="pill warm">No Outbound Telemetry</span>
           </div>
 
           <p>
             OmenCore replaces bloated OEM control software with direct hardware controls for fan behavior, thermals,
-            power modes, undervolting, and RGB management. With 184+ GitHub stars and an active issue tracker, it has
-            shipped 13 releases from v3.4.0 to v4.0.0 since April — each one traced back to real hardware, not a
+            power modes, undervolting, and RGB management. With 229+ GitHub stars and an active issue tracker, it has
+            shipped 20 releases from v3.4.0 to v4.3.0 since April — each one traced back to real hardware, not a
             roadmap slide.
           </p>
 
           <div class="release-panel">
             <div>
-              <span class="release-label">v4.0.0 focus</span>
-              <strong>Architecture debt paydown, not new control surface</strong>
+              <span class="release-label">v4.3.0 focus</span>
+              <strong>Automation engine, a Windows CLI, and real field-reported safety fixes</strong>
             </div>
             <div>
               <span class="release-label">Verification</span>
-              <strong>953/953 tests passing, 0 build warnings</strong>
+              <strong>1380+/1380+ tests passing across the release</strong>
             </div>
             <div>
-              <span class="release-label">Upgrade</span>
-              <strong>No fan/thermal/EC control behavior changed</strong>
+              <span class="release-label">Convention</span>
+              <strong>Unconfirmed-on-real-hardware fixes are labeled, not claimed done</strong>
             </div>
           </div>
 
           <div class="project-columns">
             <div>
-              <h4>v4.0.0 Highlights</h4>
+              <h4>v4.3.0 Highlights</h4>
               <ul>
-                <li>Introduced a real DI composition root — 19 of roughly 40 manually-wired fields in the app's central view-model migrated off ad hoc construction.</li>
-                <li>Built a shared polling scheduler and migrated the tray icon, quick popup, and OSD timers onto it, as a first cut at consolidating a 27-timer sprawl.</li>
-                <li>Fixed a safety-gate bug: the sensitive-model startup-restore check had a live, un-updated copy of a fragile-string-match bug already fixed elsewhere in 3.8.1.</li>
-                <li>Fixed the "disable thermal protection" toggle silently not holding for custom fan curves, and made the emergency-override temperature configurable instead of a hardcoded 95°C.</li>
+                <li>Shipped all 7 backend automation trigger types (temperature, idle, process, WiFi network, time, battery, AC power) plus a new lid-close trigger — four had been implemented but deliberately held back for undocumented reasons, two of them with real bugs fixed before promotion.</li>
+                <li>New <code>omencore-cli</code> Windows command-line tool — <code>status</code>, <code>fan</code>, <code>performance</code>, <code>keyboard</code>, <code>monitor</code>, <code>config</code>, and <code>daemon</code> — built on the same hardware layer as the GUI, no duplicated logic.</li>
+                <li>Extracted 194 files into a standalone <code>OmenCore.Core</code> library, decoupling the hardware/service layer from WPF — the precondition the CLI (and any future headless mode) needed to exist at all.</li>
               </ul>
             </div>
             <div>
-              <h4>Why A Major Version With No New Features</h4>
+              <h4>Real Bugs Fixed From Field Reports</h4>
               <ul>
-                <li>New community-contributable model-database pipeline — schema, validator, PR template, CI job — so hardware support no longer funnels through one person hand-writing every entry.</li>
-                <li>New persistent "Model Capabilities" diagnostics panel shows what your exact model does and doesn't support, and whether that's field-verified or inferred.</li>
-                <li>Accessibility labeling pass across five views — roughly 140 previously-silent controls now announce correctly to screen readers.</li>
-                <li>Removed ~80 lines of dead, orphaned UI wiring — a second, meaningfully-behind copy of code that was bound to a view never in the app's visual tree.</li>
+                <li>A Quiet Safety Monitor temperature trip could silently cascade into switching the user's performance mode — despite its own log message promising the power mode was "retained."</li>
+                <li>Built-in RGB "Night Mode" and "Work" lighting scenes silently overrode manually-configured lighting on a hidden schedule, with zero UI to see or disable it — fixed after a Discord report of a keyboard "randomly" turning orange.</li>
+                <li>Power Automation force-applied the configured AC/Battery preset on every startup regardless of whether the power source had changed, silently discarding a user's manual mid-session choice.</li>
               </ul>
             </div>
           </div>
@@ -174,7 +173,7 @@ const projectsJsonLd = {
           <div class="related-links">
             <p>Source notes</p>
             <ul>
-              <li><a href="https://github.com/theantipopau/omencore/releases/tag/v4.0.0" target="_blank" rel="noopener noreferrer">OmenCore v4.0.0 release notes</a></li>
+              <li><a href="https://github.com/theantipopau/omencore/releases/tag/v4.3.0" target="_blank" rel="noopener noreferrer">OmenCore v4.3.0 release notes</a></li>
               <li><a href="https://github.com/theantipopau/omencore/blob/main/README.md" target="_blank" rel="noopener noreferrer">Current OmenCore README</a></li>
             </ul>
           </div>
@@ -356,12 +355,12 @@ const projectsJsonLd = {
       </section>
 
       <section class="project-grid" id="slimarr">
-        <article class="project-card" data-project="slimarr plex usenet sabnzbd media library compression h265 av1 python fastapi react typescript radarr sonarr arr automation">
+        <article class="project-card project-card-featured" data-project="slimarr plex usenet sabnzbd media library compression h265 av1 python fastapi react typescript radarr sonarr arr automation discovery recommendations ai">
           <div class="project-head">
             <div class="project-identity">
               <span class="project-mono" aria-hidden="true">SL</span>
               <div>
-                <h2>Slimarr <span class="pill warm inline-pill-gap">v1.9.0.0</span></h2>
+                <h2>Slimarr <span class="pill warm inline-pill-gap">v2.0.0.0</span></h2>
                 <p class="project-kicker">Automated Plex library compression via Usenet</p>
               </div>
             </div>
@@ -370,17 +369,76 @@ const projectsJsonLd = {
           <div class="pill-row">
             <span class="pill brand">Python + FastAPI</span>
             <span class="pill brand">React + TypeScript</span>
-            <span class="pill soft">Plex Integration</span>
-            <span class="pill warm">*arr Ecosystem</span>
+            <span class="pill soft">Discovery & Recommendations</span>
+            <span class="pill warm">21+ Stars</span>
           </div>
           <p>
             Scans a Plex library, finds smaller h265/AV1 releases on Usenet, and replaces bloated files overnight —
             with a hard rule that a replacement is never accepted unless it is strictly smaller than the original.
-            Now at 20+ GitHub stars, v1.9.0.0 came out of a full codebase read-through: it fixed an
-            <code>exclusions:</code> config section that had silently never been wired up — every movie in the
-            library, including home videos sharing a Plex section, was being sent to Usenet indexers with no way
-            to opt out — and moved SQLite onto WAL mode to stop lock errors under concurrent writes.
+            v2.0.0.0 followed a full backend/frontend audit against the actual implementation, not the README's
+            claims about it, and added a deterministic Discovery & Recommendations feature on top.
           </p>
+          <div class="project-columns">
+            <div>
+              <h4>Discovery, Kept Honest</h4>
+              <ul>
+                <li>Suggests missing collection entries, sequels, and related titles with a transparent, human-readable reason for every suggestion — off by default.</li>
+                <li>An optional AI reranking step can only reorder or explain candidates Slimarr already sourced — it cannot invent titles, see your Plex token or file paths, or trigger a download. Every AI-returned ID is re-validated against TMDB before display.</li>
+                <li>Sending a recommendation to Radarr or Sonarr is a separate, explicit, duplicate-checked action — never automatic.</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Fixed in the Audit Pass</h4>
+              <ul>
+                <li>SABnzbd error paths could log an API key embedded in a request URL — errors are now redacted before logging.</li>
+                <li>A storage path with an embedded <code>..</code> segment could evade NAS-prefix classification, skipping budget and throttle protection entirely.</li>
+                <li>A failed orphan-cleanup could still mark its tracking row as cleared before confirming the file removal actually succeeded.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="project-grid" id="portraitstats">
+        <article class="project-card" data-project="portrait stats monitor dashboard cpu gpu ram fps rtss librehardwaremonitor tray dotnet csharp secondary display">
+          <div class="project-head">
+            <div class="project-identity">
+              <span class="project-mono" aria-hidden="true">PS</span>
+              <div>
+                <h2>Portrait Stats <span class="pill warm inline-pill-gap">v0.3</span></h2>
+                <p class="project-kicker">A system monitor dashboard, purpose-built for a portrait secondary monitor</p>
+              </div>
+            </div>
+            <a href="https://github.com/theantipopau/portrait-stats" target="_blank" rel="noopener noreferrer" class="button secondary">GitHub</a>
+          </div>
+          <div class="pill-row">
+            <span class="pill brand">C# + .NET</span>
+            <span class="pill soft">LibreHardwareMonitorLib</span>
+            <span class="pill warm">Live FPS via RTSS</span>
+          </div>
+          <p>
+            Built because a spare portrait monitor next to the main display was sitting idle during gaming sessions.
+            Portrait Stats fills it with live CPU, GPU, RAM, drive, and FPS telemetry — auto-detecting whichever
+            connected display is actually in portrait orientation rather than assuming a fixed monitor index.
+          </p>
+          <div class="project-columns">
+            <div>
+              <h4>What It Shows</h4>
+              <ul>
+                <li>CPU and GPU usage, temperature, clocks, and power draw; motherboard fan RPM for every live header, fastest first, with editable names since most boards won't say which one is the CPU fan.</li>
+                <li>Live FPS via RTSS shared memory, top processes by CPU and GPU usage, vendor badges, radial gauges, and sparkline history.</li>
+                <li>C: drive temperature, auto-detecting whichever physical disk actually backs the system drive.</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Design Notes</h4>
+              <ul>
+                <li>A self-contained release build — no separate .NET runtime install needed.</li>
+                <li>Requires elevation for LibreHardwareMonitorLib's sensor access; auto-starts via a Scheduled Task instead of a normal startup entry, so it launches elevated without a UAC prompt every login.</li>
+                <li>Fan RPM is read by briefly launching a separate helper process on a timer rather than holding a sensor connection open continuously — documented as a deliberate architecture trade-off, not an oversight.</li>
+              </ul>
+            </div>
+          </div>
         </article>
       </section>
     </section>
@@ -430,7 +488,7 @@ const projectsJsonLd = {
       </div>
     </section>
 
-    <div id="project-filter-empty" class="no-results">No case studies matched your search. Try terms like stars, omencore, radium, hurley computers, rigmateau, brightbound, relaydesk, or slimarr — or browse Also Shipped above.</div>
+    <div id="project-filter-empty" class="no-results">No case studies matched your search. Try terms like stars, omencore, radium, hurley computers, rigmateau, brightbound, relaydesk, slimarr, or portrait stats — or browse Also Shipped above.</div>
 
     <section class="support-banner reveal">
       <p class="eyebrow">Next Step</p>
