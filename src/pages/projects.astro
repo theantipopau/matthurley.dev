@@ -9,6 +9,7 @@ const projectsJsonLd = {
   hasPart: [
     { '@type': 'SoftwareApplication', name: 'STARS', applicationCategory: 'EducationApplication' },
     { '@type': 'SoftwareApplication', name: 'OmenCore', applicationCategory: 'UtilitiesApplication', softwareVersion: '4.3.0' },
+    { '@type': 'SoftwareApplication', name: 'Aether Control', applicationCategory: 'UtilitiesApplication' },
     { '@type': 'SoftwareApplication', name: 'Radium PCs Companion', applicationCategory: 'UtilitiesApplication' },
     { '@type': 'SoftwareApplication', name: 'RigMateAU', applicationCategory: 'ShoppingApplication' },
     { '@type': 'SoftwareApplication', name: 'BrightBound Adventures', applicationCategory: 'GameApplication' },
@@ -242,6 +243,56 @@ const projectsJsonLd = {
         <p class="eyebrow">More Case Studies</p>
         <h2>Live products and systems in active development</h2>
       </div>
+
+      <section class="project-grid" id="aethercontrol">
+        <article class="project-card project-card-featured" data-project="aether control winui3 dotnet hardware monitoring portrait mode rgb corsair openrgb windows optimisation fan control plugin framework wip active development">
+          <div class="project-head">
+            <div class="project-identity">
+              <span class="project-mono" aria-hidden="true">AC</span>
+              <div>
+                <h2>Aether Control <span class="pill soft inline-pill-gap">Active Development</span></h2>
+                <p class="project-kicker">All-in-one control suite for custom gaming PCs</p>
+              </div>
+            </div>
+            <a href="https://github.com/theantipopau/aether-control" target="_blank" rel="noopener noreferrer" class="button secondary">GitHub</a>
+          </div>
+          <div class="pill-row">
+            <span class="pill brand">WinUI 3 + .NET 8</span>
+            <span class="pill soft">Plugin Framework</span>
+            <span class="pill warm">Direct-HID RGB</span>
+          </div>
+          <p>
+            A hardware dashboard, a real portrait-display mode, a Windows optimisation centre, and RGB control —
+            in one clean, unpackaged app instead of four separate vendor tools fighting each other in the
+            background. Rather than re-deriving sensor behavior from scratch, the parts that needed real-hardware
+            validation were ported straight from proven code in OmenCore, Portrait Stats, and Radium PCs Companion.
+          </p>
+          <div class="project-columns">
+            <div>
+              <h4>What's Shipped So Far</h4>
+              <ul>
+                <li>Full CPU, GPU, RAM, storage, motherboard, and network dashboard with radial gauges, sparkline history, and tone-based severity coloring.</li>
+                <li>Portrait Mode — a complete port of Portrait Stats' layout, not a stub, with drag-to-monitor and one-click fill.</li>
+                <li>An Optimisation Centre with fan control that reads <em>and writes</em> PWM headers directly, a 20% safety floor, and automatic revert to BIOS control on exit.</li>
+                <li>Direct-HID Corsair RGB control with no iCUE or OpenRGB required, plus an OpenRGB fallback for everything else.</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Design Principles</h4>
+              <ul>
+                <li>"Confidently wrong is worse than honestly unavailable" — a sensor that doesn't exist on a given board gets hidden, never a plausible-looking fake number.</li>
+                <li>Anything touching live hardware state stays reversible: fan control always reverts to automatic on exit, memory optimisation never terminates a process.</li>
+                <li>A plugin framework (<code>IAetherPlugin</code>) loads each module into its own collectible <code>AssemblyLoadContext</code> — add or remove one without restarting the app.</li>
+                <li>Undervolting and HP-style BIOS checking were deliberately left out of scope, documented in the roadmap as "why not," not just "later."</li>
+              </ul>
+            </div>
+          </div>
+          <div class="note">
+            <strong>Status:</strong> Actively being built in tracked phases, with an honest public roadmap of what's
+            shipped, what's deliberately deferred, and why. No packaged release yet.
+          </div>
+        </article>
+      </section>
 
       <section class="project-grid" id="hurleycomputers">
         <article class="project-card" data-project="hurley computers custom pc building south east queensland business website static html css contact form quote">
@@ -488,7 +539,7 @@ const projectsJsonLd = {
       </div>
     </section>
 
-    <div id="project-filter-empty" class="no-results">No case studies matched your search. Try terms like stars, omencore, radium, hurley computers, rigmateau, brightbound, relaydesk, slimarr, or portrait stats — or browse Also Shipped above.</div>
+    <div id="project-filter-empty" class="no-results">No case studies matched your search. Try terms like stars, omencore, aether control, radium, hurley computers, rigmateau, brightbound, relaydesk, slimarr, or portrait stats — or browse Also Shipped above.</div>
 
     <section class="support-banner reveal">
       <p class="eyebrow">Next Step</p>
