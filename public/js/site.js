@@ -52,7 +52,11 @@ function initReveal() {
           }
         });
       },
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+      // threshold 0 is load-bearing: a ratio threshold (e.g. 0.1) can
+      // never be satisfied by a section taller than 10x the viewport —
+      // on a phone the flagship/projects sections are 8000-12000px tall,
+      // so they would stay invisible forever while occupying the space.
+      { threshold: 0, rootMargin: '0px 0px -40px 0px' }
     );
 
     targets.forEach((el) => observer.observe(el));
