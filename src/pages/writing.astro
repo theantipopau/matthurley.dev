@@ -9,72 +9,78 @@ const writingJsonLd = {
     {
       '@type': 'Article',
       position: 1,
+      headline: 'Teaching an AI to Think in Unreal: Building Southern Spear With UE5-Specific Skills',
+      url: 'https://matthurley.dev/writing#southern-spear-ai-ue5-skills'
+    },
+    {
+      '@type': 'Article',
+      position: 2,
       headline: "What 'AI-Assisted' Actually Looks Like on BrightBound's Sprint Board",
       url: 'https://matthurley.dev/writing#brightbound-ai-assisted-sprints'
     },
     {
       '@type': 'Article',
-      position: 2,
+      position: 3,
       headline: 'Paying Down Architecture Debt on Purpose: Inside OmenCore v4.0.0',
       url: 'https://matthurley.dev/writing#omencore-v4-architecture-debt'
     },
     {
       '@type': 'Article',
-      position: 3,
+      position: 4,
       headline: "Building an AI Feature That Isn't Allowed to Lie: PageCue's Spoiler-Safety Validator",
       url: 'https://matthurley.dev/writing#pagecue-spoiler-safety-validator'
     },
     {
       '@type': 'Article',
-      position: 4,
+      position: 5,
       headline: 'Filling the Gaps Nobody Else Will Build For',
       url: 'https://matthurley.dev/writing#filling-market-gaps'
     },
     {
       '@type': 'Article',
-      position: 5,
+      position: 6,
       headline: 'Where AI Actually Earns Its Keep in a School Day',
       url: 'https://matthurley.dev/writing#ai-in-a-school-day'
     },
     {
       '@type': 'Article',
-      position: 6,
+      position: 7,
       headline: 'Prompt-to-Production: A Checklist for Shipping AI-Generated Code Responsibly',
       url: 'https://matthurley.dev/writing#prompt-to-production-checklist'
     },
     {
       '@type': 'Article',
-      position: 7,
+      position: 8,
       headline: 'Field-Driven Releases: What Six OmenCore Updates Taught Me About Cadence',
       url: 'https://matthurley.dev/writing#field-driven-releases'
     },
     {
       '@type': 'Article',
-      position: 8,
+      position: 9,
       headline: 'Vibe Coding and Its Rise: Fast Output, Slower Accountability',
       url: 'https://matthurley.dev/writing#vibe-coding-rise'
     },
     {
       '@type': 'Article',
-      position: 9,
+      position: 10,
       headline: 'The Power of AI-Assisted Development in VS Code',
       url: 'https://matthurley.dev/writing#ai-assisted-development'
     },
     {
       '@type': 'Article',
-      position: 10,
+      position: 11,
       headline: 'Designing Privacy Into Busy School Workflows',
       url: 'https://matthurley.dev/writing#privacy-under-pressure'
     },
     {
       '@type': 'Article',
-      position: 11,
+      position: 12,
       headline: 'Maintenance Over Momentum: Why Reliable Beats New',
       url: 'https://matthurley.dev/writing#maintenance-over-momentum'
     },
     {
       '@type': 'Article',
-      position: 12,
+      position: 13,
       headline: 'Offline-First Is a Pedagogical Decision, Not Just a Technical One',
       url: 'https://matthurley.dev/writing#offline-first-education-tools'
     }
@@ -100,6 +106,71 @@ const writingJsonLd = {
         <button id="clear-writing-filter" class="copy-email" type="button">Clear</button>
       </div>
     </section>
+
+    <article class="article-card reveal" id="southern-spear-ai-ue5-skills" data-writing="southern spear unreal engine ue5 lyra c++ game dev ai skills agent workflows animation montage gameplay ability system playtest editor private repo">
+      <div class="article-meta">
+        <span class="date">October 2026</span>
+        <span class="tag brand">Game Dev</span>
+        <span class="tag warm">AI</span>
+        <span class="read-time">7 min read</span>
+      </div>
+      <h2>Teaching an AI to Think in Unreal: Building Southern Spear With UE5-Specific Skills</h2>
+      <p class="lead lead-spaced">
+        Southern Spear — a tactical FPS on Unreal Engine 5.8 and the Lyra Starter Game, written in C++20 — is
+        being built in a private repo with no playable build announced yet. The interesting part isn't the game;
+        it's the workflow. Generic AI assistance is strong at web code and weak at Unreal: models hallucinate
+        engine APIs, half the context lives in binary assets the model can't read, and "does it feel right" is
+        never a question a prompt can answer. So instead of prompting harder, I built skills — small,
+        version-pinned instruction packs that teach the agent how this engine, and this repo, actually work.
+      </p>
+      <h3>Why UE5 Breaks the Default AI Workflow</h3>
+      <ul>
+        <li>Engine APIs drift fast, and models confidently invent functions or properties that never existed or were renamed in a later version. In C++ that costs a compile cycle; in Blueprints it can quietly do nothing at all.</li>
+        <li>Most of the real work happens in the editor — assets, graphs, montages, retargeting — not in text files a model can open. Anything that only exists inside a <code>.uasset</code> is invisible to the assistant until a skill tells it where to look or how to verify.</li>
+        <li>Lyra raises the bar specifically: gameplay is indirect — ability layers, effect queries, modular game modes — so an answer that's correct for vanilla UE5 is often wrong for this project.</li>
+        <li>The Blueprint/C++ boundary needs to be an explicit rule, or the model duplicates logic across the divide and you inherit two sources of truth for one behavior.</li>
+      </ul>
+      <h3>What a Skill Actually Contains</h3>
+      <ul>
+        <li>Repo conventions first: naming, module layout, gameplay-ability tags, where a weapon ability is allowed to live — written down the way the codebase already does it, not the way a tutorial does it.</li>
+        <li>Version-pinned API notes (5.8, Lyra) with a hard rule: never write an engine API call from memory — check the engine source or docs in the workspace first, and say so when you're unsure instead of guessing.</li>
+        <li>Recipes for the repeated editor work: "add an ability," "attach a montage to an ability," "add a gameplay cue" — the project's steps, including the boring registration and tag-assignment parts a model will otherwise skip.</li>
+        <li>An honesty rule inherited from OmenCore's evidence gate: anything not verified in the editor or a compile is reported as unverified, never as done — and every working session still gets its changelog entry, drafted by the agent but confirmed by the session.</li>
+      </ul>
+      <h3>Animation: Best Wiring, Worst Feel</h3>
+      <ul>
+        <li>The model is genuinely good at animation plumbing — creating montages, slotting them into the anim graph, placing notify windows, wiring notify events back into abilities, retargeting assets between skeletons — because that's structural work with a correct answer.</li>
+        <li>It is useless at the judgment part: how long a reload takes before it reads as deliberate, how much blend time a landing needs, whether a rifle raise sells weight. Those aren't specifiable in a prompt; they're felt in a session.</li>
+        <li>So the split is fixed: the agent proposes the wiring and a first-pass timing, I play it in-editor and adjust by eye, and the playtest verdict is the only evidence that counts. "Changed because it felt wrong in today's session" is a legitimate changelog entry — the same field-report discipline OmenCore uses for hardware.</li>
+        <li>This is also where the skills earn their keep in review: because the wiring conventions are written down, an AI-diff that silently skips a notify registration or invents a montage section is catchable by reading against the skill, not by spotting it in a screenshot later.</li>
+      </ul>
+      <h3>Using a Model on a Private Game Without Leaking the Game</h3>
+      <ul>
+        <li>The development repository stays private. The public site, rolling changelog, roadmap, and press kit are generated from it by a publish script — so AI-authored working notes never go public raw, and engine or design content that shouldn't be exposed is filtered by the script, not by remembering to redact it.</li>
+        <li>Skills are written for the private workspace only: they reference this repo's structure and paths, which is exactly what makes them useless (and safe) as leakable prompt material elsewhere.</li>
+        <li>Pre-alpha honesty is a design constraint, not marketing: with no playable release, every claim the AI helps draft about the game has to survive the same check as everything else — is it actually true of the build right now?</li>
+      </ul>
+      <h3>What I'd Do First on the Next UE5 Project</h3>
+      <ol>
+        <li>Write the conventions and version-pinned API notes before the first prompt. The skill is just that document, kept where the agent loads it automatically.</li>
+        <li>Start AI work on the structurally checkable middle — data assets, plumbing, registration, scaffolding — and earn trust there before touching anything with a feel component.</li>
+        <li>Treat compile-and-play as the only verification that counts. Passing static checks or a plausible diff is not evidence a gameplay change works.</li>
+        <li>Keep animation timing, weapon feel, and balance human-owned and playtest-verified — and write down what you rejected, so the reasoning survives the next session.</li>
+        <li>Changelog every session and generate the public story from it, instead of composing release notes from memory weeks later.</li>
+      </ol>
+      <p>
+        The game's own philosophy is that every rank is earned in the field, never bought. The AI workflow runs on
+        the same rule: nothing ships because it looked right in a diff — it ships because it survived a session.
+      </p>
+      <div class="related-links">
+        <p>Related reading</p>
+        <ul>
+          <li><a href="#brightbound-ai-assisted-sprints">What "AI-Assisted" Actually Looks Like on BrightBound's Sprint Board</a></li>
+          <li><a href="#prompt-to-production-checklist">Prompt-to-Production: A Checklist for Shipping AI-Generated Code Responsibly</a></li>
+          <li><a href="#vibe-coding-rise">Vibe Coding and Its Rise: Fast Output, Slower Accountability</a></li>
+        </ul>
+      </div>
+    </article>
 
     <article class="article-card reveal" id="brightbound-ai-assisted-sprints" data-writing="brightbound ai assisted development sprint board claude flutter reward transaction tests scope deviation ci">
       <div class="article-meta">
@@ -578,7 +649,7 @@ const writingJsonLd = {
       </div>
     </article>
 
-    <div id="writing-filter-empty" class="no-results">No articles matched your search. Try vibe coding, ai, education, privacy, market gaps, open source, or maintenance.</div>
+    <div id="writing-filter-empty" class="no-results">No articles matched your search. Try vibe coding, ai, game dev, education, privacy, market gaps, open source, or maintenance.</div>
 
     <section class="surface reveal">
       <h2>More Topics In Progress</h2>
