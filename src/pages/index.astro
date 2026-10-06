@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getRepos, getPopularRepos, getStarTotal, getProjectCount } from '../data/github';
+import { getRepos, getPopularRepos, getStarTotal, getProjectCount, getLatestReleases } from '../data/github';
 
 const [popularRepos, starTotal, projectCount] = await Promise.all([
   getPopularRepos(5),
@@ -11,6 +11,15 @@ const [popularRepos, starTotal, projectCount] = await Promise.all([
 const allRepos = await getRepos();
 const southernSpear = allRepos.find((repo) => repo.name === 'SouthernSpear');
 const omencoreStars = allRepos.find((repo) => repo.name.toLowerCase() === 'omencore')?.stars ?? 0;
+
+// Latest release tags, read from the GitHub releases API at build time.
+const releases = await getLatestReleases();
+const releasePill = (repo: string, fallbackTag: string) => ({
+  tag: releases[repo]?.tag ?? fallbackTag,
+  url: releases[repo]?.url ?? `https://github.com/theantipopau/${repo}/releases`
+});
+const omencoreRelease = releasePill('omencore', 'v4.4.1');
+const radiumRelease = releasePill('pccompanion', 'v0.3');
 
 const homeJsonLd = {
   '@context': 'https://schema.org',
@@ -208,13 +217,13 @@ const starIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.6 2
               <img src="/omencore-logo.png" alt="OmenCore logo" class="project-logo" loading="lazy" decoding="async">
               <div>
                 <p class="case-index">02 / Open Source</p>
-                <h3>OmenCore <span class="pill brand inline-pill-gap">v4.3.0</span></h3>
+                <h3>OmenCore <a class="pill brand inline-pill-gap" href={omencoreRelease.url} target="_blank" rel="noopener noreferrer">{omencoreRelease.tag}</a></h3>
                 <p class="project-kicker">Hardware control center for HP OMEN and Victus laptops</p>
               </div>
             </div>
             <a href="/projects#omencore" class="button secondary">View case study</a>
           </div>
-          <p>Field-driven releases since April — the latest adds a full automation rules engine and a Windows CLI, plus safety fixes for three real field-reported bugs.</p>
+          <p>Field-driven releases — 80 and counting, the latest {omencoreRelease.tag} among them — carrying a full automation rules engine, a Windows CLI, and safety fixes traced to real field reports.</p>
           <div class="pill-row">
             <span class="star-badge" set:html={`${starIcon}<span data-count-to="${omencoreStars}">0</span>★`} />
             <span class="pill brand">.NET 8</span>
@@ -229,7 +238,7 @@ const starIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.6 2
               <img src="/radium-logo.png" alt="Radium PCs Companion logo" class="project-logo" loading="lazy" decoding="async">
               <div>
                 <p class="case-index">03 / Client Product</p>
-                <h3>Radium PCs Companion <span class="pill warm inline-pill-gap">v0.3</span></h3>
+                <h3>Radium PCs Companion <a class="pill warm inline-pill-gap" href={radiumRelease.url} target="_blank" rel="noopener noreferrer">{radiumRelease.tag}</a></h3>
                 <p class="project-kicker">Local-first Windows telemetry and maintenance companion</p>
               </div>
             </div>

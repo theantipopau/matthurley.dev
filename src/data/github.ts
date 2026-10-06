@@ -148,3 +148,114 @@ export function formatStars(count: number): string {
   if (count >= 1000) return `${(count / 1000).toFixed(1).replace(/\.0$/, '')}k`;
   return String(count);
 }
+
+/* ---------- Latest releases (version pills read straight from GitHub) ---------- */
+
+export interface LatestRelease {
+  tag: string;
+  name: string;
+  url: string;
+  /** ISO date, e.g. "2026-10-03". */
+  publishedAt: string;
+}
+
+/** Repos whose latest GitHub release is displayed on the site. */
+const RELEASE_REPOS = [
+  'omencore',
+  'slimarr',
+  'pccompanion',
+  'portrait-stats',
+  'gta5-rockstar-steam-launcher',
+  'xteve-reborn'
+] as const;
+
+// Snapshot taken 7 October 2026 — used when the releases API is unreachable
+// (offline builds, rate limits) so version pills still render something true.
+const FALLBACK_RELEASES: Record<string, LatestRelease> = {
+  omencore: { tag: 'v4.4.1', name: 'OmenCore v4.4.1', url: 'https://github.com/theantipopau/omencore/releases/tag/v4.4.1', publishedAt: '2026-10-03' },
+  slimarr: { tag: 'v2.0.0.1', name: 'Slimarr - v2.0.0.1', url: 'https://github.com/theantipopau/slimarr/releases/tag/v2.0.0.1', publishedAt: '2026-09-12' },
+  pccompanion: { tag: 'v0.3', name: 'Radium PCs - v0.3', url: 'https://github.com/theantipopau/pccompanion/releases/tag/v0.3', publishedAt: '2026-07-13' },
+  'portrait-stats': { tag: 'v0.3', name: 'v0.3 - Fan RPM, tray, and visual refresh', url: 'https://github.com/theantipopau/portrait-stats/releases/tag/v0.3', publishedAt: '2026-08-13' },
+  'gta5-rockstar-steam-launcher': { tag: 'v2.0.0', name: 'v2.0.0 - RDR2 support + hardened error logging', url: 'https://github.com/theantipopau/gta5-rockstar-steam-launcher/releases/tag/v2.0.0', publishedAt: '2026-07-13' },
+  'xteve-reborn': { tag: 'v3.0.4', name: 'xteve-reborn 3.0.4', url: 'https://github.com/theantipopau/xteve-reborn/releases/tag/v3.0.4', publishedAt: '2026-09-24' }
+};
+
+const RELEASES_CACHE_KEY = '__matthurleyGithubReleases';
+
+interface RawRelease {
+  tag_name: string;
+  name: string | null;
+  html_url: string;
+  published_at: string | null;
+}
+
+async function fetchLatestRelease(repo: string): Promise<LatestRelease | null> {
+  const headers: Record<string, string> = {
+    Accept: 'application/vnd.github+json',
+    'User-Agent': 'matthurley.dev-build'
+  };
+  if (process.env.GITHUB_TOKEN) {
+    headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+  }
+
+  const res = await fetch(`https://api.github.com/repos/theantipopau/${repo}/releases/latest`, {
+    headers,
+    signal: AbortSignal.timeout(8000)
+  });
+
+  // 404 is a real answer: the repo publishes no releases.
+  if (res.status === 404) return null;
+  if (!res.ok) throw new GitHubFetchError(`releases for ${repo}: GitHub responded ${res.status}`);
+
+  const raw = (await res.json()) as RawRelease;
+  if (!raw?.tag_name) return null;
+  return {
+    tag: raw.tag_name,
+    name: raw.name || raw.tag_name,
+    url: raw.html_url,
+    publishedAt: (raw.published_at || '').slice(0, 10)
+  };
+}
+
+/**
+ * Latest release tag for every versioned project, fetched once per build and
+ * memoised on globalThis like getRepos(). Each repo falls back independently
+ * to the snapshot, so one failed request can't blank out every version pill.
+ */
+export async function getLatestReleases(): Promise<Record<string, LatestRelease | null>> {
+  const store = globalThis as typeof globalThis & {
+    [RELEASES_CACHE_KEY]?: Promise<Record<string, LatestRelease | null>>;
+  };
+  if (!store[RELEASES_CACHE_KEY]) {
+    store[RELEASES_CACHE_KEY] = Promise.all(
+      RELEASE_REPOS.map(async (repo) => {
+        try {
+          return [repo, await fetchLatestRelease(repo)] as const;
+        } catch (error: unknown) {
+          const reason = error instanceof Error ? error.message : String(error);
+          console.warn(`[github] Using snapshot release for ${repo} — ${reason}`);
+          return [repo, FALLBACK_RELEASES[repo] ?? null] as const;
+        }
+      })
+    ).then((entries) => Object.fromEntries(entries));
+  }
+  return store[RELEASES_CACHE_KEY];
+}
+
+/** Latest release for a single repo (null when the repo publishes none). */
+export async function getLatestRelease(repo: string): Promise<LatestRelease | null> {
+  const releases = await getLatestReleases();
+  return releases[repo.toLowerCase()] ?? releases[repo] ?? null;
+}
+
+/** "2026-10-03" → "3 October 2026". */
+export function formatReleaseDate(isoDate: string): string {
+  const date = new Date(`${isoDate}T00:00:00Z`);
+  if (Number.isNaN(date.getTime())) return isoDate;
+  return date.toLocaleDateString('en-AU', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC'
+  });
+}

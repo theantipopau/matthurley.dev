@@ -1,8 +1,26 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getRepos } from '../data/github';
+import { getRepos, getLatestReleases, formatReleaseDate } from '../data/github';
 
 const repos = await getRepos();
+
+// Latest release tags, read from the GitHub releases API at build time so
+// version pills never go stale. Each has an embedded snapshot fallback.
+const releases = await getLatestReleases();
+const releasePill = (repo: string, fallbackTag: string) => {
+  const rel = releases[repo] ?? null;
+  return {
+    tag: rel?.tag ?? fallbackTag,
+    url: rel?.url ?? `https://github.com/theantipopau/${repo}/releases`,
+    date: rel?.publishedAt ? formatReleaseDate(rel.publishedAt) : ''
+  };
+};
+const omencoreRelease = releasePill('omencore', 'v4.4.1');
+const slimarrRelease = releasePill('slimarr', 'v2.0.0.1');
+const radiumRelease = releasePill('pccompanion', 'v0.3');
+const portraitRelease = releasePill('portrait-stats', 'v0.3');
+const gta5Release = releasePill('gta5-rockstar-steam-launcher', 'v2.0.0');
+const xteveRelease = releasePill('xteve-reborn', 'v3.0.4');
 const starIndex: Record<string, number> = Object.fromEntries(
   repos.map((repo) => [repo.name.toLowerCase(), repo.stars])
 );
@@ -18,14 +36,14 @@ const projectsJsonLd = {
   hasPart: [
     { '@type': 'SoftwareApplication', name: 'Southern Spear', applicationCategory: 'GameApplication' },
     { '@type': 'SoftwareApplication', name: 'STARS', applicationCategory: 'EducationApplication' },
-    { '@type': 'SoftwareApplication', name: 'OmenCore', applicationCategory: 'UtilitiesApplication', softwareVersion: '4.3.0' },
+    { '@type': 'SoftwareApplication', name: 'OmenCore', applicationCategory: 'UtilitiesApplication', softwareVersion: omencoreRelease.tag.replace(/^v/, '') },
     { '@type': 'SoftwareApplication', name: 'GridPilot', applicationCategory: 'EducationApplication' },
     { '@type': 'SoftwareApplication', name: 'Aether Control', applicationCategory: 'UtilitiesApplication' },
     { '@type': 'SoftwareApplication', name: 'Radium PCs Companion', applicationCategory: 'UtilitiesApplication' },
     { '@type': 'SoftwareApplication', name: 'RigMateAU', applicationCategory: 'ShoppingApplication' },
     { '@type': 'SoftwareApplication', name: 'BrightBound Adventures', applicationCategory: 'GameApplication' },
     { '@type': 'SoftwareApplication', name: 'RelayDesk', applicationCategory: 'SecurityApplication' },
-    { '@type': 'SoftwareApplication', name: 'Slimarr', applicationCategory: 'UtilitiesApplication', softwareVersion: '2.0.0.0' },
+    { '@type': 'SoftwareApplication', name: 'Slimarr', applicationCategory: 'UtilitiesApplication', softwareVersion: slimarrRelease.tag.replace(/^v/, '') },
     { '@type': 'SoftwareApplication', name: 'xTeVe Reborn', applicationCategory: 'MultimediaApplication' },
     { '@type': 'SoftwareApplication', name: 'ShelfSignal', applicationCategory: 'ShoppingApplication' },
     { '@type': 'SoftwareApplication', name: 'Portrait Stats', applicationCategory: 'UtilitiesApplication' },
@@ -206,8 +224,8 @@ const chips = [
               <img src="/omencore-logo.png" alt="OmenCore logo" class="project-logo" loading="lazy" decoding="async">
               <div>
                 <p class="case-index">03 / Open Source</p>
-                <h2>OmenCore <span class="pill brand inline-pill-gap">v4.3.0</span></h2>
-                <p class="project-kicker">Released 7 September 2026 — hardware control for HP OMEN and Victus laptops</p>
+                <h2>OmenCore <a class="pill brand inline-pill-gap" href={omencoreRelease.url} target="_blank" rel="noopener noreferrer">{omencoreRelease.tag}</a></h2>
+                <p class="project-kicker">Latest release {omencoreRelease.tag}{omencoreRelease.date && `, published ${omencoreRelease.date}`} — hardware control for HP OMEN and Victus laptops</p>
               </div>
             </div>
             <div class="button-row">
@@ -227,18 +245,18 @@ const chips = [
           <p>
             OmenCore replaces bloated OEM control software with direct hardware controls for fan behavior, thermals,
             power modes, undervolting, and RGB management. With {S('omencore')}+ GitHub stars and an active issue
-            tracker, it has shipped 20 releases from v3.4.0 to v4.3.0 since April — each one traced back to real
-            hardware, not a roadmap slide.
+            tracker, it has shipped 80+ releases since December 2025 — the latest, {omencoreRelease.tag}, landed
+            {omencoreRelease.date} — each one traced back to real hardware, not a roadmap slide.
           </p>
 
           <div class="release-panel">
             <div>
-              <span class="release-label">v4.3.0 focus</span>
-              <strong>Automation engine, a Windows CLI, and real field-reported safety fixes</strong>
+              <span class="release-label">Latest release</span>
+              <strong>{omencoreRelease.tag}{omencoreRelease.date && ` — published ${omencoreRelease.date}`} — Windows installer and portable builds plus Linux CLI &amp; GUI, all checksummed in the release notes</strong>
             </div>
             <div>
-              <span class="release-label">Verification</span>
-              <strong>1380+/1380+ tests passing across the release</strong>
+              <span class="release-label">Release history</span>
+              <strong>80+ releases since v1.0.0 in December 2025 — the 4.3.x cycle added the automation engine, the Windows CLI, and the OmenCore.Core extraction</strong>
             </div>
             <div>
               <span class="release-label">Convention</span>
@@ -268,7 +286,8 @@ const chips = [
           <div class="related-links">
             <p>Source notes</p>
             <ul>
-              <li><a href="https://github.com/theantipopau/omencore/releases/tag/v4.3.0" target="_blank" rel="noopener noreferrer">OmenCore v4.3.0 release notes</a></li>
+              <li><a href={omencoreRelease.url} target="_blank" rel="noopener noreferrer">OmenCore {omencoreRelease.tag} release notes</a></li>
+              <li><a href="https://github.com/theantipopau/omencore/releases" target="_blank" rel="noopener noreferrer">All OmenCore releases</a></li>
               <li><a href="https://github.com/theantipopau/omencore/blob/main/README.md" target="_blank" rel="noopener noreferrer">Current OmenCore README</a></li>
             </ul>
           </div>
@@ -282,7 +301,7 @@ const chips = [
               <img src="/radium-logo.png" alt="Radium PCs Companion logo" class="project-logo" loading="lazy" decoding="async">
               <div>
                 <p class="case-index">04 / Client Product</p>
-                <h2>Radium PCs Companion <span class="pill warm inline-pill-gap">v0.3</span></h2>
+                <h2>Radium PCs Companion <a class="pill warm inline-pill-gap" href={radiumRelease.url} target="_blank" rel="noopener noreferrer">{radiumRelease.tag}</a></h2>
                 <p class="project-kicker">Local-first Windows telemetry, diagnostics, and maintenance companion</p>
               </div>
             </div>
@@ -450,6 +469,7 @@ const chips = [
             </div>
           </div>
           <div class="pill-row">
+            <a class="pill brand" href={xteveRelease.url} target="_blank" rel="noopener noreferrer">{xteveRelease.tag}</a>
             {S('xteve-reborn') > 0 && (
               <span class="star-badge" set:html={`${starIcon}<span data-count-to="${S('xteve-reborn')}">0</span>★`} />
             )}
@@ -649,7 +669,7 @@ const chips = [
             <div class="project-identity">
               <img src="/projects/slimarr.png" alt="Slimarr logo" class="project-logo" loading="lazy" decoding="async">
               <div>
-                <h2>Slimarr <span class="pill warm inline-pill-gap">v2.0.0.0</span></h2>
+                <h2>Slimarr <a class="pill warm inline-pill-gap" href={slimarrRelease.url} target="_blank" rel="noopener noreferrer">{slimarrRelease.tag}</a></h2>
                 <p class="project-kicker">Automated Plex library compression via Usenet</p>
               </div>
             </div>
@@ -696,7 +716,7 @@ const chips = [
             <div class="project-identity">
               <img src="/projects/portrait-stats.png" alt="Portrait Stats logo" class="project-logo" loading="lazy" decoding="async">
               <div>
-                <h2>Portrait Stats <span class="pill warm inline-pill-gap">v0.3</span></h2>
+                <h2>Portrait Stats <a class="pill warm inline-pill-gap" href={portraitRelease.url} target="_blank" rel="noopener noreferrer">{portraitRelease.tag}</a></h2>
                 <p class="project-kicker">A system monitor dashboard, purpose-built for a portrait secondary monitor</p>
               </div>
             </div>
@@ -767,7 +787,7 @@ const chips = [
           <p>Objective Australian ISP plan comparison with no affiliate bias and no tracking scripts.</p>
         </a>
         <a href="https://github.com/theantipopau/gta5-rockstar-steam-launcher" target="_blank" rel="noopener noreferrer" class="spotlight-project" data-category="oss" data-project="gta5 rockstar steam launcher powershell gaming utilities">
-          <span class="spotlight-label">v2.0.0</span>
+          <span class="spotlight-label">{gta5Release.tag}</span>
           <h3>Steam Launch Utilities</h3>
           <p>Hands-free Steam launching for Epic Games and Rockstar titles that fight the non-Steam-game model — now covering GTA V Enhanced and RDR2.</p>
           {S('gta5-rockstar-steam-launcher') > 0 && (

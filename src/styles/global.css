@@ -1284,6 +1284,14 @@ nav a.active::after { width: 1.6rem; }
 .pill.soft { background: var(--surface-strong); color: var(--text-muted); border-color: var(--line); }
 .pill.warm { background: var(--cool-soft); color: var(--cool); border-color: color-mix(in srgb, var(--cool) 30%, transparent); }
 
+/* Version pills link straight to the GitHub release they came from. */
+a.pill {
+  text-decoration: none;
+  transition: filter var(--dur) ease, transform var(--dur) ease;
+}
+a.pill:hover { filter: brightness(1.15); transform: translateY(-1px); }
+a.pill:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
 .star-badge {
   display: inline-flex;
   align-items: center;
