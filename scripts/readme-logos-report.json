@@ -1,0 +1,63 @@
+[
+  {
+    "repo": "SouthernSpear",
+    "pick": "https://raw.githubusercontent.com/theantipopau/SouthernSpear/main/Site/assets/brand/southern-spear-logo-stacked-256.webp",
+    "all": [
+      "https://raw.githubusercontent.com/theantipopau/SouthernSpear/main/Site/assets/brand/southern-spear-logo-stacked-256.webp",
+      "https://raw.githubusercontent.com/theantipopau/SouthernSpear/main/Site/assets/weapons/weapon-a88-720.webp",
+      "https://raw.githubusercontent.com/theantipopau/SouthernSpear/main/Site/assets/weapons/weapon-a89-720.webp",
+      "https://raw.githubusercontent.com/theantipopau/SouthernSpear/main/Site/assets/weapons/weapon-a4-720.webp",
+      "https://raw.githubusercontent.com/theantipopau/SouthernSpear/main/Site/assets/weapons/weapon-a416-720.webp"
+    ]
+  },
+  {
+    "repo": "GridPilot",
+    "pick": "https://raw.githubusercontent.com/theantipopau/GridPilot/main/frontend/src/assets/gridpilot-logo.png",
+    "all": [
+      "https://raw.githubusercontent.com/theantipopau/GridPilot/main/frontend/src/assets/gridpilot-logo.png",
+      "https://raw.githubusercontent.com/theantipopau/GridPilot/main/docs/design/ui-mockup3.png"
+    ]
+  },
+  {
+    "repo": "xteve-reborn",
+    "pick": "https://raw.githubusercontent.com/theantipopau/xteve-reborn/main/html/img/logo-reborn.png",
+    "all": [
+      "https://raw.githubusercontent.com/theantipopau/xteve-reborn/main/html/img/logo-reborn.png"
+    ]
+  },
+  {
+    "repo": "ShelfSignal",
+    "pick": "https://raw.githubusercontent.com/theantipopau/ShelfSignal/main/logo.png",
+    "all": [
+      "https://raw.githubusercontent.com/theantipopau/ShelfSignal/main/logo.png"
+    ]
+  },
+  {
+    "repo": "slimarr",
+    "pick": "https://raw.githubusercontent.com/theantipopau/slimarr/main/images/header-logo.PNG",
+    "all": [
+      "https://raw.githubusercontent.com/theantipopau/slimarr/main/images/header-logo.PNG",
+      "https://raw.githubusercontent.com/theantipopau/slimarr/main/images/moviedetails.png",
+      "https://raw.githubusercontent.com/theantipopau/slimarr/main/images/activity.png",
+      "https://raw.githubusercontent.com/theantipopau/slimarr/main/images/system.png",
+      "https://raw.githubusercontent.com/theantipopau/slimarr/main/images/dashboard.png"
+    ]
+  },
+  {
+    "repo": "portrait-stats",
+    "pick": "https://raw.githubusercontent.com/theantipopau/portrait-stats/master/PortraitStats/images/icon.png",
+    "all": [
+      "https://raw.githubusercontent.com/theantipopau/portrait-stats/master/PortraitStats/images/icon.png"
+    ]
+  },
+  {
+    "repo": "aether-control",
+    "pick": "https://raw.githubusercontent.com/theantipopau/aether-control/main/img/Logo.png",
+    "all": [
+      "https://raw.githubusercontent.com/theantipopau/aether-control/main/img/Logo.png",
+      "https://raw.githubusercontent.com/theantipopau/aether-control/main/docs/screenshots/overview.png",
+      "https://raw.githubusercontent.com/theantipopau/aether-control/main/docs/screenshots/performance.png",
+      "https://raw.githubusercontent.com/theantipopau/aether-control/main/docs/screenshots/settings.png"
+    ]
+  }
+]

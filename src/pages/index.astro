@@ -1,5 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getRepos, getPopularRepos, getStarTotal, getProjectCount } from '../data/github';
+
+const [popularRepos, starTotal, projectCount] = await Promise.all([
+  getPopularRepos(5),
+  getStarTotal(),
+  getProjectCount()
+]);
+
+const allRepos = await getRepos();
+const southernSpear = allRepos.find((repo) => repo.name === 'SouthernSpear');
+const omencoreStars = allRepos.find((repo) => repo.name.toLowerCase() === 'omencore')?.stars ?? 0;
 
 const homeJsonLd = {
   '@context': 'https://schema.org',
@@ -35,6 +46,8 @@ const homeJsonLd = {
     }
   ]
 };
+
+const starIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.6 1.1 6.5L12 17.45 6.2 20.5l1.1-6.5-4.7-4.6 6.5-.95L12 2.6Z"/></svg>';
 ---
 
 <Layout
@@ -46,25 +59,26 @@ const homeJsonLd = {
     <section class="page-hero hero-split reveal">
       <div class="hero-copy">
         <p class="eyebrow">matthurley.dev</p>
-        <h1>Software built for the real world, not just the demo.</h1>
+        <h1 data-split>Software built for the <span class="text-gradient">real world</span>, not just the demo.</h1>
         <p class="lead">
           I design, build, and maintain practical systems for schools, hardware makers, and small teams —
           under real constraints, with privacy built in from the first line, not bolted on before launch.
         </p>
-        <div class="button-row mt-4">
+        <div class="button-row">
           <a href="/contact" class="button primary">Start a project</a>
           <a href="/projects" class="button secondary">See the work</a>
+          <a href="https://github.com/theantipopau" target="_blank" rel="noopener noreferrer" class="button ghost">GitHub ↗</a>
         </div>
       </div>
-      <div class="hero-panel">
+      <aside class="hero-panel" data-tilt aria-label="Current build status">
         <div class="hero-panel-head">
           <span>status.json</span>
           <span>currently building</span>
         </div>
         <div class="hero-stat-list">
           <div class="hero-stat">
-            <span class="stat-value">250+</span>
-            <span class="stat-label">GitHub stars across open-source releases, earned on sustained reliability work, not launch-week hype</span>
+            <span class="stat-value"><span data-count-to={starTotal}>0</span>+</span>
+            <span class="stat-label">GitHub stars across {projectCount} open-source repositories — earned on sustained reliability work, not launch-week hype</span>
           </div>
           <div class="hero-stat">
             <span class="stat-value">11+ yrs</span>
@@ -74,17 +88,58 @@ const homeJsonLd = {
             <span class="stat-value">Zero</span>
             <span class="stat-label">Default tracking across every platform shipped to date</span>
           </div>
+          <div class="hero-stat">
+            <span class="stat-value">Pre-alpha</span>
+            <span class="stat-label">Southern Spear — an Australian-inspired tactical FPS on Unreal Engine 5.8, in active development</span>
+          </div>
         </div>
-      </div>
+      </aside>
     </section>
 
-    <section class="trust-strip reveal">
-      <span>Education Platforms</span>
-      <span>Hardware & Telemetry</span>
-      <span>Privacy-First Architecture</span>
-      <span>Field-Tested Reliability</span>
-      <span>Desktop & Web Delivery</span>
-    </section>
+    <div class="marquee reveal" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Education platforms</span>
+        <span>Hardware &amp; telemetry</span>
+        <span>Privacy-first architecture</span>
+        <span>Field-tested reliability</span>
+        <span>Desktop &amp; web delivery</span>
+        <span>Games &amp; interactive</span>
+        <span>Education platforms</span>
+        <span>Hardware &amp; telemetry</span>
+        <span>Privacy-first architecture</span>
+        <span>Field-tested reliability</span>
+        <span>Desktop &amp; web delivery</span>
+        <span>Games &amp; interactive</span>
+      </div>
+    </div>
+
+    {southernSpear && (
+      <section class="feature-banner reveal">
+        <div>
+          <p class="eyebrow">New Project</p>
+          <h2>Southern Spear</h2>
+          <p class="lead mb-3">
+            A free, original, Australian-inspired tactical multiplayer FPS built on Unreal Engine 5.8 and the
+            Lyra Starter Game — slow, deliberate, team-first shooting where every rank is earned.
+          </p>
+          <div class="pill-row mb-3">
+            <span class="pill brand">Unreal Engine 5.8</span>
+            <span class="pill soft">Lyra</span>
+            <span class="pill soft">C++20</span>
+            <span class="pill warm">Pre-Alpha</span>
+            <span class="pill warm">Free to Play</span>
+          </div>
+          <div class="button-row">
+            <a href="https://theantipopau.github.io/southernspear-site/" target="_blank" rel="noopener noreferrer" class="button primary">Visit the dev site</a>
+            <a href="https://github.com/theantipopau/SouthernSpear" target="_blank" rel="noopener noreferrer" class="button secondary">Source repo</a>
+            <a href="/projects#southernspear" class="button ghost">Case study</a>
+          </div>
+        </div>
+        <div class="feature-banner-art" aria-hidden="true">
+          <img src="/projects/southernspear.webp" alt="" class="banner-logo" loading="lazy" decoding="async">
+        </div>
+      </section>
+    )}
 
     <section class="section reveal">
       <div class="section-head">
@@ -100,7 +155,7 @@ const homeJsonLd = {
         </div>
         <div class="feature-card">
           <span class="feature-icon">02</span>
-          <h3>Systems & Reliability</h3>
+          <h3>Systems &amp; Reliability</h3>
           <p>Field-driven maintenance and hardening for software already in production, where the next release is judged by what it fixes, not what it demos.</p>
         </div>
         <div class="feature-card">
@@ -159,8 +214,9 @@ const homeJsonLd = {
             </div>
             <a href="/projects#omencore" class="button secondary">View case study</a>
           </div>
-          <p>229+ GitHub stars and 20 field-driven releases since April — the latest adds a full automation rules engine and a Windows CLI, plus safety fixes for three real field-reported bugs.</p>
+          <p>Field-driven releases since April — the latest adds a full automation rules engine and a Windows CLI, plus safety fixes for three real field-reported bugs.</p>
           <div class="pill-row">
+            <span class="star-badge" set:html={`${starIcon}<span data-count-to="${omencoreStars}">0</span>★`} />
             <span class="pill brand">.NET 8</span>
             <span class="pill soft">Automation Engine</span>
             <span class="pill warm">No Outbound Telemetry</span>
@@ -189,6 +245,39 @@ const homeJsonLd = {
       </div>
       <div class="button-row">
         <a href="/projects" class="button secondary">See all work</a>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="section-head">
+        <p class="eyebrow">From GitHub</p>
+        <h2>The most-starred repositories</h2>
+        <p class="lead">
+          Star counts and languages are pulled from the GitHub API at build time — so what you see here is what
+          the repositories actually hold today.
+        </p>
+      </div>
+      <div class="repo-grid">
+        {popularRepos.map((repo) => (
+          <a class="repo-card" href={repo.url} target="_blank" rel="noopener noreferrer">
+            <div class="repo-card-head">
+              <h3>{repo.name}</h3>
+              <span class="star-badge" set:html={`${starIcon}<span data-count-to="${repo.stars}">0</span>★`} />
+            </div>
+            <p>{repo.description}</p>
+            <div class="repo-card-meta">
+              {repo.language && (
+                <span><span class="lang-dot"></span>{repo.language}</span>
+              )}
+              {repo.homepage && <span>Live ↗</span>}
+              <span>github.com</span>
+            </div>
+          </a>
+        ))}
+      </div>
+      <div class="button-row">
+        <a href="/projects#also-shipped" class="button secondary">See everything shipped</a>
+        <a href="https://github.com/theantipopau?tab=repositories" target="_blank" rel="noopener noreferrer" class="button ghost">All {projectCount} repos ↗</a>
       </div>
     </section>
 

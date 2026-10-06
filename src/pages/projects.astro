@@ -1,5 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getRepos } from '../data/github';
+
+const repos = await getRepos();
+const starIndex: Record<string, number> = Object.fromEntries(
+  repos.map((repo) => [repo.name.toLowerCase(), repo.stars])
+);
+const S = (name: string) => starIndex[name.toLowerCase()] ?? 0;
+
+const starIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.6 1.1 6.5L12 17.45 6.2 20.5l1.1-6.5-4.7-4.6 6.5-.95L12 2.6Z"/></svg>';
 
 const projectsJsonLd = {
   '@context': 'https://schema.org',
@@ -7,14 +16,18 @@ const projectsJsonLd = {
   name: 'Work by matthurley.dev',
   url: 'https://matthurley.dev/projects',
   hasPart: [
+    { '@type': 'SoftwareApplication', name: 'Southern Spear', applicationCategory: 'GameApplication' },
     { '@type': 'SoftwareApplication', name: 'STARS', applicationCategory: 'EducationApplication' },
     { '@type': 'SoftwareApplication', name: 'OmenCore', applicationCategory: 'UtilitiesApplication', softwareVersion: '4.3.0' },
+    { '@type': 'SoftwareApplication', name: 'GridPilot', applicationCategory: 'EducationApplication' },
     { '@type': 'SoftwareApplication', name: 'Aether Control', applicationCategory: 'UtilitiesApplication' },
     { '@type': 'SoftwareApplication', name: 'Radium PCs Companion', applicationCategory: 'UtilitiesApplication' },
     { '@type': 'SoftwareApplication', name: 'RigMateAU', applicationCategory: 'ShoppingApplication' },
     { '@type': 'SoftwareApplication', name: 'BrightBound Adventures', applicationCategory: 'GameApplication' },
     { '@type': 'SoftwareApplication', name: 'RelayDesk', applicationCategory: 'SecurityApplication' },
     { '@type': 'SoftwareApplication', name: 'Slimarr', applicationCategory: 'UtilitiesApplication', softwareVersion: '2.0.0.0' },
+    { '@type': 'SoftwareApplication', name: 'xTeVe Reborn', applicationCategory: 'MultimediaApplication' },
+    { '@type': 'SoftwareApplication', name: 'ShelfSignal', applicationCategory: 'ShoppingApplication' },
     { '@type': 'SoftwareApplication', name: 'Portrait Stats', applicationCategory: 'UtilitiesApplication' },
     { '@type': 'SoftwareApplication', name: 'PulseLAN', applicationCategory: 'UtilitiesApplication' },
     { '@type': 'SoftwareApplication', name: 'MouseTune', applicationCategory: 'UtilitiesApplication' },
@@ -22,41 +35,121 @@ const projectsJsonLd = {
     { '@type': 'SoftwareApplication', name: 'PageCue', applicationCategory: 'LifestyleApplication' }
   ]
 };
+
+const chips = [
+  { key: 'all', label: 'All work' },
+  { key: 'case', label: 'Case studies' },
+  { key: 'oss', label: 'Open source' },
+  { key: 'game', label: 'Games' },
+  { key: 'live', label: 'Live products' },
+  { key: 'dev', label: 'In development' }
+];
 ---
 
 <Layout
   title="Work | matthurley.dev"
-  description="Case studies in practical, privacy-first software: a client-delivered school platform, an open-source hardware utility with 229+ stars, and a premium desktop companion built for a real business."
+  description={`Case studies in practical, privacy-first software: Southern Spear's tactical FPS, a client-delivered school platform, an open-source hardware utility with ${S('omencore')}+ stars, and a premium desktop companion built for a real business.`}
   jsonLd={projectsJsonLd}
 >
   <div class="container-wide page-shell">
     <section class="page-hero reveal">
       <p class="eyebrow">Selected Work</p>
-      <h1>Systems built for practical impact, not feature theater.</h1>
+      <h1 data-split>Systems built for <span class="text-gradient">practical impact</span>, not feature theater.</h1>
       <p class="lead">
         Every project below was shaped by a real operational constraint — a school's governance requirements, a
-        laptop that overheats, a business that needed its telemetry to tell the truth. The flagship case studies
-        go deep on trade-offs and decisions; everything else shipped is listed further down.
+        laptop that overheats, a business that needed its telemetry to tell the truth, or a game that had to be
+        fair before it was fun. The flagship case studies go deep on trade-offs and decisions; everything else
+        shipped is listed further down, with star counts pulled live from GitHub.
       </p>
       <div class="filter-bar">
         <input id="project-filter" class="filter-input" type="search" placeholder="Search case studies by keyword, stack, or domain" aria-label="Filter case studies">
         <button id="clear-project-filter" class="copy-email" type="button">Clear</button>
+      </div>
+      <div class="chip-row" role="group" aria-label="Filter by category">
+        {chips.map((chip) => (
+          <button class="chip" type="button" data-chip={chip.key} aria-pressed={chip.key === 'all' ? 'true' : 'false'}>
+            {chip.label}
+          </button>
+        ))}
       </div>
     </section>
 
     <section class="section reveal">
       <div class="section-head">
         <p class="eyebrow">Flagship</p>
-        <h2>Three systems, three different constraints</h2>
+        <h2>Four systems, four different constraints</h2>
       </div>
 
-      <section class="project-grid" id="stars">
+      <section class="project-grid" id="southernspear" data-category="game dev">
+        <article class="project-card project-card-featured" data-project="southern spear fps unreal engine 5.8 lyra c++ game tactical australian pre-alpha steam multiplayer">
+          <div class="project-head">
+            <div class="project-identity">
+              <img src="/projects/southernspear.webp" alt="Southern Spear logo" class="project-logo" loading="lazy" decoding="async">
+              <div>
+                <p class="case-index">01 / Game — In Development</p>
+                <h2>Southern Spear <span class="pill warm inline-pill-gap">Pre-Alpha</span></h2>
+                <p class="project-kicker">Free, original, Australian-inspired tactical multiplayer FPS</p>
+              </div>
+            </div>
+            <div class="button-row">
+              <a href="https://theantipopau.github.io/southernspear-site/" target="_blank" rel="noopener noreferrer" class="button primary">Dev Site</a>
+              <a href="https://github.com/theantipopau/SouthernSpear" target="_blank" rel="noopener noreferrer" class="button secondary">GitHub</a>
+            </div>
+          </div>
+
+          <div class="pill-row">
+            <span class="pill brand">Unreal Engine 5.8</span>
+            <span class="pill brand">Lyra Starter Game</span>
+            <span class="pill soft">C++20</span>
+            <span class="pill soft">Free to Play</span>
+            <span class="pill warm">Planned for Steam</span>
+          </div>
+
+          <p>
+            <em class="accent-italic">One life. One objective. Every rank earned.</em> Southern Spear is a
+            tactical shooter built on Unreal Engine 5.8 and the Lyra Starter Game, following the design
+            philosophy of the classic <em>America's Army</em> games: slow, deliberate, team-first combat where
+            positioning and communication beat reflexes — and where every rank is earned in the field rather
+            than bought.
+          </p>
+
+          <div class="project-columns">
+            <div>
+              <h4>What It Is</h4>
+              <ul>
+                <li>An entirely original Australian-inspired setting — outback theatres, asymmetric objectives, and a faction structure built around small-unit tactics.</li>
+                <li>Free to play by design, with no planned progression shortcuts: unlocks follow demonstrated skill, mirroring the source inspiration.</li>
+                <li>Pre-alpha and in active development, with a public roadmap and a rolling changelog — no playable release, download, or release date announced yet.</li>
+              </ul>
+            </div>
+            <div>
+              <h4>How It's Built</h4>
+              <ul>
+                <li>C++20 gameplay code on top of Lyra's modular gameplay framework — ability system, weapon layering, and game mode assembly reused rather than reinvented.</li>
+                <li>The development repository stays private; the public site, changelog, roadmap, and press kit are <em>generated</em> from it by a publish script, so engine and game content are never exposed.</li>
+                <li>Every working session gets a changelog entry — the same "document the trade-off" discipline used on the client and open-source work here.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="related-links">
+            <p>Follow the build</p>
+            <ul>
+              <li><a href="https://theantipopau.github.io/southernspear-site/" target="_blank" rel="noopener noreferrer">Southern Spear website &amp; development portal</a></li>
+              <li><a href="https://theantipopau.github.io/southernspear-site/changelog.html" target="_blank" rel="noopener noreferrer">Rolling development changelog</a></li>
+              <li><a href="https://github.com/theantipopau/southernspear-site" target="_blank" rel="noopener noreferrer">Published site source (generated repo)</a></li>
+            </ul>
+          </div>
+        </article>
+      </section>
+
+      <section class="project-grid" id="stars" data-category="case">
         <article class="project-card project-card-featured" data-project="stars pastoral care education azure pb4l tracking client delivery flagship">
           <div class="project-head">
             <div class="project-identity">
               <img src="/sophia-logo.png" alt="STARS logo" class="project-logo" loading="lazy" decoding="async">
               <div>
-                <p class="case-index">01 / Client Delivery</p>
+                <p class="case-index">02 / Client Delivery</p>
                 <h2>STARS</h2>
                 <p class="project-kicker">Student Tracking and Recording System</p>
               </div>
@@ -106,13 +199,13 @@ const projectsJsonLd = {
         </article>
       </section>
 
-      <section class="project-grid" id="omencore">
+      <section class="project-grid" id="omencore" data-category="oss">
         <article class="project-card project-card-featured" data-project="omencore 4.3.0 hp omen victus hardware thermals fan rgb dotnet fan curve safety update linux windows gpu overclock open source flagship architecture automation cli">
           <div class="project-head">
             <div class="project-identity">
               <img src="/omencore-logo.png" alt="OmenCore logo" class="project-logo" loading="lazy" decoding="async">
               <div>
-                <p class="case-index">02 / Open Source</p>
+                <p class="case-index">03 / Open Source</p>
                 <h2>OmenCore <span class="pill brand inline-pill-gap">v4.3.0</span></h2>
                 <p class="project-kicker">Released 7 September 2026 — hardware control for HP OMEN and Victus laptops</p>
               </div>
@@ -124,6 +217,7 @@ const projectsJsonLd = {
           </div>
 
           <div class="pill-row">
+            <span class="star-badge" set:html={`${starIcon}<span data-count-to="${S('omencore')}">0</span>★`} />
             <span class="pill brand">.NET 8</span>
             <span class="pill soft">Automation Rules Engine</span>
             <span class="pill soft">Windows CLI</span>
@@ -132,9 +226,9 @@ const projectsJsonLd = {
 
           <p>
             OmenCore replaces bloated OEM control software with direct hardware controls for fan behavior, thermals,
-            power modes, undervolting, and RGB management. With 229+ GitHub stars and an active issue tracker, it has
-            shipped 20 releases from v3.4.0 to v4.3.0 since April — each one traced back to real hardware, not a
-            roadmap slide.
+            power modes, undervolting, and RGB management. With {S('omencore')}+ GitHub stars and an active issue
+            tracker, it has shipped 20 releases from v3.4.0 to v4.3.0 since April — each one traced back to real
+            hardware, not a roadmap slide.
           </p>
 
           <div class="release-panel">
@@ -181,13 +275,13 @@ const projectsJsonLd = {
         </article>
       </section>
 
-      <section class="project-grid" id="pccompanion">
+      <section class="project-grid" id="pccompanion" data-category="case">
         <article class="project-card project-card-featured" data-project="pccompanion radium pcs companion windows telemetry diagnostics maintenance tauri rust react thermal tray support sensor sidecar copilot local llm client product flagship">
           <div class="project-head">
             <div class="project-identity">
               <img src="/radium-logo.png" alt="Radium PCs Companion logo" class="project-logo" loading="lazy" decoding="async">
               <div>
-                <p class="case-index">03 / Client Product</p>
+                <p class="case-index">04 / Client Product</p>
                 <h2>Radium PCs Companion <span class="pill warm inline-pill-gap">v0.3</span></h2>
                 <p class="project-kicker">Local-first Windows telemetry, diagnostics, and maintenance companion</p>
               </div>
@@ -244,11 +338,57 @@ const projectsJsonLd = {
         <h2>Live products and systems in active development</h2>
       </div>
 
-      <section class="project-grid" id="aethercontrol">
+      <section class="project-grid" id="gridpilot" data-category="oss dev">
+        <article class="project-card" data-project="gridpilot timetabling school education local-first python ollama tfx sfx offline data analysis coaching">
+          <div class="project-head">
+            <div class="project-identity">
+              <img src="/projects/gridpilot.png" alt="GridPilot logo" class="project-logo" loading="lazy" decoding="async">
+              <div>
+                <h2>GridPilot <span class="pill soft inline-pill-gap">Active Development</span></h2>
+                <p class="project-kicker">A local-first co-pilot for school timetabling</p>
+              </div>
+            </div>
+            <a href="https://github.com/theantipopau/GridPilot" target="_blank" rel="noopener noreferrer" class="button secondary">GitHub</a>
+          </div>
+          <div class="pill-row">
+            <span class="pill brand">Python 3.11+</span>
+            <span class="pill brand">Node</span>
+            <span class="pill soft">256 Tests Passing</span>
+            <span class="pill warm">Runs Fully Offline</span>
+          </div>
+          <p>
+            Built to sit <em>alongside</em> Timetabling Solutions, not replace it: load a school's real
+            <code>.tfx</code>/<code>.sfx</code> export, see the whole timetable, get a deterministic list of what's
+            actually wrong with it — clashes, capacity, staff load, composite classes — propose and validate fixes
+            without ever touching the source data, then export an approved change back out as a file the existing
+            system can re-read.
+          </p>
+          <div class="project-columns">
+            <div>
+              <h4>What It Does</h4>
+              <ul>
+                <li>Ingests and analyses real timetabling exports, surfacing conflicts as a deterministic, auditable findings list.</li>
+                <li>Proposes edits, validates them against the same rules, and round-trips an approved file back out.</li>
+                <li>Nothing calls a cloud API — every byte stays on the machine it ran on.</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Privacy Choices</h4>
+              <ul>
+                <li>Timetable data is student- and staff-adjacent: it never leaves the local machine by design.</li>
+                <li>The single AI layer is local-only (Ollama), and it is used for <em>explaining</em> findings in plain language — never for generating or mutating schedule data.</li>
+                <li>256 passing tests cover the import, validation, and export path end to end.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="project-grid" id="aethercontrol" data-category="oss dev">
         <article class="project-card project-card-featured" data-project="aether control winui3 dotnet hardware monitoring portrait mode rgb corsair openrgb windows optimisation fan control plugin framework wip active development">
           <div class="project-head">
             <div class="project-identity">
-              <span class="project-mono" aria-hidden="true">AC</span>
+              <img src="/projects/aether-control.png" alt="Aether Control logo" class="project-logo" loading="lazy" decoding="async">
               <div>
                 <h2>Aether Control <span class="pill soft inline-pill-gap">Active Development</span></h2>
                 <p class="project-kicker">All-in-one control suite for custom gaming PCs</p>
@@ -294,7 +434,102 @@ const projectsJsonLd = {
         </article>
       </section>
 
-      <section class="project-grid" id="hurleycomputers">
+      <section class="project-grid" id="xteve" data-category="oss live">
+        <article class="project-card" data-project="xteve reborn xteve m3u epg plex dvr emby jellyfin iptv proxy go fork self-update">
+          <div class="project-head">
+            <div class="project-identity">
+              <img src="/projects/xteve-reborn.png" alt="xTeVe Reborn logo" class="project-logo" loading="lazy" decoding="async">
+              <div>
+                <h2>xTeVe Reborn</h2>
+                <p class="project-kicker">Modernised M3U/EPG proxy for Plex DVR, Emby, and Jellyfin Live TV</p>
+              </div>
+            </div>
+            <div class="button-row">
+              <a href="https://theantipopau.github.io/xteve-reborn/" target="_blank" rel="noopener noreferrer" class="button secondary">Website</a>
+              <a href="https://github.com/theantipopau/xteve-reborn" target="_blank" rel="noopener noreferrer" class="button secondary">GitHub</a>
+            </div>
+          </div>
+          <div class="pill-row">
+            {S('xteve-reborn') > 0 && (
+              <span class="star-badge" set:html={`${starIcon}<span data-count-to="${S('xteve-reborn')}">0</span>★`} />
+            )}
+            <span class="pill brand">Go</span>
+            <span class="pill soft">Plex / Emby / Jellyfin</span>
+            <span class="pill warm">Maintained Fork</span>
+          </div>
+          <p>
+            Upstream xteve hadn't seen a real release in about five years, so this fork started maintaining it
+            properly: modernised toolchain, fixed bugs, a hardened Plex/Emby streaming path, and a serious visual
+            overhaul of the web UI. Updates come from this repo's own releases — never upstream binaries — checked
+            daily, checksum-verified, and installable in one click.
+          </p>
+          <div class="project-columns">
+            <div>
+              <h4>What Changed Over Upstream</h4>
+              <ul>
+                <li>Modernised build, dependency refresh, and a real test path instead of a 2021-era release tag.</li>
+                <li>Hardened the streaming path where Plex/Emby integrations actually break — buffer handling, reconnects, and error surfacing.</li>
+                <li>Full web-UI overhaul so the daily-use screen is legible rather than a 2016 admin template.</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Update Safety</h4>
+              <ul>
+                <li>Daily release check with an "Update available" banner; one-click or automatic installs.</li>
+                <li>Every download is checksum-verified before it replaces a running binary.</li>
+                <li>Not affiliated with the upstream xTeVe project — clearly labelled so nobody confuses the two.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="project-grid" id="shelfsignal" data-category="dev">
+        <article class="project-card" data-project="shelfsignal price monitoring barcode scanning australia flutter express postgresql alerts shopping">
+          <div class="project-head">
+            <div class="project-identity">
+              <img src="/projects/shelfsignal.png" alt="ShelfSignal logo" class="project-logo" loading="lazy" decoding="async">
+              <div>
+                <h2>ShelfSignal <span class="pill soft inline-pill-gap">In Development</span></h2>
+                <p class="project-kicker">Barcode-first price monitoring for Australian households</p>
+              </div>
+            </div>
+            <a href="https://github.com/theantipopau/ShelfSignal" target="_blank" rel="noopener noreferrer" class="button secondary">GitHub</a>
+          </div>
+          <div class="pill-row">
+            <span class="pill brand">Flutter</span>
+            <span class="pill brand">Express + PostgreSQL</span>
+            <span class="pill soft">GS1 Barcode Validation</span>
+            <span class="pill warm">Explainable Alerts</span>
+          </div>
+          <p>
+            Scan what you buy, set the signal, and get told when the price is right — across Australian retailers
+            rather than an affiliate feed. The loop is deliberately explicit: scan a barcode, confirm the canonical
+            product, set a target price or drop percentage, then receive an alert that explains what changed, where,
+            why, and how confident the match is.
+          </p>
+          <div class="project-columns">
+            <div>
+              <h4>Architecture</h4>
+              <ul>
+                <li>Flutter iOS/Android app (Riverpod + GoRouter) over an Express + PostgreSQL signal engine.</li>
+                <li>Append-only price observations per retailer, so every alert can be traced back to real history.</li>
+                <li>Moderation and admin APIs planned behind a separate Next.js admin UI.</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Design Rules</h4>
+              <ul>
+                <li>Every alert is explainable — no unexplained "price dropped!" notifications.</li>
+                <li>GS1 validation before a product is tracked, so similar barcodes never merge silently.</li>
+                <li>Act or snooze is always a user decision, never an auto-purchase.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="project-grid" id="hurleycomputers" data-category="live">
         <article class="project-card" data-project="hurley computers custom pc building south east queensland business website static html css contact form quote">
           <div class="project-head">
             <div class="project-identity">
@@ -309,7 +544,7 @@ const projectsJsonLd = {
           <div class="pill-row">
             <span class="pill brand">Static HTML/CSS/JS</span>
             <span class="pill soft">Spam-Protected Quote Form</span>
-            <span class="pill warm">Owned & Operated</span>
+            <span class="pill warm">Owned &amp; Operated</span>
           </div>
           <p>
             My own custom PC-building business, built and run alongside the school and software work — every build
@@ -319,7 +554,7 @@ const projectsJsonLd = {
         </article>
       </section>
 
-      <section class="project-grid" id="rigmateau">
+      <section class="project-grid" id="rigmateau" data-category="live oss">
         <article class="project-card" data-project="rigmateau rig mate au pc builder price comparison australia compatibility checker marketplace trust scoring nextjs cloudflare workers open source">
           <div class="project-head">
             <div class="project-identity">
@@ -335,6 +570,9 @@ const projectsJsonLd = {
             </div>
           </div>
           <div class="pill-row">
+            {S('rigmateau') > 0 && (
+              <span class="star-badge" set:html={`${starIcon}<span data-count-to="${S('rigmateau')}">0</span>★`} />
+            )}
             <span class="pill brand">Next.js</span>
             <span class="pill brand">Cloudflare Workers</span>
             <span class="pill soft">Compatibility Engine</span>
@@ -348,7 +586,7 @@ const projectsJsonLd = {
         </article>
       </section>
 
-      <section class="project-grid" id="brightbound">
+      <section class="project-grid" id="brightbound" data-category="game live">
         <article class="project-card" data-project="brightbound app education literacy numeracy flutter offline child safe">
           <div class="project-head">
             <div class="project-identity">
@@ -378,7 +616,7 @@ const projectsJsonLd = {
         </article>
       </section>
 
-      <section class="project-grid" id="relaydesk">
+      <section class="project-grid" id="relaydesk" data-category="dev">
         <article class="project-card" data-project="relaydesk remote desktop access rdp tauri rust axum webrtc signaling crossplatform typescript react broker passkeys">
           <div class="project-head">
             <div class="project-identity">
@@ -405,11 +643,11 @@ const projectsJsonLd = {
         </article>
       </section>
 
-      <section class="project-grid" id="slimarr">
+      <section class="project-grid" id="slimarr" data-category="oss">
         <article class="project-card project-card-featured" data-project="slimarr plex usenet sabnzbd media library compression h265 av1 python fastapi react typescript radarr sonarr arr automation discovery recommendations ai">
           <div class="project-head">
             <div class="project-identity">
-              <span class="project-mono" aria-hidden="true">SL</span>
+              <img src="/projects/slimarr.png" alt="Slimarr logo" class="project-logo" loading="lazy" decoding="async">
               <div>
                 <h2>Slimarr <span class="pill warm inline-pill-gap">v2.0.0.0</span></h2>
                 <p class="project-kicker">Automated Plex library compression via Usenet</p>
@@ -418,16 +656,18 @@ const projectsJsonLd = {
             <a href="https://github.com/theantipopau/slimarr" target="_blank" rel="noopener noreferrer" class="button secondary">GitHub</a>
           </div>
           <div class="pill-row">
+            {S('slimarr') > 0 && (
+              <span class="star-badge" set:html={`${starIcon}<span data-count-to="${S('slimarr')}">0</span>★`} />
+            )}
             <span class="pill brand">Python + FastAPI</span>
             <span class="pill brand">React + TypeScript</span>
-            <span class="pill soft">Discovery & Recommendations</span>
-            <span class="pill warm">21+ Stars</span>
+            <span class="pill soft">Discovery &amp; Recommendations</span>
           </div>
           <p>
             Scans a Plex library, finds smaller h265/AV1 releases on Usenet, and replaces bloated files overnight —
             with a hard rule that a replacement is never accepted unless it is strictly smaller than the original.
             v2.0.0.0 followed a full backend/frontend audit against the actual implementation, not the README's
-            claims about it, and added a deterministic Discovery & Recommendations feature on top.
+            claims about it, and added a deterministic Discovery &amp; Recommendations feature on top.
           </p>
           <div class="project-columns">
             <div>
@@ -450,11 +690,11 @@ const projectsJsonLd = {
         </article>
       </section>
 
-      <section class="project-grid" id="portraitstats">
+      <section class="project-grid" id="portraitstats" data-category="oss">
         <article class="project-card" data-project="portrait stats monitor dashboard cpu gpu ram fps rtss librehardwaremonitor tray dotnet csharp secondary display">
           <div class="project-head">
             <div class="project-identity">
-              <span class="project-mono" aria-hidden="true">PS</span>
+              <img src="/projects/portrait-stats.png" alt="Portrait Stats logo" class="project-logo" loading="lazy" decoding="async">
               <div>
                 <h2>Portrait Stats <span class="pill warm inline-pill-gap">v0.3</span></h2>
                 <p class="project-kicker">A system monitor dashboard, purpose-built for a portrait secondary monitor</p>
@@ -500,46 +740,72 @@ const projectsJsonLd = {
         <h2>Smaller tools, built because the gap was real</h2>
         <p class="lead">Not every project needs a case study. These shipped because something specific kept being annoying — narrow scope, on purpose.</p>
       </div>
-      <div class="project-spotlight-grid">
-        <a href="https://github.com/theantipopau/pulselan" target="_blank" rel="noopener noreferrer" class="spotlight-project">
+      <div class="project-spotlight-grid" id="spotlight-grid">
+        <a href="https://theantipopau.github.io/southernspear-site/" target="_blank" rel="noopener noreferrer" class="spotlight-project" data-category="game live" data-project="southern spear website dev log changelog presskit generated">
+          <span class="spotlight-label">Live</span>
+          <h3>Southern Spear Site</h3>
+          <p>The public site and rolling dev log for Southern Spear — generated from the private game repo so no engine content ever leaks.</p>
+        </a>
+        <a href="https://github.com/theantipopau/pulselan" target="_blank" rel="noopener noreferrer" class="spotlight-project" data-category="oss" data-project="pulselan network monitoring security local-first ntopng discovery">
           <span class="spotlight-label">Open Source</span>
           <h3>PulseLAN</h3>
           <p>Defensive local-network observability desktop app with ntopng integration — discovery, scoped scanning, and advisories only.</p>
         </a>
-        <a href="https://github.com/theantipopau/mousetune" target="_blank" rel="noopener noreferrer" class="spotlight-project">
+        <a href="https://github.com/theantipopau/mousetune" target="_blank" rel="noopener noreferrer" class="spotlight-project" data-category="oss" data-project="mousetune mouse dpi bluetooth utility windows">
           <span class="spotlight-label">Utility</span>
           <h3>MouseTune</h3>
           <p>Portable DPI and naming utility for generic Bluetooth mice with no manufacturer software.</p>
         </a>
-        <a href="https://github.com/theantipopau/echoesofriftwar" target="_blank" rel="noopener noreferrer" class="spotlight-project">
+        <a href="https://github.com/theantipopau/echoesofriftwar" target="_blank" rel="noopener noreferrer" class="spotlight-project" data-category="game dev" data-project="echoes of the riftwar babylonjs rpg midkemia game">
           <span class="spotlight-label">In Development</span>
           <h3>Echoes of the Riftwar</h3>
           <p>Data-driven 3D action RPG built with Babylon.js, inspired by the world of Midkemia.</p>
         </a>
-        <a href="https://nbncompare.info" target="_blank" rel="noopener noreferrer" class="spotlight-project">
+        <a href="https://nbncompare.info" target="_blank" rel="noopener noreferrer" class="spotlight-project" data-category="live oss" data-project="nbn compare isp plans australia comparison no tracking">
           <span class="spotlight-label">Live</span>
           <h3>NBN Compare</h3>
           <p>Objective Australian ISP plan comparison with no affiliate bias and no tracking scripts.</p>
         </a>
-        <a href="https://github.com/theantipopau/gta5-rockstar-steam-launcher" target="_blank" rel="noopener noreferrer" class="spotlight-project">
+        <a href="https://github.com/theantipopau/gta5-rockstar-steam-launcher" target="_blank" rel="noopener noreferrer" class="spotlight-project" data-category="oss" data-project="gta5 rockstar steam launcher powershell gaming utilities">
           <span class="spotlight-label">v2.0.0</span>
           <h3>Steam Launch Utilities</h3>
           <p>Hands-free Steam launching for Epic Games and Rockstar titles that fight the non-Steam-game model — now covering GTA V Enhanced and RDR2.</p>
+          {S('gta5-rockstar-steam-launcher') > 0 && (
+            <span class="star-badge mt-3" set:html={`${starIcon}<span data-count-to="${S('gta5-rockstar-steam-launcher')}">0</span>★`} />
+          )}
         </a>
-        <a href="https://github.com/theantipopau/windows11nontouchgamingoptimizer" target="_blank" rel="noopener noreferrer" class="spotlight-project">
+        <a href="https://github.com/theantipopau/windows11nontouchgamingoptimizer" target="_blank" rel="noopener noreferrer" class="spotlight-project" data-category="oss" data-project="windows 11 optimiser gaming batch script non-touch performance">
           <span class="spotlight-label">Open Source</span>
-          <h3>Windows Optimizers</h3>
-          <p>Repeatable, reversible PowerShell tuning scripts for touch and gaming systems.</p>
+          <h3>Windows 11 Gaming Optimizer</h3>
+          <p>Repeatable, reversible tuning for non-touch gaming systems — the most-starred script on the account after OmenCore and Slimarr.</p>
+          {S('windows11nontouchgamingoptimizer') > 0 && (
+            <span class="star-badge mt-3" set:html={`${starIcon}<span data-count-to="${S('windows11nontouchgamingoptimizer')}">0</span>★`} />
+          )}
         </a>
-        <a href="https://github.com/theantipopau/pagecue" target="_blank" rel="noopener noreferrer" class="spotlight-project">
+        <a href="https://github.com/theantipopau/epic-games-steam-setup" target="_blank" rel="noopener noreferrer" class="spotlight-project" data-category="oss" data-project="epic games steam setup wizard powershell non-steam game">
+          <span class="spotlight-label">Open Source</span>
+          <h3>Epic Games Steam Setup</h3>
+          <p>Interactive wizard that makes any installed Epic Games Store title launch correctly as a Steam non-Steam game.</p>
+        </a>
+        <a href="https://github.com/theantipopau/ha-kogan-smarterhome" target="_blank" rel="noopener noreferrer" class="spotlight-project" data-category="oss" data-project="home assistant kogan smarterhome tuya smart home local polling integration">
+          <span class="spotlight-label">Open Source</span>
+          <h3>Kogan SmarterHome for HA</h3>
+          <p>Home Assistant custom integration for Tuya-based Kogan devices — local polling, no cloud required.</p>
+        </a>
+        <a href="https://github.com/theantipopau/pagecue" target="_blank" rel="noopener noreferrer" class="spotlight-project" data-category="dev" data-project="pagecue reading companion spoiler safe ai validator">
           <span class="spotlight-label">In Development</span>
           <h3>PageCue</h3>
           <p>Spoiler-safe reading companion — a deterministic validator rejects any AI-generated recap that references anything past your confirmed page.</p>
         </a>
+        <a href="https://github.com/theantipopau/llamacpp-amd-command-center" target="_blank" rel="noopener noreferrer" class="spotlight-project" data-category="oss dev" data-project="llamacpp amd command center local models llm vs code windows">
+          <span class="spotlight-label">Open Source</span>
+          <h3>llama.cpp Command Center</h3>
+          <p>Hardware-aware Windows command center for llama.cpp, local models, and VS Code.</p>
+        </a>
       </div>
     </section>
 
-    <div id="project-filter-empty" class="no-results">No case studies matched your search. Try terms like stars, omencore, aether control, radium, hurley computers, rigmateau, brightbound, relaydesk, slimarr, or portrait stats — or browse Also Shipped above.</div>
+    <div id="project-filter-empty" class="no-results">No projects matched your search. Try terms like southern spear, stars, omencore, gridpilot, xteve, radium, slimarr — or clear the filters above.</div>
 
     <section class="support-banner reveal">
       <p class="eyebrow">Next Step</p>
