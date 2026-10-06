@@ -56,6 +56,20 @@ function initReveal() {
     );
 
     targets.forEach((el) => observer.observe(el));
+
+    // Safety net: if intersection callbacks never arrive (throttled or
+    // embedded browsers), anything actually on screen still becomes
+    // visible after a beat — a hidden hero leaves a huge blank gap
+    // under the header. Below-fold sections keep their scroll reveal.
+    window.setTimeout(() => {
+      targets.forEach((el) => {
+        if (el.classList.contains('visible')) return;
+        const box = el.getBoundingClientRect();
+        if (box.top < window.innerHeight && box.bottom > 0) {
+          el.classList.add('visible');
+        }
+      });
+    }, 1200);
   } catch (error) {
     // Never let the reveal animation hide the page.
     console.error('[site] reveal observer failed', error);
