@@ -1703,15 +1703,24 @@ main [id] { scroll-margin-top: calc(var(--header-h) + 1.25rem); }
     gap: var(--space-2);
   }
 
-  .nav-toggle { display: grid; }
+  /* The hamburger only exists when JS can actually operate it. */
+  html.js .nav-toggle { display: grid; }
 
-  /* The nav leaves the flow here (fixed overlay), so the actions column
+  /* The nav leaves the flow here (overlay), so the actions column
      would otherwise stretch left-aligned. Pin it to the right edge. */
   .header-actions { grid-column: 2; justify-self: end; }
 
+  /* The panel hangs off the sticky header as an absolute child — not fixed.
+     A fixed child of a backdrop-filtered/transformed header resolves against
+     that header in some mobile engines, which can paint the menu off-screen
+     or not at all. Absolute positioning here is deterministic everywhere.
+     Without JS the panel renders open, so navigation never depends on the
+     script loading. */
   nav[aria-label='Primary'] {
-    position: fixed;
-    inset: var(--header-h) 0 auto 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
     z-index: var(--z-nav);
     display: block;
     background: color-mix(in srgb, var(--bg) 96%, transparent);
@@ -1719,17 +1728,21 @@ main [id] { scroll-margin-top: calc(var(--header-h) + 1.25rem); }
     -webkit-backdrop-filter: blur(22px) saturate(150%);
     border-bottom: 1px solid var(--line);
     padding: var(--space-3) var(--space-4) var(--space-4);
+    transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+    max-height: calc(100vh - var(--header-h));
+    overflow-y: auto;
+  }
+
+  html.js nav[aria-label='Primary'] {
     opacity: 0;
     transform: translateY(-14px);
     pointer-events: none;
     visibility: hidden;
     transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out),
       visibility var(--dur) step-end;
-    max-height: calc(100vh - var(--header-h));
-    overflow-y: auto;
   }
 
-  .nav-open nav[aria-label='Primary'] {
+  html.js .nav-open nav[aria-label='Primary'] {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
@@ -1748,6 +1761,10 @@ main [id] { scroll-margin-top: calc(var(--header-h) + 1.25rem); }
     font-size: 1.1rem;
     padding: 0.85rem 1rem;
     border-radius: var(--radius-md);
+    transition: color var(--dur-fast) var(--ease-standard), background var(--dur-fast) var(--ease-standard);
+  }
+
+  html.js nav a {
     transform: translateY(-6px);
     opacity: 0;
     transition: transform var(--dur) var(--ease-out), opacity var(--dur) var(--ease-out),
@@ -1757,7 +1774,7 @@ main [id] { scroll-margin-top: calc(var(--header-h) + 1.25rem); }
 
   nav a::after { display: none; }
 
-  .nav-open nav a { transform: translateY(0); opacity: 1; }
+  html.js .nav-open nav a { transform: translateY(0); opacity: 1; }
   .nav-open nav li:nth-child(1) a { transition-delay: 0.05s; }
   .nav-open nav li:nth-child(2) a { transition-delay: 0.1s; }
   .nav-open nav li:nth-child(3) a { transition-delay: 0.15s; }

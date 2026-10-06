@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { jsAsset } from '../data/build';
 
 const contactJsonLd = {
   '@context': 'https://schema.org',
@@ -91,5 +92,5 @@ const contactJsonLd = {
     </section>
   </div>
 
-  <script defer src="/js/contact.js"></script>
+  <script defer src={jsAsset('contact.js')}></script>
 </Layout>

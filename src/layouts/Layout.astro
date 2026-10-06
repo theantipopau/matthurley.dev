@@ -3,6 +3,7 @@ import '../styles/global.css';
 import { ViewTransitions } from 'astro:transitions';
 import Logo from '../components/Logo.astro';
 import { getStarTotal, getProjectCount } from '../data/github';
+import { jsAsset } from '../data/build';
 
 interface Props {
   title: string;
@@ -66,7 +67,7 @@ const fontUrl = 'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:op
   <meta name="twitter:title" content={title}>
   <meta name="twitter:description" content={description}>
   <meta name="twitter:image" content="https://matthurley.dev/brand/og-image.png">
-  <script is:inline src="/js/early.js"></script>
+  <script is:inline src={jsAsset('early.js')}></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href={fontUrl} rel="stylesheet">
@@ -182,6 +183,6 @@ const fontUrl = 'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:op
   </footer>
 
   <button id="back-to-top" class="back-to-top" aria-label="Back to top">Top</button>
-  <script defer src="/js/site.js"></script>
+  <script defer src={jsAsset('site.js')}></script>
 </body>
 </html>

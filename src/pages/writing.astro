@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { jsAsset } from '../data/build';
 
 const writingJsonLd = {
   '@context': 'https://schema.org',
@@ -683,5 +684,5 @@ const writingJsonLd = {
     </section>
   </div>
 
-  <script defer src="/js/writing.js"></script>
+  <script defer src={jsAsset('writing.js')}></script>
 </Layout>

@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getRepos, getLatestReleases, formatReleaseDate } from '../data/github';
+import { jsAsset } from '../data/build';
 
 const repos = await getRepos();
 
@@ -837,5 +838,5 @@ const chips = [
     </section>
   </div>
 
-  <script defer src="/js/projects.js"></script>
+  <script defer src={jsAsset('projects.js')}></script>
 </Layout>

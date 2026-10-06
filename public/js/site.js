@@ -6,15 +6,27 @@ const prefersReducedMotion = () =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function initPage() {
-  initReveal();
-  initBackToTop();
-  initThemeToggle();
-  initMobileNav();
-  initHeaderScroll();
-  initCountUps();
-  initSpotlights();
-  initTilt();
-  initSplitHeadlines();
+  // Each init is isolated: one failure (an unexpected DOM shape, a blocked
+  // storage API) must never take down the rest — especially the nav and
+  // theme toggles, which live in the same file.
+  const inits = [
+    initMobileNav,
+    initThemeToggle,
+    initReveal,
+    initBackToTop,
+    initHeaderScroll,
+    initCountUps,
+    initSpotlights,
+    initTilt,
+    initSplitHeadlines
+  ];
+  for (const init of inits) {
+    try {
+      init();
+    } catch (error) {
+      console.error(`[site] ${init.name} failed`, error);
+    }
+  }
 }
 
 /* ---------- Scroll reveal ---------- */
@@ -23,24 +35,32 @@ function initReveal() {
   const targets = document.querySelectorAll('.reveal');
   if (!targets.length) return;
 
+  const showAll = () => targets.forEach((el) => el.classList.add('visible'));
+
   if (!('IntersectionObserver' in window) || prefersReducedMotion()) {
-    targets.forEach((el) => el.classList.add('visible'));
+    showAll();
     return;
   }
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-  );
+  try {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
 
-  targets.forEach((el) => observer.observe(el));
+    targets.forEach((el) => observer.observe(el));
+  } catch (error) {
+    // Never let the reveal animation hide the page.
+    console.error('[site] reveal observer failed', error);
+    showAll();
+  }
 }
 
 /* ---------- Back to top ---------- */
@@ -64,7 +84,12 @@ function initThemeToggle() {
   themeToggle.addEventListener('click', () => {
     const root = document.documentElement;
     const nextTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    localStorage.setItem('theme', nextTheme);
+    try {
+      localStorage.setItem('theme', nextTheme);
+    } catch (error) {
+      // Storage can be blocked (private mode, tracking policies) — the
+      // theme must still switch for this session.
+    }
     applyTheme(nextTheme);
   });
 }
